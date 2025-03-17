@@ -93,6 +93,9 @@ vim.g.maplocalleader = ';'
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Set gui nerdfont
+vim.opt.guifont = 'JetBrainsMono Nerd Font:h17'
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -467,7 +470,7 @@ require('lazy').setup({
       -- kmap('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' }) -- this could be done using buitin.live_grep
       kmap('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })
       kmap('n', '<leader>sk', builtin.keymaps, { desc = '[s]earch [k]eymaps' })
-      kmap('n', '<leader>sg', builtin.live_grep, { desc = '[s]earch [g]lobally by grep' })
+      kmap('n', '<leader>sw', builtin.live_grep, { desc = '[s]earch [w]orkspace by grep' })
       kmap('n', '<leader>sd', builtin.diagnostics, { desc = '[s]earch [d]iagnostics' })
       -- kmap('n', '<leader>sr', builtin.resume, { desc = '[s]earch [r]esume' })
 
