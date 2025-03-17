@@ -120,6 +120,11 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
+-- set indent
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+vim.o.expandtab = true
+
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -180,9 +185,7 @@ kmap('n', '<C-s>', ':w<CR>', { desc = '[f]ile [s]ave' })
 kmap('n', '<leader>fS', ':saveas ', { desc = '[f]ile [S]aveas' })
 
 -------- buffer operation (<leader>b) --------
-kmap('n', '<leader>bn', ':bnext<CR>', { desc = '[b]uffer [n]ext' })
-kmap('n', '<leader>bp', ':bprevious<CR>', { desc = '[b]uffer [p]revoius' })
-kmap('n', '<leader>bd', ':bdelete<CR>', { desc = '[b]uffer [d]elete' })
+-- See plugin: bufferline
 
 --------  window operation (<leader>w) --------
 --  See `:help wincmd` for a list of all window commands
@@ -192,7 +195,7 @@ kmap('n', ';h', '<C-w>h', { desc = 'change to left window' })
 kmap('n', ';j', '<C-w>j', { desc = 'change to lower window' })
 kmap('n', ';k', '<C-w>k', { desc = 'change to upper window' })
 kmap('n', ';l', '<C-w>l', { desc = 'change to right window' })
-kmap('n', ';q', '<C-w>q', { desc = 'quit window' })
+kmap('n', ';d', '<C-w>q', { desc = 'delete window' })
 
 -------- code (<leader>c) --------
 kmap('n', '<leader>cc', 'gcc', { desc = '[c]ode toggle [c]omment', remap = true })
@@ -376,7 +379,6 @@ require('lazy').setup({
       -- Document existing key chains
       spec = {
         { '<leader>f', group = '[f]iles' },
-        { '<leader>b', group = '[b]uffer' },
         { '<leader>c', group = '[c]ode', mode = { 'n', 'x' } },
         { '<leader>l', group = '[l]SP' },
         { '<leader>s', group = '[s]earch' },
@@ -1058,7 +1060,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
