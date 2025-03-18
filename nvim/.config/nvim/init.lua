@@ -338,7 +338,7 @@ require('lazy').setup({
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.opt.timeoutlen
-      delay = 0,
+      delay = 500,
       icons = {
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
@@ -601,7 +601,7 @@ require('lazy').setup({
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>lr', vim.lsp.buf.rename, '[r]eame')
+          map('<leader>lR', vim.lsp.buf.rename, '[R]eame')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -720,7 +720,11 @@ require('lazy').setup({
           --     },
           --   },
           -- },
-          -- cmd = { "clangd" },
+          cmd = {
+            'clangd',
+            '--background-index',
+            '--clang-tidy',
+          },
           -- filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
           -- settings = {
           --   root_dir = {},
