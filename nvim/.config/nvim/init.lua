@@ -205,17 +205,8 @@ kmap('n', '<leader>cf', 'zc', { desc = '[c]ode [f]old', remap = true })
 -------- toggle (<leader>t) --------
 --  this part is scattered in defferent plugins
 kmap('n', '<leader>tt', function()
-  -- 获取当前文件所在目录（如无文件则用当前工作目录）
-  local current_dir = vim.fn.expand '%:p:h'
-  if current_dir == '' then
-    current_dir = vim.fn.getcwd()
-  end
-  -- 水平分割窗口并在新窗口打开终端
-  vim.cmd 'split | terminal'
-  -- 发送 cd 命令到终端（需等待终端初始化）
-  vim.defer_fn(function()
-    vim.api.nvim_chan_send(vim.b.terminal_job_id, 'cd ' .. vim.fn.shellescape(current_dir) .. '\r')
-  end, 50)
+  local current_dir = vim.fn.fnameescape(vim.fn.expand '%:p:h')
+  vim.cmd('ToggleTerm dir=' .. current_dir) -- this requires plugin 'toggleterm' to work
 end, { desc = 'open [t]ernimal' })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
