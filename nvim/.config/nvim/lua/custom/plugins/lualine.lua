@@ -9,8 +9,8 @@ return {
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles' },
-          winbar = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles' },
+          statusline = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles', 'codecompanion' },
+          winbar = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles', 'codecompanion' },
         },
         ignore_focus = {},
         always_divide_middle = true,
