@@ -2,6 +2,17 @@ return {
   {
     'akinsho/toggleterm.nvim',
     version = '*',
+    keys = {
+      { '<leader>tt', '<cmd>ToggleTerm<cr>', desc = 'open [t]ernimal under root dir' },
+      {
+        '<leader>tT',
+        function()
+          local current_dir = vim.fn.fnameescape(vim.fn.expand '%:p:h')
+          vim.cmd('ToggleTerm dir=' .. current_dir)
+        end,
+        desc = 'open [t]ernimal under current file',
+      },
+    },
     config = function()
       require('toggleterm').setup {
         size = 10,
