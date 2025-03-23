@@ -17,7 +17,7 @@
       "name": "Plugin Management",
       "system_prompt": "Handle plugin configurations, dependency management, and version conflicts",
       "data": [
-        "bufferline", "codecompanion", "flash",
+        "bufferline", "codecompanion", "hop",
         "lualine", "neo-tree", "snacks",
         "toggleterm", "autopairs", "debug",
         "gitsigns", "indent_line", "lint"
@@ -31,7 +31,7 @@
     {
       "name": "Editor Features",
       "system_prompt": "Handle terminal integration, navigation, and AI helpers",
-      "data": ["flash", "toggleterm", "codecompanion"]
+      "data": ["hop", "toggleterm", "codecompanion"]
     },
     {
       "name": "Code Quality",
@@ -60,9 +60,9 @@
       "path": "lua/custom/plugins/codecompanion.lua",
       "description": "AI assistant integration setup"
     },
-    "flash": {
+    "hop": {
       "type": "file",
-      "path": "lua/custom/plugins/flash.lua",
+      "path": "lua/custom/plugins/hop.lua",
       "description": "Enhanced navigation configuration"
     },
     "lualine": {
