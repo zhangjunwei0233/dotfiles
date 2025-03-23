@@ -41,7 +41,10 @@ return {
           interactive = true,
           cwd = root,
           shell = vim.o.shell,
-          win = { relative = 'editor' }, -- force non-floating window
+          win = {
+            relative = 'editor', -- force non-floating window
+            wo = { winbar = '' }, -- disable winbar display
+          },
         })
       end,
       desc = 'Toggle terminal (workspace root)',
@@ -54,7 +57,10 @@ return {
           interactive = true,
           cwd = dir,
           shell = vim.o.shell,
-          win = { relative = 'editor' }, -- force non-floating window
+          win = {
+            relative = 'editor', -- force non-floating window
+            wo = { winbar = '' }, -- disable winbar display
+          },
         })
       end,
       desc = 'Toggle terminal (current file dir)',
