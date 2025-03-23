@@ -27,50 +27,59 @@ return {
     scratch = { enabled = false },
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
-    terminal = { enabled = true },
+    terminal = {
+      enabled = true,
+      win = {
+        relative = 'editor',
+        wo = { winbar = '' }, -- disable winbar
+      },
+    },
     toggle = { enabled = false },
     win = { enabled = false },
     words = { enabled = false },
     zen = { enabled = false },
   },
   keys = {
-    {
-      '<leader>tT',
-      function()
-        local root = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd()
-        Snacks.terminal.toggle(nil, {
-          interactive = true,
-          cwd = root,
-          shell = vim.o.shell,
-          win = {
-            relative = 'editor', -- force non-floating window
-            wo = { winbar = '' }, -- disable winbar display
-          },
-        })
-      end,
-      {
-        mode = { 'n', 't' },
-        desc = 'Toggle terminal (workspace root)',
-      },
-    },
-    {
+    { -- Current file directory terminal
       '<leader>tt',
       function()
-        local dir = vim.fn.expand '%:p:h'
         Snacks.terminal.toggle(nil, {
+          cwd = vim.fn.expand '%:p:h',
           interactive = true,
-          cwd = dir,
-          shell = vim.o.shell,
-          win = {
-            relative = 'editor', -- force non-floating window
-            wo = { winbar = '' }, -- disable winbar display
-          },
         })
       end,
-      {
-        mode = { 'n', 't' },
-        desc = 'Toggle terminal (current file dir)',
-      },
+      { desc = 'Toggle terminal (current dir)' },
+    },
+    { -- Workspace root terminal
+      '<leader>tT',
+      function()
+        Snacks.terminal.toggle(nil, {
+          cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(),
+          interactive = true,
+        })
+      end,
+      { desc = 'Toggle terminal (workspace root)' },
+    },
+    { -- Toggle all terminals
+      '<leader>ts',
+      function()
+        local terms = Snacks.terminal.list()
+        local any_visible = false
+        for _, term in ipairs(terms) do
+          if term.win and vim.api.nvim_win_is_valid(term.win) then
+            any_visible = true
+            break
+          end
+        end
+        for _, term in ipairs(terms) do
+          if any_visible then
+            term:hide()
+          else
+            term:show()
+          end
+        end
+      end,
+      { desc = 'Toggle all terminals' },
     },
   },
   config = function(_, opts)
