@@ -2,6 +2,7 @@ return {
   'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
+  enabled = true,
   ---@type snacks.Config
   opts = {
     -- your configuration comes here
@@ -34,10 +35,10 @@ return {
   },
   keys = {
     {
-      '<leader>tt',
+      '<leader>tT',
       function()
         local root = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd()
-        Snacks.terminal.open(nil, {
+        Snacks.terminal.toggle(nil, {
           interactive = true,
           cwd = root,
           shell = vim.o.shell,
@@ -47,13 +48,16 @@ return {
           },
         })
       end,
-      desc = 'Toggle terminal (workspace root)',
+      {
+        mode = { 'n', 't' },
+        desc = 'Toggle terminal (workspace root)',
+      },
     },
     {
-      '<leader>tT',
+      '<leader>tt',
       function()
         local dir = vim.fn.expand '%:p:h'
-        Snacks.terminal.open(nil, {
+        Snacks.terminal.toggle(nil, {
           interactive = true,
           cwd = dir,
           shell = vim.o.shell,
@@ -63,7 +67,10 @@ return {
           },
         })
       end,
-      desc = 'Toggle terminal (current file dir)',
+      {
+        mode = { 'n', 't' },
+        desc = 'Toggle terminal (current file dir)',
+      },
     },
   },
   config = function(_, opts)

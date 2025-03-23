@@ -17,9 +17,9 @@ return {
         always_show_tabline = true,
         globalstatus = false,
         refresh = {
-          statusline = 100,
-          tabline = 100,
-          winbar = 100,
+          statusline = 500,
+          tabline = 500,
+          winbar = 500,
         },
       },
       sections = {

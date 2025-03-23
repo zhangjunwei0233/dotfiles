@@ -108,7 +108,22 @@ end
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
+
+--------  native vim optimization  --------
+-- Improved native jumping using hop.nvim
 kmap('n', '<Esc>', '<cmd>nohlsearch<CR>')
+kmap({ 'n', 'v' }, 'f', function()
+  require('hop').hint_char1 {
+    direction = require('hop.hint').HintDirection.AFTER_CURSOR,
+    current_line_only = false,
+  }
+end, { desc = 'hop forward', remap = true })
+kmap({ 'n', 'v' }, 'F', function()
+  require('hop').hint_char1 {
+    direction = require('hop.hint').HintDirection.BEFORE_CURSOR,
+    current_line_only = false,
+  }
+end, { desc = 'hop backward', remap = true })
 
 --------  file operation (<leader>f)  --------
 kmap('n', '<leader>fs', ':w<CR>', { desc = '[f]ile [s]ave' })
@@ -165,11 +180,11 @@ kmap('n', '<leader>cf', 'zc', { desc = '[c]ode [f]old', remap = true })
 -------- toggle (<leader>t) --------
 --  this part is scattered in defferent plugins
 
--- toggle terminal: this requires plugin 'snacks' to work
+-- toggle terminal: this requires plugin 'toggleterm' or 'snacks.terminal' to work
 -- Exit terminal mode
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-kmap('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+kmap('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- toggle codecompanion: this requires plugin 'codecompanion' to work
 kmap({ 'n', 'v' }, '<leader>ti', '<cmd>CodeCompanionChat Toggle<cr>', { desc = '[t]oggle a[i]' })
@@ -423,7 +438,7 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       kmap('n', '<leader>gf', builtin.find_files, { desc = '[g]oto [f]iles' })
       kmap('n', '<leader>g.', builtin.oldfiles, { desc = '[g]oto Recent Files ("." for repeat)' })
-      -- kmap('n', '<leader>gb', builtin.buffers, { desc = '[g]oto existing [b]uffers' })
+      kmap('n', '<leader>gb', builtin.buffers, { desc = '[g]oto existing [b]uffers' })
       -- kmap('n', '<leader>ss', builtin.builtin, { desc = '[s]earch [s]elect Telescope' })
       -- kmap('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' }) -- this could be done using buitin.live_grep
       kmap('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })

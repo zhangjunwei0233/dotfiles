@@ -1,14 +1,13 @@
 -- this plugin is no longer in use, see 'snacks.terminal' instead
-
 return {
   {
     'akinsho/toggleterm.nvim',
     version = '*',
     enabled = false,
     keys = {
-      { '<leader>tt', '<cmd>ToggleTerm<cr>', desc = 'open [t]ernimal under root dir' },
+      { '<leader>tT', '<cmd>ToggleTerm<cr>', desc = 'open [t]ernimal under root dir' },
       {
-        '<leader>tT',
+        '<leader>tt',
         function()
           local current_dir = vim.fn.fnameescape(vim.fn.expand '%:p:h')
           vim.cmd('ToggleTerm dir=' .. current_dir)
