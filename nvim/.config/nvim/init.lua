@@ -423,7 +423,7 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       kmap('n', '<leader>gf', builtin.find_files, { desc = '[g]oto [f]iles' })
       kmap('n', '<leader>g.', builtin.oldfiles, { desc = '[g]oto Recent Files ("." for repeat)' })
-      kmap('n', '<leader>gb', builtin.buffers, { desc = '[g]oto existing [b]uffers' })
+      -- kmap('n', '<leader>gb', builtin.buffers, { desc = '[g]oto existing [b]uffers' })
       -- kmap('n', '<leader>ss', builtin.builtin, { desc = '[s]earch [s]elect Telescope' })
       -- kmap('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' }) -- this could be done using buitin.live_grep
       kmap('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })
@@ -954,23 +954,6 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      -- local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      -- statusline.setup {
-      --   use_icons = vim.g.have_nerd_font,
-      -- }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      -- ---@diagnostic disable-next-line: duplicate-set-field
-      -- statusline.section_location = function()
-      --   return '%2l:%-2v'
-      -- end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
