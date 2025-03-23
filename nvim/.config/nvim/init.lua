@@ -120,41 +120,9 @@ kmap('n', '<leader>fS', ':saveas ', { desc = '[f]ile [S]aveas' })
 
 --------  window operation (<leader>w) --------
 --  See `:help wincmd` for a list of all window commands
---  below are some tool functions for windows zoomin (';z')
-local window_status = {}
--- 自动清理窗口关闭后的残留状态
-vim.api.nvim_create_autocmd('WinClosed', {
-  pattern = '*',
-  callback = function(args)
-    local closed_winid = tonumber(args.match)
-    if closed_winid then
-      window_status[closed_winid] = nil
-    end
-  end,
-})
-local function toggle_zoom()
-  local winid = vim.api.nvim_get_current_win()
-  -- 初始化或获取窗口状态
-  window_status[winid] = window_status[winid]
-    or {
-      is_zoomed = false,
-      orig_height = vim.api.nvim_win_get_height(winid),
-      orig_width = vim.api.nvim_win_get_width(winid),
-    }
-  local state = window_status[winid]
-  if state.is_zoomed then
-    -- 恢复原始尺寸
-    vim.api.nvim_win_set_height(winid, state.orig_height)
-    vim.api.nvim_win_set_width(winid, state.orig_width)
-    state.is_zoomed = false
-  else
-    -- 保存当前尺寸并最大化
-    state.orig_height = vim.api.nvim_win_get_height(winid)
-    state.orig_width = vim.api.nvim_win_get_width(winid)
-    vim.cmd 'wincmd _|wincmd |' -- 合并最大化命令
-    state.is_zoomed = true
-  end
-end
+
+local zoom_stack = {} -- this is to tackle nested zooms
+
 kmap('n', ';-', ':split<CR>', { desc = 'split horizontal' })
 kmap('n', ';|', ':vsplit<CR>', { desc = 'split vertical' })
 kmap('n', ';h', '<C-w>h', { desc = 'change to left window' })
@@ -162,7 +130,32 @@ kmap('n', ';j', '<C-w>j', { desc = 'change to lower window' })
 kmap('n', ';k', '<C-w>k', { desc = 'change to upper window' })
 kmap('n', ';l', '<C-w>l', { desc = 'change to right window' })
 kmap('n', ';d', '<C-w>q', { desc = 'delete window' })
-kmap({ 'n', 't' }, '<C-z>', toggle_zoom, { desc = 'zoom window' })
+kmap({ 'n', 't' }, '<C-z>', function()
+  local win = vim.api.nvim_get_current_win()
+  if zoom_stack[win] then
+    -- Restore this window's dimensions from stack
+    vim.api.nvim_win_set_height(win, zoom_stack[win].height)
+    vim.api.nvim_win_set_width(win, zoom_stack[win].width)
+    zoom_stack[win] = nil
+  else
+    -- Store current dimensions and maximize
+    zoom_stack[win] = {
+      height = vim.api.nvim_win_get_height(win),
+      width = vim.api.nvim_win_get_width(win),
+      prev_win = vim.api.nvim_get_current_win(),
+    }
+    vim.cmd [[wincmd _ | wincmd |]]
+    -- Auto-cleanup when window closes
+    vim.api.nvim_win_call(win, function()
+      vim.api.nvim_create_autocmd('WinClosed', {
+        once = true,
+        callback = function()
+          zoom_stack[win] = nil
+        end,
+      })
+    end)
+  end
+end, { desc = 'zoom window' })
 
 -------- code (<leader>c) --------
 kmap('n', '<leader>cc', 'gcc', { desc = '[c]ode toggle [c]omment', remap = true })
@@ -172,7 +165,7 @@ kmap('n', '<leader>cf', 'zc', { desc = '[c]ode [f]old', remap = true })
 -------- toggle (<leader>t) --------
 --  this part is scattered in defferent plugins
 
--- toggle terminal: this requires plugin 'toggleterm' to work
+-- toggle terminal: this requires plugin 'snacks' to work
 -- Exit terminal mode
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode

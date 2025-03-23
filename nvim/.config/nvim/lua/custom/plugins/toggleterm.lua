@@ -1,7 +1,10 @@
+-- this plugin is no longer in use, see 'snacks.terminal' instead
+
 return {
   {
     'akinsho/toggleterm.nvim',
     version = '*',
+    enabled = false,
     keys = {
       { '<leader>tt', '<cmd>ToggleTerm<cr>', desc = 'open [t]ernimal under root dir' },
       {
