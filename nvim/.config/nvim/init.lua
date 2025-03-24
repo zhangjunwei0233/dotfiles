@@ -226,6 +226,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- change *.v files to filetype 'verilog'
+vim.api.nvim_create_augroup('verilog_ft', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  group = 'verilog_ft',
+  pattern = '*.v',
+  callback = function()
+    vim.bo.filetype = 'verilog'
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -701,6 +711,19 @@ require('lazy').setup({
           --   root_dir = {},
           --   single_file_support = true,
           -- },
+        },
+        svlangserver = {
+          cmd = { 'svlangserver' },
+          filetypes = { 'verilog', 'systemverilog' },
+          root_dir = function(fname)
+            return require('lspconfig.util').root_pattern '.svlangserver'(fname) or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
+          end,
+          single_file_support = true,
+          settings = {
+            systemverilog = {
+              includeIndexing = { '*.{v,vh,sv,svh}', '**/*.{v,vh,sv,svh}' },
+            },
+          },
         },
         -- gopls = {},
         -- pyright = {},
