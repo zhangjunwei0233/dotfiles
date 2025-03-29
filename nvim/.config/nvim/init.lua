@@ -136,41 +136,47 @@ kmap('n', '<leader>fS', ':saveas ', { desc = '[f]ile [S]aveas' })
 --------  window operation (<leader>w) --------
 --  See `:help wincmd` for a list of all window commands
 
-local zoom_stack = {} -- this is to tackle nested zooms
-
 kmap('n', ';-', ':split<CR>', { desc = 'split horizontal' })
-kmap('n', ';|', ':vsplit<CR>', { desc = 'split vertical' })
+kmap('n', ';\\', ':vsplit<CR>', { desc = 'split vertical' })
 kmap('n', ';h', '<C-w>h', { desc = 'change to left window' })
 kmap('n', ';j', '<C-w>j', { desc = 'change to lower window' })
 kmap('n', ';k', '<C-w>k', { desc = 'change to upper window' })
 kmap('n', ';l', '<C-w>l', { desc = 'change to right window' })
 kmap('n', ';d', '<C-w>q', { desc = 'delete window' })
+local zoomed_win = nil
+local original_dims = {}
+local blacklist = { 'neo-tree' } -- Add filetypes to ignore
 kmap({ 'n', 't' }, '<C-z>', function()
-  local win = vim.api.nvim_get_current_win()
-  if zoom_stack[win] then
-    -- Restore this window's dimensions from stack
-    vim.api.nvim_win_set_height(win, zoom_stack[win].height)
-    vim.api.nvim_win_set_width(win, zoom_stack[win].width)
-    zoom_stack[win] = nil
+  if zoomed_win then
+    -- Restore original dimensions and clear tracking
+    vim.api.nvim_win_set_height(zoomed_win, original_dims.height)
+    vim.api.nvim_win_set_width(zoomed_win, original_dims.width)
+    zoomed_win = nil
   else
-    -- Store current dimensions and maximize
-    zoom_stack[win] = {
+    -- Check if current buffer is in blacklist
+    local ft = vim.bo.filetype
+    if vim.tbl_contains(blacklist, ft) then
+      return
+    end
+    -- Store dimensions and maximize
+    local win = vim.api.nvim_get_current_win()
+    original_dims = {
       height = vim.api.nvim_win_get_height(win),
       width = vim.api.nvim_win_get_width(win),
-      prev_win = vim.api.nvim_get_current_win(),
     }
+    zoomed_win = win
+    -- Maximize window
     vim.cmd [[wincmd _ | wincmd |]]
-    -- Auto-cleanup when window closes
-    vim.api.nvim_win_call(win, function()
-      vim.api.nvim_create_autocmd('WinClosed', {
-        once = true,
-        callback = function()
-          zoom_stack[win] = nil
-        end,
-      })
-    end)
+    -- Clean up if window closes
+    vim.api.nvim_create_autocmd('WinClosed', {
+      once = true,
+      pattern = tostring(win),
+      callback = function()
+        zoomed_win = nil
+      end,
+    })
   end
-end, { desc = 'zoom window' })
+end, { desc = 'Toggle window zoom' })
 
 -------- code (<leader>c) --------
 kmap('n', '<leader>cc', 'gcc', { desc = '[c]ode toggle [c]omment', remap = true })

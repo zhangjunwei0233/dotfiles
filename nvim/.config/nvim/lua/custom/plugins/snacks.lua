@@ -45,7 +45,9 @@ return {
       function()
         Snacks.terminal.toggle(nil, {
           cwd = vim.fn.expand '%:p:h',
-          interactive = true,
+          start_insert = false,
+          auto_insert = false,
+          auto_close = true,
         })
       end,
       { desc = 'Toggle terminal (current dir)' },
@@ -55,7 +57,9 @@ return {
       function()
         Snacks.terminal.toggle(nil, {
           cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(),
-          interactive = true,
+          start_insert = false,
+          auto_insert = false,
+          auto_close = true,
         })
       end,
       { desc = 'Toggle terminal (workspace root)' },
