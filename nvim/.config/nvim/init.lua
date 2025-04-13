@@ -367,6 +367,7 @@ require('lazy').setup({
         { '<leader>f', group = '[f]iles' },
         { '<leader>c', group = '[c]ode', mode = { 'n', 'x' } },
         { '<leader>l', group = '[l]SP' },
+        { '<leader>d', group = '[D]ap' },
         { '<leader>s', group = '[s]earch' },
         { '<leader>g', group = '[g]oto' },
         { '<leader>t', group = '[t]oggle' },
@@ -736,6 +737,14 @@ require('lazy').setup({
             },
           },
         },
+        asm_lsp = {
+          cmd = { 'asm-lsp' },
+          filetypes = { 'asm', 'vmasm' },
+          single_file_support = true,
+          root_dir = function(fname)
+            return vim.fs.dirname(vim.fs.find({ '.asm-lsp.toml', '.git' }, { path = fname, upward = true })[1])
+          end,
+        },
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -834,6 +843,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        c = { 'clang-format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

@@ -13,6 +13,10 @@ return {
   },
   config = function()
     require('neo-tree').setup {
+      open_files_do_not_replace_types = {
+        'snacks_terminal',
+        'codecompanion',
+      },
       filesystem = {
         -- commands = {
         --   -- a function to quickluy add file/folder to Avante in neo-tree
