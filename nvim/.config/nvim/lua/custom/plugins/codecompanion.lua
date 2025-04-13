@@ -5,14 +5,6 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
   },
-  keys = {
-    -- NOTE: keys are added in init.lua
-    --
-    -- { '<leader>ti', '<cmd>CodeCompanionChat Toggle<cr>', { desc = '[t]oggle a[i]' } },
-    -- { '<leader>is', '<cmd>CodeCompanionChat Add<cr>', { mode = 'v', desc = 'a[i] add selected codes' } },
-    -- { '<leader>ia', '<cmd>CodeCompanionActions<cr>', { mode = { 'v', 'n' }, desc = 'a[i] [a]ctions' } },
-    -- { '<leader>ii', ':CodeCompanion', { desc = 'a[i] [i]nline' } },
-  },
   config = function()
     require('codecompanion').setup {
       adapters = {

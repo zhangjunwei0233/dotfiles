@@ -94,130 +94,6 @@ vim.opt.scrolloff = 10
 -- This is recommended by avante.nvim: views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
 
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
--- set a function to configure keymaps
-local function kmap(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts then
-    options = vim.tbl_extend('force', options, opts)
-  end
-  vim.keymap.set(mode, lhs, rhs, options)
-end
-
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-
---------  native vim optimization  --------
--- Improved native jumping using hop.nvim
-kmap('n', '<Esc>', '<cmd>nohlsearch<CR>')
-kmap({ 'n', 'v' }, 'f', function()
-  require('hop').hint_char1 {
-    direction = require('hop.hint').HintDirection.AFTER_CURSOR,
-    current_line_only = false,
-  }
-end, { desc = 'hop forward', remap = true })
-kmap({ 'n', 'v' }, 'F', function()
-  require('hop').hint_char1 {
-    direction = require('hop.hint').HintDirection.BEFORE_CURSOR,
-    current_line_only = false,
-  }
-end, { desc = 'hop backward', remap = true })
-
---------  file operation (<leader>f)  --------
-kmap('n', '<leader>fs', ':w<CR>', { desc = '[f]ile [s]ave' })
-kmap('n', '<C-s>', ':w<CR>', { desc = '[f]ile [s]ave' })
-kmap('n', '<leader>fS', ':saveas ', { desc = '[f]ile [S]aveas' })
-
--------- buffer operation (<leader>b) --------
--- See plugin: bufferline
-
---------  window operation (<leader>w) --------
---  See `:help wincmd` for a list of all window commands
-
-kmap('n', ';-', ':split<CR>', { desc = 'split horizontal' })
-kmap('n', ';\\', ':vsplit<CR>', { desc = 'split vertical' })
-kmap('n', ';h', '<C-w>h', { desc = 'change to left window' })
-kmap('n', ';j', '<C-w>j', { desc = 'change to lower window' })
-kmap('n', ';k', '<C-w>k', { desc = 'change to upper window' })
-kmap('n', ';l', '<C-w>l', { desc = 'change to right window' })
-kmap('n', ';d', '<C-w>q', { desc = 'delete window' })
-local zoomed_win = nil
-local original_dims = {}
-local blacklist = { 'neo-tree' } -- Add filetypes to ignore
-kmap({ 'n', 't' }, '<C-z>', function()
-  if zoomed_win then
-    -- Restore original dimensions and clear tracking
-    vim.api.nvim_win_set_height(zoomed_win, original_dims.height)
-    vim.api.nvim_win_set_width(zoomed_win, original_dims.width)
-    zoomed_win = nil
-  else
-    -- Check if current buffer is in blacklist
-    local ft = vim.bo.filetype
-    if vim.tbl_contains(blacklist, ft) then
-      return
-    end
-    -- Store dimensions and maximize
-    local win = vim.api.nvim_get_current_win()
-    original_dims = {
-      height = vim.api.nvim_win_get_height(win),
-      width = vim.api.nvim_win_get_width(win),
-    }
-    zoomed_win = win
-    -- Maximize window
-    vim.cmd [[wincmd _ | wincmd |]]
-    -- Clean up if window closes
-    vim.api.nvim_create_autocmd('WinClosed', {
-      once = true,
-      pattern = tostring(win),
-      callback = function()
-        zoomed_win = nil
-      end,
-    })
-  end
-end, { desc = 'Toggle window zoom' })
-
--------- code (<leader>c) --------
-kmap('n', '<leader>cc', 'gcc', { desc = '[c]ode toggle [c]omment', remap = true })
-kmap('v', '<leader>cc', 'gc', { desc = '[c]ode toggle [c]omment', remap = true })
-kmap('n', '<leader>cf', 'zc', { desc = '[c]ode [f]old', remap = true })
-
--------- toggle (<leader>t) --------
---  this part is scattered in defferent plugins
-
--- toggle terminal: this requires plugin 'toggleterm' or 'snacks.terminal' to work
--- Exit terminal mode
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-kmap('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- toggle codecompanion: this requires plugin 'codecompanion' to work
-kmap({ 'n', 'v' }, '<leader>ti', '<cmd>CodeCompanionChat Toggle<cr>', { desc = '[t]oggle a[i]' })
-
--------- search (<leader>s) --------
--- see plugin telescope
-
---------  goto (<leader>g) --------
--- see plugin telescope
-
---------  lsp (<leader>l) --------
--- see plugin mason-lspconfig
--- Diagnostic keymaps
-kmap('n', '<leader>ll', vim.diagnostic.setloclist, { desc = 'Open [l]sp diagnostic quickfix [l]ist' })
-
---------  neotree (<leader>e) --------
--- see plugin neotree
-
---------  codecompanion (<leader>i) --------
-kmap({ 'n', 'v' }, '<leader>ia', '<cmd>CodeCompanionActions<cr>', { desc = 'a[i] [a]ctions' })
-kmap('v', '<leader>is', '<cmd>CodeCompanionChat Add<cr>', { desc = 'a[i] [s]elect' })
-kmap('n', '<leader>ii', ':CodeCompanion ', { desc = 'a[i] [i]nline' })
-
--------- plugins (<leader>p) --------
-kmap('n', '<leader>pl', '<cmd>Lazy<CR>', { desc = 'open [l]azy.nvim' })
-kmap('n', '<leader>pm', '<cmd>Mason<CR>', { desc = 'open [M]ason' })
-
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -295,11 +171,11 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        add = { text = '▎' },
+        change = { text = '▎' },
+        delete = { text = '' },
+        topdelete = { text = '' },
+        changedelete = { text = '▎' },
       },
     },
   },
@@ -368,9 +244,10 @@ require('lazy').setup({
         { '<leader>c', group = '[c]ode', mode = { 'n', 'x' } },
         { '<leader>l', group = '[l]SP' },
         { '<leader>d', group = '[D]ap' },
+        { '<leader>b', group = '[B]uffer' },
         { '<leader>s', group = '[s]earch' },
         { '<leader>g', group = '[g]oto' },
-        { '<leader>t', group = '[t]oggle' },
+        { '<leader>t', group = '[t]erminal' },
         { '<leader>p', group = '[p]lugin' },
         { '<leader>i', group = 'a[i]' },
       },
@@ -450,42 +327,6 @@ require('lazy').setup({
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-
-      -- See `:help telescope.builtin`
-      local builtin = require 'telescope.builtin'
-      kmap('n', '<leader>gf', builtin.find_files, { desc = '[g]oto [f]iles' })
-      kmap('n', '<leader>g.', builtin.oldfiles, { desc = '[g]oto Recent Files ("." for repeat)' })
-      kmap('n', '<leader>gb', builtin.buffers, { desc = '[g]oto existing [b]uffers' })
-      -- kmap('n', '<leader>ss', builtin.builtin, { desc = '[s]earch [s]elect Telescope' })
-      kmap('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' })
-      kmap('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })
-      kmap('n', '<leader>sk', builtin.keymaps, { desc = '[s]earch [k]eymaps' })
-      kmap('n', '<leader>sa', builtin.live_grep, { desc = '[s]earch [a]ll workspace by grep' })
-      kmap('n', '<leader>sd', builtin.diagnostics, { desc = '[s]earch [d]iagnostics' })
-      -- kmap('n', '<leader>sr', builtin.resume, { desc = '[s]earch [r]esume' })
-
-      -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>sb', function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = '[s]earch in current [b]uffer fuzzily' })
-
-      -- It's also possible to pass additional configuration options.
-      --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      vim.keymap.set('n', '<leader>so', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
-        }
-      end, { desc = '[s]earch in [o]pen Files by grep' })
-
-      -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>gn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[g]oto [n]eovim files' })
     end,
   },
 
@@ -651,7 +492,7 @@ require('lazy').setup({
           --
           -- This may be unwanted, since they displace some of your code
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map('<leader>th', function()
+            map(';h', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[t]oggle Inlay [h]ints')
           end
@@ -813,16 +654,6 @@ require('lazy').setup({
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    keys = {
-      {
-        '<leader>cf',
-        function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
-        end,
-        mode = '',
-        desc = '[c]ode [f]ormat buffer',
-      },
-    },
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -1108,6 +939,9 @@ require('lazy').setup({
     },
   },
 })
+
+-- NOTE: load keymap setup
+require('custom.keymaps').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

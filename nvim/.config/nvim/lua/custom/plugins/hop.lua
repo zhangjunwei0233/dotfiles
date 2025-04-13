@@ -1,21 +1,5 @@
 return {
   'phaazon/hop.nvim',
-  keys = {
-    {
-      's',
-      function()
-        require('hop').hint_char1()
-      end,
-      desc = 'Hop to character',
-    },
-    {
-      'S',
-      function()
-        require('hop').hint_words()
-      end,
-      desc = 'Hop to word',
-    },
-  },
   config = function()
     require('hop').setup {
       keys = 'etovxqpdygfblzhckisuran',

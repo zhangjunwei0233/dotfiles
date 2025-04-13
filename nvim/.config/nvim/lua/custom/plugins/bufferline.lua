@@ -3,13 +3,6 @@ return {
   version = '*',
   dependencies = 'nvim-tree/nvim-web-devicons',
   event = 'BufAdd',
-  keys = {
-    { ';H', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
-    { ';L', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
-    { ';mH', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
-    { ';mL', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
-    { ';D', ':bdelete<CR>', desc = '[D]elete buffer' },
-  },
   config = function()
     require('bufferline').setup {
       options = {

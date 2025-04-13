@@ -39,53 +39,6 @@ return {
     words = { enabled = false },
     zen = { enabled = false },
   },
-  keys = {
-    { -- Current file directory terminal
-      '<leader>tt',
-      function()
-        Snacks.terminal.toggle(nil, {
-          cwd = vim.fn.expand '%:p:h',
-          start_insert = false,
-          auto_insert = false,
-          auto_close = true,
-        })
-      end,
-      { desc = 'Toggle terminal (current dir)' },
-    },
-    { -- Workspace root terminal
-      '<leader>tT',
-      function()
-        Snacks.terminal.toggle(nil, {
-          cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(),
-          start_insert = false,
-          auto_insert = false,
-          auto_close = true,
-        })
-      end,
-      { desc = 'Toggle terminal (workspace root)' },
-    },
-    { -- Toggle all terminals
-      '<leader>ts',
-      function()
-        local terms = Snacks.terminal.list()
-        local any_visible = false
-        for _, term in ipairs(terms) do
-          if term.win and vim.api.nvim_win_is_valid(term.win) then
-            any_visible = true
-            break
-          end
-        end
-        for _, term in ipairs(terms) do
-          if any_visible then
-            term:hide()
-          else
-            term:show()
-          end
-        end
-      end,
-      { desc = 'Toggle all terminals' },
-    },
-  },
   config = function(_, opts)
     require('snacks').setup(opts)
   end,

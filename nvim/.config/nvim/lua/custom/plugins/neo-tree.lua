@@ -7,10 +7,6 @@ return {
     'MunifTanjim/nui.nvim',
   },
   cmd = 'Neotree',
-  keys = {
-    { '<leader>te', ':Neotree toggle<CR>', desc = 'NeoTree toggle', silent = true },
-    { '<leader>tf', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
-  },
   config = function()
     require('neo-tree').setup {
       open_files_do_not_replace_types = {
