@@ -457,10 +457,10 @@ require('lazy').setup({
       kmap('n', '<leader>g.', builtin.oldfiles, { desc = '[g]oto Recent Files ("." for repeat)' })
       kmap('n', '<leader>gb', builtin.buffers, { desc = '[g]oto existing [b]uffers' })
       -- kmap('n', '<leader>ss', builtin.builtin, { desc = '[s]earch [s]elect Telescope' })
-      -- kmap('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' }) -- this could be done using buitin.live_grep
+      kmap('n', '<leader>sw', builtin.grep_string, { desc = '[s]earch current [w]ord' })
       kmap('n', '<leader>sh', builtin.help_tags, { desc = '[s]earch [h]elp' })
       kmap('n', '<leader>sk', builtin.keymaps, { desc = '[s]earch [k]eymaps' })
-      kmap('n', '<leader>sw', builtin.live_grep, { desc = '[s]earch [w]orkspace by grep' })
+      kmap('n', '<leader>sa', builtin.live_grep, { desc = '[s]earch [a]ll workspace by grep' })
       kmap('n', '<leader>sd', builtin.diagnostics, { desc = '[s]earch [d]iagnostics' })
       -- kmap('n', '<leader>sr', builtin.resume, { desc = '[s]earch [r]esume' })
 
@@ -849,6 +849,24 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+      formatters = {
+        ['clang-format'] = {
+          command = 'clang-format',
+          args = { '-assume-filename', '$FILENAME', '--style={BasedOnStyle: Microsoft, IndentWidth: 2}' },
+          range_args = function(self, ctx)
+            local start_offset, end_offset = require('conform.util').get_offsets_from_range(ctx.buf, ctx.range)
+            local length = end_offset - start_offset
+            return {
+              '-assume-filename',
+              '$FILENAME',
+              '--offset',
+              tostring(start_offset),
+              '--length',
+              tostring(length),
+            }
+          end,
+        },
       },
     },
   },
