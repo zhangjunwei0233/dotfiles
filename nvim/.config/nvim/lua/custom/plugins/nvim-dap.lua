@@ -101,6 +101,9 @@ return {
         { text = '', texthl = 'DapBreakpointCondition', linehl = 'DapBreakpointCondition', numhl = 'DapBreakpointCondition' }
       )
       vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
+
+      -- setup keymaps
+      require('custom.keymaps').dap()
     end,
   },
 }

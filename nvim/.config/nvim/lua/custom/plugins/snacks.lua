@@ -42,5 +42,7 @@ return {
   },
   config = function(_, opts)
     require('snacks').setup(opts)
+    -- setup kemaps
+    require('custom.keymaps').terminal()
   end,
 }

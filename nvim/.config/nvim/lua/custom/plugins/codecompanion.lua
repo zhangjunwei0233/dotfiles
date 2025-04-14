@@ -22,5 +22,6 @@ return {
         agent = { adapter = 'deepseek' },
       },
     }
+    require('custom.keymaps').codecompanion()
   end,
 }

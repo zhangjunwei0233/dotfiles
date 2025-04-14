@@ -7,5 +7,7 @@ return {
       jump_on_sole_occurrence = false,
       create_hl_autocmd = false, -- Better performance
     }
+    -- setup keymaps
+    require('custom.keymaps').hop()
   end,
 }

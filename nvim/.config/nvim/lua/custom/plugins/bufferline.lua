@@ -19,6 +19,8 @@ return {
         },
       },
     }
+    -- setup keymaps
+    require('custom.keymaps').bufferline()
     -- Fix bufferline when restoring a session
     vim.api.nvim_create_autocmd({ 'BufAdd', 'BufDelete' }, {
       callback = function()
