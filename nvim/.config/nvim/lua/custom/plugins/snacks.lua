@@ -10,6 +10,7 @@ return {
     -- refer to the configuration section below
     animate = { enabled = false },
     bigfile = { enabled = false },
+    bufdelete = { enabled = false },
     dashboard = { enabled = false },
     dim = { enabled = false },
     explorer = { enabled = false },
@@ -18,7 +19,7 @@ return {
     indent = { enabled = false },
     input = { enabled = false },
     layout = { enabled = false },
-    lazygit = { enabled = false },
+    lazygit = { enabled = true },
     picker = { enabled = false },
     notifier = { enabled = false },
     profiler = { enabled = false },

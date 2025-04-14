@@ -1,5 +1,7 @@
 --  NOTE: See `:help vim.keymap.set()`
 
+local M = {}
+
 -- set a function to configure keymaps
 local function kmap(mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
@@ -9,7 +11,30 @@ local function kmap(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
-local function setup_keymaps()
+-- NOTE: lsp commands(<leader>l)
+function M.lsp(event)
+  local map = function(keys, func, desc, mode)
+    mode = mode or 'n'
+    vim.keymap.set(mode, keys, func, {
+      buffer = event.buf, -- Critical for buffer-local mappings
+      desc = 'LSP: ' .. desc,
+    })
+  end
+  map('<leader>lm', function()
+    vim.diagnostic.open_float()
+  end, 'show diag [m]essage')
+  map('<leader>ld', require('telescope.builtin').lsp_definitions, '[d]efinition') --  To jump back, press <C-t>.
+  map('<leader>lr', require('telescope.builtin').lsp_references, '[r]eferences')
+  map('<leader>lI', require('telescope.builtin').lsp_implementations, '[I]mplementation')
+  map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[t]ype definition')
+  map('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'document [s]ymbols')
+  map('<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'workspace [S]ymbols')
+  map('<leader>lR', vim.lsp.buf.rename, '[R]eame')
+  map('<leader>la', vim.lsp.buf.code_action, 'code [A]ction', { 'n', 'x' })
+  map('<leader>lD', vim.lsp.buf.declaration, '[D]eclaration')
+end
+
+function M.setup_keymaps()
   -- NOTE: native vim optimization
 
   -- Clear highlights on search when pressing <Esc> in normal mode
@@ -51,7 +76,7 @@ local function setup_keymaps()
   kmap('n', '<leader>bl', '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
   kmap('n', '<leader>bd', ':bdelete<CR>', { desc = '[D]elete buffer' })
 
-  -- NOTE:  window operation (C to navigate)
+  -- NOTE:  window operation (C to navigate, <leader>w to operate)
 
   --  See `:help wincmd` for a list of all window commands
   kmap('n', '<C-->', ':split<CR>', { desc = 'split horizontal' })
@@ -174,7 +199,7 @@ local function setup_keymaps()
   kmap('n', '<leader>ll', vim.diagnostic.setloclist, { desc = 'Open [l]sp diagnostic quickfix [l]ist' })
 
   -- NOTE:  nvim-dap (<leader>d)
-  local dap, dapui = require 'dap', require 'dapui'
+  local dap = require 'dap'
   kmap('n', '<leader>ds', dap.continue, { desc = ' Start/Continue' })
   kmap('n', '<F1>', dap.continue, { desc = ' Start/Continue' })
   kmap('n', '<leader>di', dap.step_into, { desc = ' Step into' })
@@ -239,11 +264,8 @@ local function setup_keymaps()
   kmap('n', ';d', require('dapui').toggle, { desc = 'Toggle DAP UI' })
   -- toggle codecompanion: this requires plugin 'codecompanion' to work
   kmap({ 'n', 'v' }, ';i', '<cmd>CodeCompanionChat Toggle<cr>', { desc = '[t]oggle a[i]' })
+  -- toggle lazygit: using snacks.lazygit
+  kmap('n', ';g', require('snacks').lazygit.open, { desc = '[t]oggle lazy[g]it' })
 end
 
-return {
-  setup = function()
-    --setup keymaps
-    setup_keymaps()
-  end,
-}
+return M
