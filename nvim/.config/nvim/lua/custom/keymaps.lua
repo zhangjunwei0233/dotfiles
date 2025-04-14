@@ -238,40 +238,69 @@ function M.native()
   kmap('n', '<C-k>', '<C-w>k', { desc = 'change to upper window' })
   kmap('n', '<C-l>', '<C-w>l', { desc = 'change to right window' })
   kmap('n', '<C-q>', '<C-w>q', { desc = 'delete window' })
-  local zoomed_win = nil
-  local original_dims = {}
-  local blacklist = { 'neo-tree' } -- Add filetypes to ignore
+  local snacks_win = nil
   kmap({ 'n', 't' }, '<C-z>', function()
-    if zoomed_win then
-      -- Restore original dimensions and clear tracking
-      vim.api.nvim_win_set_height(zoomed_win, original_dims.height)
-      vim.api.nvim_win_set_width(zoomed_win, original_dims.width)
-      zoomed_win = nil
-    else
-      -- Check if current buffer is in blacklist
-      local ft = vim.bo.filetype
-      if vim.tbl_contains(blacklist, ft) then
-        return
-      end
-      -- Store dimensions and maximize
-      local win = vim.api.nvim_get_current_win()
-      original_dims = {
-        height = vim.api.nvim_win_get_height(win),
-        width = vim.api.nvim_win_get_width(win),
-      }
-      zoomed_win = win
-      -- Maximize window
-      vim.cmd [[wincmd _ | wincmd |]]
-      -- Clean up if window closes
-      vim.api.nvim_create_autocmd('WinClosed', {
-        once = true,
-        pattern = tostring(win),
-        callback = function()
-          zoomed_win = nil
-        end,
-      })
+    local current_win = vim.api.nvim_get_current_win()
+    -- Close if already in snacks window
+    if snacks_win and snacks_win:win_valid() and snacks_win.win == current_win then
+      snacks_win:close()
+      snacks_win = nil
+      return
     end
-  end, { desc = 'Toggle window zoom' })
+    -- Close previous instance
+    if snacks_win and snacks_win:win_valid() then
+      snacks_win:close()
+      snacks_win = nil
+    end
+    -- Get current buffer from active window
+    local current_buf = vim.api.nvim_win_get_buf(current_win)
+    -- Create window with current buffer
+    snacks_win = Snacks.win {
+      buf = current_buf,
+      width = 0.9,
+      height = 0.9,
+      wo = {
+        spell = false,
+        wrap = false,
+        number = true,
+        relativenumber = true,
+      },
+    }
+  end, { desc = 'Toggle window fullscreen' })
+  -- local zoomed_win = nil
+  -- local original_dims = {}
+  -- local blacklist = { 'neo-tree' } -- Add filetypes to ignore
+  -- kmap({ 'n', 't' }, '<C-z>', function()
+  --   if zoomed_win then
+  --     -- Restore original dimensions and clear tracking
+  --     vim.api.nvim_win_set_height(zoomed_win, original_dims.height)
+  --     vim.api.nvim_win_set_width(zoomed_win, original_dims.width)
+  --     zoomed_win = nil
+  --   else
+  --     -- Check if current buffer is in blacklist
+  --     local ft = vim.bo.filetype
+  --     if vim.tbl_contains(blacklist, ft) then
+  --       return
+  --     end
+  --     -- Store dimensions and maximize
+  --     local win = vim.api.nvim_get_current_win()
+  --     original_dims = {
+  --       height = vim.api.nvim_win_get_height(win),
+  --       width = vim.api.nvim_win_get_width(win),
+  --     }
+  --     zoomed_win = win
+  --     -- Maximize window
+  --     vim.cmd [[wincmd _ | wincmd |]]
+  --     -- Clean up if window closes
+  --     vim.api.nvim_create_autocmd('WinClosed', {
+  --       once = true,
+  --       pattern = tostring(win),
+  --       callback = function()
+  --         zoomed_win = nil
+  --       end,
+  --     })
+  --   end
+  -- end, { desc = 'Toggle window zoom' })
 
   -- NOTE: code (<leader>c)
   kmap('n', '<leader>cc', 'gcc', { desc = '[c]ode toggle [c]omment', remap = true })
