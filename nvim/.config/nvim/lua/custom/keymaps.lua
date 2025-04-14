@@ -264,7 +264,17 @@ function M.native()
         wrap = false,
         number = true,
         relativenumber = true,
+        scrollbind = true,
+        cursorbind = true,
       },
+      on_win = function()
+        vim.wo[current_win].scrollbind = true
+        vim.wo[current_win].cursorbind = true
+      end,
+      on_close = function()
+        vim.wo[current_win].scrollbind = false
+        vim.wo[current_win].cursorbind = false
+      end,
     }
   end, { desc = 'Toggle window fullscreen' })
   -- local zoomed_win = nil
