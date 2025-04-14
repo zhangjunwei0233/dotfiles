@@ -75,7 +75,7 @@ return {
         layouts = {
           {
             position = 'left',
-            size = 0.3,
+            size = 0.2,
             elements = {
               { id = 'stacks', size = 0.2 },
               { id = 'scopes', size = 0.5 },
