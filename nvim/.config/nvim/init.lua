@@ -457,7 +457,7 @@ require('lazy').setup({
       formatters = {
         ['clang-format'] = {
           command = 'clang-format',
-          args = { '-assume-filename', '$FILENAME', '--style={BasedOnStyle: Microsoft, IndentWidth: 2}' },
+          args = { '-assume-filename', '$FILENAME', '--style={BasedOnStyle: Microsoft, IndentWidth: 2, BraceWrapping: {AfterControlStatement: false}}' },
           range_args = function(self, ctx)
             local start_offset, end_offset = require('conform.util').get_offsets_from_range(ctx.buf, ctx.range)
             local length = end_offset - start_offset
