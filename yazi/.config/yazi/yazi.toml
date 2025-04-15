@@ -46,8 +46,8 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-# NOTE: changed opener to neovide
-	{ run = '/home/zjw/APPS/neovide.AppImage "$@"', desc = "$EDITOR", orphan = true, for = "unix" },
+	# { run = '/home/zjw/APPS/neovide.AppImage "$@"', desc = "$EDITOR", orphan = true, for = "unix" },
+	{ run = 'gnome-terminal -e "${EDITOR:-nvim} $@"',  desc = "$EDITOR", orphan = true, for = "unix" },
 	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
 ]
