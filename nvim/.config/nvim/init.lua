@@ -450,27 +450,31 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        c = { 'clang-format' },
+        -- c = { 'clang-format' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
       formatters = {
-        ['clang-format'] = {
-          command = 'clang-format',
-          args = { '-assume-filename', '$FILENAME', '--style={BasedOnStyle: Microsoft, IndentWidth: 2, BraceWrapping: {AfterControlStatement: false}}' },
-          range_args = function(self, ctx)
-            local start_offset, end_offset = require('conform.util').get_offsets_from_range(ctx.buf, ctx.range)
-            local length = end_offset - start_offset
-            return {
-              '-assume-filename',
-              '$FILENAME',
-              '--offset',
-              tostring(start_offset),
-              '--length',
-              tostring(length),
-            }
-          end,
-        },
+        -- ['clang-format'] = {
+        --   command = 'clang-format',
+        --   args = {
+        --     '-assume-filename',
+        --     '$FILENAME',
+        --     '--style={BasedOnStyle: Microsoft, IndentWidth: 2, BraceWrapping: {AfterControlStatement: false}}',
+        --   },
+        --   range_args = function(self, ctx)
+        --     local start_offset, end_offset = require('conform.util').get_offsets_from_range(ctx.buf, ctx.range)
+        --     local length = end_offset - start_offset
+        --     return {
+        --       '-assume-filename',
+        --       '$FILENAME',
+        --       '--offset',
+        --       tostring(start_offset),
+        --       '--length',
+        --       tostring(length),
+        --     }
+        --   end,
+        -- },
       },
     },
   },
