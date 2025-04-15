@@ -197,6 +197,7 @@ require('lazy').setup({
         { '<leader>l', group = '[l]SP' },
         { '<leader>d', group = '[D]ap' },
         { '<leader>b', group = '[B]uffer' },
+        { '<leader>w', group = '[W]indow' },
         { '<leader>s', group = '[s]earch' },
         { '<leader>g', group = '[g]oto' },
         { '<leader>t', group = '[t]erminal' },

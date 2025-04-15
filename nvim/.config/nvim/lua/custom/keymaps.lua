@@ -1,5 +1,19 @@
 --  NOTE: See `:help vim.keymap.set()`
 
+--[[
+--    Basic idea of keymap design:
+--    1. all the usr configure functions and utils: "<leader>..."
+--    2. window and buffer navigation: "<C->"
+--      move-window: <C-hjkl>
+--      move-buffer: <C-np>
+--      delete_window: "<leader>wd"
+--      delete-buffer: "<leader>bd"
+--      zoom: <C-z>
+--    3. change window layout(such as term toggle): ";..."
+--      split: ";-" and ";\"
+--      toggle_in_split: ";<lowerCaseLetter>"
+--      toggle_in_float: ";<UpperCaseLetter>"
+--]]
 local M = {}
 
 -- set a function to configure keymaps
@@ -229,13 +243,13 @@ function M.native()
   -- NOTE:  window operation (C to navigate, <leader>w to operate)
 
   --  See `:help wincmd` for a list of all window commands
-  kmap('n', '<C-_>', ':split<CR>', { desc = 'split horizontal' })
-  kmap('n', '<C-\\>', ':vsplit<CR>', { desc = 'split vertical' })
+  kmap('n', ';-', ':split<CR>', { desc = 'split horizontal' })
+  kmap('n', ';\\', ':vsplit<CR>', { desc = 'split vertical' })
   kmap('n', '<C-h>', '<C-w>h', { desc = 'change to left window' })
   kmap('n', '<C-j>', '<C-w>j', { desc = 'change to lower window' })
   kmap('n', '<C-k>', '<C-w>k', { desc = 'change to upper window' })
   kmap('n', '<C-l>', '<C-w>l', { desc = 'change to right window' })
-  kmap('n', '<C-q>', '<C-w>q', { desc = 'delete window' })
+  kmap('n', '<leader>wd', '<C-w>q', { desc = 'delete window' })
   local snacks_win = nil
   kmap({ 'n', 't' }, '<C-z>', function()
     local current_win = vim.api.nvim_get_current_win()
