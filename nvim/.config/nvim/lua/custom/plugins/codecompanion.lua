@@ -21,6 +21,23 @@ return {
         inline = { adapter = 'deepseek' },
         agent = { adapter = 'deepseek' },
       },
+      -- display = {
+      --   chat = {
+      --     window = {
+      --       layout = 'float',
+      --       position = 'center',
+      --       border = 'rounded',
+      --       width = 0.9,
+      --       height = 0.9,
+      --       relative = 'editor',
+      --       opts = {
+      --         winhighlight = 'Normal:FloatBorder',
+      --         wrap = true,
+      --         signcolumn = 'no',
+      --       },
+      --     },
+      --   },
+      -- },
     }
     require('custom.keymaps').codecompanion()
   end,

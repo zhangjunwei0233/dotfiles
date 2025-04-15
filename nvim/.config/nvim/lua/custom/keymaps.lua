@@ -78,32 +78,22 @@ end
 -- NOTE: terminal (<leader>t)
 function M.terminal()
   local Snacks = require 'snacks'
-  kmap( -- Current file directory terminal
-    'n',
-    '<leader>tt',
-    function()
-      Snacks.terminal.toggle(nil, {
-        cwd = vim.fn.expand '%:p:h',
-        start_insert = false,
-        auto_insert = false,
-        auto_close = true,
-      })
-    end,
-    { desc = 'Toggle terminal (current dir)' }
-  )
-  kmap( -- Workspace root terminal
-    'n',
-    '<leader>tT',
-    function()
-      Snacks.terminal.toggle(nil, {
-        cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(),
-        start_insert = false,
-        auto_insert = false,
-        auto_close = true,
-      })
-    end,
-    { desc = 'Toggle terminal (workspace root)' }
-  )
+  kmap('n', '<leader>tt', function()
+    Snacks.terminal.toggle(nil, {
+      cwd = vim.fn.expand '%:p:h',
+      start_insert = false,
+      auto_insert = false,
+      auto_close = true,
+    })
+  end, { desc = 'Toggle terminal (current dir)' })
+  kmap('n', '<leader>tT', function()
+    Snacks.terminal.toggle(nil, {
+      cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(),
+      start_insert = false,
+      auto_insert = false,
+      auto_close = true,
+    })
+  end, { desc = 'Toggle terminal (workspace root)' })
 end
 
 -- NOTE: search and goto (<leader>s, <leader>g)
@@ -209,6 +199,14 @@ function M.toggle()
     end,
     { desc = 'Toggle all terminals' }
   )
+  kmap('n', ';T', function()
+    Snacks.terminal.toggle(vim.o.shell, {
+      win = {
+        relative = 'editor',
+        style = 'terminal', -- Use terminal style from config
+      },
+    })
+  end, { desc = 'Create floating terminal' })
   -- toggle dapui
   kmap('n', ';d', require('dapui').toggle, { desc = 'Toggle DAP UI' })
   -- toggle codecompanion: this requires plugin 'codecompanion' to work
@@ -259,6 +257,7 @@ function M.native()
       buf = current_buf,
       width = 0.9,
       height = 0.9,
+      border = 'rounded',
       wo = {
         spell = false,
         wrap = false,
@@ -277,40 +276,6 @@ function M.native()
       end,
     }
   end, { desc = 'Toggle window fullscreen' })
-  -- local zoomed_win = nil
-  -- local original_dims = {}
-  -- local blacklist = { 'neo-tree' } -- Add filetypes to ignore
-  -- kmap({ 'n', 't' }, '<C-z>', function()
-  --   if zoomed_win then
-  --     -- Restore original dimensions and clear tracking
-  --     vim.api.nvim_win_set_height(zoomed_win, original_dims.height)
-  --     vim.api.nvim_win_set_width(zoomed_win, original_dims.width)
-  --     zoomed_win = nil
-  --   else
-  --     -- Check if current buffer is in blacklist
-  --     local ft = vim.bo.filetype
-  --     if vim.tbl_contains(blacklist, ft) then
-  --       return
-  --     end
-  --     -- Store dimensions and maximize
-  --     local win = vim.api.nvim_get_current_win()
-  --     original_dims = {
-  --       height = vim.api.nvim_win_get_height(win),
-  --       width = vim.api.nvim_win_get_width(win),
-  --     }
-  --     zoomed_win = win
-  --     -- Maximize window
-  --     vim.cmd [[wincmd _ | wincmd |]]
-  --     -- Clean up if window closes
-  --     vim.api.nvim_create_autocmd('WinClosed', {
-  --       once = true,
-  --       pattern = tostring(win),
-  --       callback = function()
-  --         zoomed_win = nil
-  --       end,
-  --     })
-  --   end
-  -- end, { desc = 'Toggle window zoom' })
 
   -- NOTE: code (<leader>c)
   kmap('n', '<leader>cc', 'gcc', { desc = '[c]ode toggle [c]omment', remap = true })

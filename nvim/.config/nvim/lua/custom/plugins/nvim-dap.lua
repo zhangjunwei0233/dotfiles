@@ -75,7 +75,7 @@ return {
         layouts = {
           {
             position = 'left',
-            size = 0.2,
+            size = 0.4,
             elements = {
               { id = 'stacks', size = 0.2 },
               { id = 'scopes', size = 0.5 },
@@ -102,7 +102,7 @@ return {
       )
       vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 
-      -- setup keymaps
+      -- NOTE: setup keymaps
       require('custom.keymaps').dap()
     end,
   },
