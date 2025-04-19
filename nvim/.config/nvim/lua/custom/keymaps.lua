@@ -269,8 +269,8 @@ function M.native()
     -- Create window with current buffer
     snacks_win = Snacks.win {
       buf = current_buf,
-      width = 0.9,
-      height = 0.9,
+      width = 0.95,
+      height = 0.95,
       border = 'rounded',
       wo = {
         spell = false,
