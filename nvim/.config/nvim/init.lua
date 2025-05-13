@@ -89,10 +89,22 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 5
 
 -- This is recommended by avante.nvim: views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
+
+-- folds
+vim.o.foldcolumn = '0'
+-- use treesitter expr as fold method
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- enabled syntax highlight on folded lines
+vim.o.foldtext = ''
+-- mininal fold level that will be closed by default
+vim.o.foldlevel = 99
+-- allow four layers of nested fold at large
+vim.o.foldnestmax = 4
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -300,7 +312,7 @@ require('lazy').setup({
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config {
         severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
+        float = { border = 'single', source = 'if_many' },
         underline = { severity = vim.diagnostic.severity.ERROR },
         signs = vim.g.have_nerd_font and {
           text = {
