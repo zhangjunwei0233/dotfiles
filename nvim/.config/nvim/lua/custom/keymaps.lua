@@ -83,6 +83,15 @@ function M.bufferline()
   kmap('n', '<leader>bd', ':bdelete<CR>', { desc = '[D]elete buffer' })
 end
 
+-- NOTE: code folding
+function M.ufo()
+  -- plugin: ufo
+  kmap('n', '<leader>O', require('ufo').openAllFolds, { desc = 'open all folds' })
+  kmap('n', '<leader>F', require('ufo').closeAllFolds, { desc = 'close all folds' })
+  kmap('n', '<leader>o', 'zO', { desc = 'open current fold' })
+  kmap('n', '<leader>f', 'zC', { desc = 'close current fold' })
+end
+
 -- NOTE: auto format
 function M.format()
   kmap('n', '<leader>cf', function()
@@ -237,9 +246,7 @@ function M.native()
   kmap('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
   -- NOTE: file operation (<leader>f)
-  kmap('n', '<leader>fs', ':w<CR>', { desc = '[f]ile [s]ave' })
   kmap('n', '<C-s>', ':w<CR>', { desc = '[f]ile [s]ave' })
-  kmap('n', '<leader>fS', ':saveas ', { desc = '[f]ile [S]aveas' })
 
   -- NOTE:  window operation (C to navigate, <leader>w to operate)
 

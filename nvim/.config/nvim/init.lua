@@ -95,16 +95,14 @@ vim.opt.scrolloff = 5
 vim.opt.laststatus = 3
 
 -- folds
+vim.o.foldenable = true
 vim.o.foldcolumn = '0'
--- use treesitter expr as fold method
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 -- enabled syntax highlight on folded lines
 vim.o.foldtext = ''
 -- mininal fold level that will be closed by default
 vim.o.foldlevel = 99
--- allow four layers of nested fold at large
-vim.o.foldnestmax = 4
+-- disable nested fold
+vim.o.foldnestmax = 0
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -204,7 +202,6 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>f', group = '[f]iles' },
         { '<leader>c', group = '[c]ode', mode = { 'n', 'x' } },
         { '<leader>l', group = '[l]SP' },
         { '<leader>d', group = '[D]ap' },
