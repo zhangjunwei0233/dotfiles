@@ -5,7 +5,7 @@
 --    1. all the usr configure functions and utils: "<leader>..."
 --    2. window and buffer navigation: "<C->"
 --      move-window: <C-hjkl>
---      move-buffer: <C-np>
+--      move-buffer: <C-[]>
 --      delete_window: "<leader>wd"
 --      delete-buffer: "<leader>bd"
 --      zoom: <C-z>
@@ -39,6 +39,7 @@ function M.lsp(event)
     vim.diagnostic.open_float()
   end, 'show diag [m]essage')
   map('<leader>ld', require('telescope.builtin').lsp_definitions, '[d]efinition') --  To jump back, press <C-t>.
+  map('<leader>lp', require('goto-preview').goto_preview_definition, '[p]review definition')
   map('<leader>lr', require('telescope.builtin').lsp_references, '[r]eferences')
   map('<leader>lI', require('telescope.builtin').lsp_implementations, '[I]mplementation')
   map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[t]ype definition')
@@ -75,8 +76,8 @@ end
 -- NOTE: buffer operation (C to navigate, <leader>b to operate)
 function M.bufferline()
   -- plugin: bufferline
-  kmap('n', '<C-p>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer' })
-  kmap('n', '<C-n>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer' })
+  kmap('n', '<C-[>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer' })
+  kmap('n', '<C-]>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer' })
   kmap('n', '<leader>bh', '<cmd>BufferLineMovePrev<cr>', { desc = 'Move buffer prev' })
   kmap('n', '<leader>bl', '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
   kmap('n', '<leader>bd', ':bdelete<CR>', { desc = '[D]elete buffer' })
