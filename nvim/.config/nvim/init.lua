@@ -420,6 +420,7 @@ require('lazy').setup({
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
+        automatic_enable = false,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -431,6 +432,14 @@ require('lazy').setup({
           end,
         },
       }
+
+      for server_name, _ in pairs(servers) do
+        require('lspconfig')[server_name].setup {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          handlers = handlers,
+        }
+      end
     end,
   },
 
