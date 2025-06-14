@@ -75,21 +75,25 @@ end
 
 -- NOTE: buffer operation (C to navigate, <leader>b to operate)
 function M.bufferline()
-  -- plugin: bufferline
+  -- plugin: bufferline and snacks
   kmap('n', '<C-[>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer' })
   kmap('n', '<C-]>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer' })
   kmap('n', '<leader>bh', '<cmd>BufferLineMovePrev<cr>', { desc = 'Move buffer prev' })
   kmap('n', '<leader>bl', '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
-  kmap('n', '<leader>bd', ':bdelete<CR>', { desc = '[D]elete buffer' })
+  kmap('n', '<leader>bd', function()
+    require('snacks').bufdelete()
+  end, { desc = '[D]elete buffer' })
 end
 
 -- NOTE: code folding
 function M.ufo()
   -- plugin: ufo
-  kmap('n', '<leader>O', require('ufo').openAllFolds, { desc = 'open all folds' })
-  kmap('n', '<leader>F', require('ufo').closeAllFolds, { desc = 'close all folds' })
-  kmap('n', '<leader>o', 'zO', { desc = 'open current fold' })
-  kmap('n', '<leader>f', 'zC', { desc = 'close current fold' })
+  kmap('n', '<leader>cO', require('ufo').openAllFolds, { desc = 'open all folds' })
+  kmap('n', '<leader>cF', require('ufo').closeAllFolds, { desc = 'close all folds' })
+  kmap('n', '<leader>o', 'zo', { desc = 'open sub fold' })
+  kmap('n', '<leader>f', 'zc', { desc = 'close sub fold' })
+  kmap('n', '<leader>O', 'zO', { desc = 'Open top fold' })
+  kmap('n', '<leader>F', 'zC', { desc = 'Close top fold' })
 end
 
 -- NOTE: auto format
