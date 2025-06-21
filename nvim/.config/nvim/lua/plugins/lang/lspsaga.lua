@@ -18,10 +18,10 @@ return {
       },
     },
     outline = {
-      layout = 'normal',
+      layout = 'float',
       close_after_jump = true,
-      -- max_height = 1.0, --height of outline float layout
-      -- left_width = 0.4, --width of outline float layout left window
+      max_height = 1.0, --height of outline float layout
+      left_width = 0.4, --width of outline float layout left window
       keys = {
         toggle_or_jump = '<CR>', -- use ENTER to jump instead of 'o'
       },

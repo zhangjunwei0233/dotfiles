@@ -26,3 +26,6 @@ if keymaps then
 else
   vim.notify('no keymaps setup for native\n', vim.log.levels.WARN)
 end
+
+-- [[ load autocmds ]]
+require('core.autocmds')

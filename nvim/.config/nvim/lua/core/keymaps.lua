@@ -57,7 +57,7 @@ end
 --  See `:help wincmd` for a list of all window commands
 kmap('native', 'n', '<localleader>-', ':split<CR>', { desc = 'split horizontal' })
 kmap('native', 'n', '<localleader>\\', ':vsplit<CR>', { desc = 'split vertical' })
-kmap('native', 'n', '<localleader>q', '<C-w>q', { desc = 'delete window' })
+kmap('native', 'n', '<localleader>q', '<C-w>q', { desc = '[q]uit window' })
 kmap('native', 'n', '<C-h>', '<C-w>h', { desc = 'change to left window' })
 kmap('native', 'n', '<C-j>', '<C-w>j', { desc = 'change to lower window' })
 kmap('native', 'n', '<C-k>', '<C-w>k', { desc = 'change to upper window' })
@@ -70,7 +70,7 @@ kmap('bufferline', 'n', '<leader>bh', '<cmd>BufferLineMovePrev<cr>', { desc = 'M
 kmap('bufferline', 'n', '<leader>bl', '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
 kmap('snacks', 'n', '<localleader><S-q>', function()
   require('snacks').bufdelete()
-end, { desc = '[D]elete buffer' })
+end, { desc = '[Q]uit buffer' })
 
 -- text navigation
 kmap('hop', { 'n', 'v' }, 'f', function()
@@ -87,20 +87,20 @@ kmap('hop', { 'n', 'v' }, 'F', function()
 end, { desc = 'hop backward', remap = true })
 
 -- file navigation
-kmap('neo-tree', 'n', '<localleader>e', '<Cmd>Neotree toggle<CR>', { desc = 'NeoTree toggle' })
-kmap('neo-tree', 'n', '<localleader>f', '<Cmd>Neotree reveal<CR>', { desc = 'NeoTree reveal' })
+kmap('neo-tree', 'n', '<localleader>e', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle [e]xplorer' })
+kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]ocate file' })
 -- search and goto files (<leader>s, <leader>g)
 -- See `:help telescope.builtin`
 -- stylua: ignore start
-kmap('telescope', 'n', '<leader>gf', function() require('telescope.builtin').find_files() end, { desc = '[g]oto [f]iles' })
-kmap('telescope', 'n', '<leader>g.', function() require('telescope.builtin').oldfiles() end, { desc = '[g]oto Recent Files ("." for repeat)' })
-kmap('telescope', 'n', '<leader>sw', function() require('telescope.builtin').grep_string() end, { desc = '[s]earch current [w]ord' })
-kmap('telescope', 'n', '<leader>sh', function() require('telescope.builtin').help_tags() end, { desc = '[s]earch [h]elp' })
-kmap('telescope', 'n', '<leader>sk', function() require('telescope.builtin').keymaps() end, { desc = '[s]earch [k]eymaps' })
-kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep() end, { desc = '[s]earch [a]ll workspace by grep' })
-kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume() end, { desc = '[s]earch [r]esume' })
-kmap('telescope', 'n', '<leader>gn', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = '[g]oto [n]eovim files' })
-kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = '[s]earch in current [b]uffer fuzzily' })
+kmap('telescope', 'n', '<leader>gf', function() require('telescope.builtin').find_files() end, { desc = '[f]iles' })
+kmap('telescope', 'n', '<leader>g.', function() require('telescope.builtin').oldfiles() end, { desc = 'recent Files' })
+kmap('telescope', 'n', '<leader>sw', function() require('telescope.builtin').grep_string() end, { desc = 'current [w]ord' })
+kmap('telescope', 'n', '<leader>sh', function() require('telescope.builtin').help_tags() end, { desc = '[h]elp' })
+kmap('telescope', 'n', '<leader>sk', function() require('telescope.builtin').keymaps() end, { desc = '[k]eymaps' })
+kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep() end, { desc = '[a]ll workspace' })
+kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume() end, { desc = '[r]esume' })
+kmap('telescope', 'n', '<leader>gn', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = '[n]eovim files' })
+kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
 -- stylua: ignore end
 
 -- toggle full screen
@@ -183,7 +183,7 @@ kmap( -- Toggle all terminals
       end
     end
   end,
-  { desc = 'Toggle all terminals' }
+  { desc = 'Toggle [t]erminals' }
 )
 kmap('snacks', 'n', '<localleader>T', function()
   require('snacks').terminal.toggle(vim.o.shell, {
@@ -192,28 +192,28 @@ kmap('snacks', 'n', '<localleader>T', function()
       style = 'terminal', -- Use terminal style from config
     },
   })
-end, { desc = 'Create floating terminal' })
+end, { desc = 'Create floating [T]erminal' })
 
 -- [[ Git ]]
 kmap('snacks', 'n', '<localleader>g', function()
   require('snacks').lazygit.open()
-end, { desc = '[t]oggle lazy[g]it' })
+end, { desc = 'Toggle lazy[g]it' })
 
 -- [[ LSP ]]
 -- diagnostic
-kmap('lsp', 'n', '<leader>ll', vim.diagnostic.setloclist, { desc = 'Open [L]sp quickfix [l]ist' })
-kmap('lspsaga', 'n', '<leader>ln', '<Cmd>Lspsaga diagnostic_jump_next<CR>', { desc = '[N]ext diagnostic' })
-kmap('lspsaga', 'n', '<leader>lp', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = '[P]rev diagnostic' })
+kmap('lsp', 'n', '<leader>ll', vim.diagnostic.setloclist, { desc = 'Lsp: quickfix [l]ist' })
+kmap('lspsaga', 'n', '<leader>ln', '<Cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Lsp: [n]ext diagnostic' })
+kmap('lspsaga', 'n', '<leader>lp', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Lsp: [p]rev diagnostic' })
 -- display info
-kmap('lspsaga', 'n', '<leader>li', '<Cmd>Lspsaga hover_doc<CR>', { desc = 'hover [I]nformation' })
-kmap('lspsaga', 'n', '<localleader>o', '<Cmd>Lspsaga outline<CR>', { desc = 'toggle [O]utline' })
+kmap('lspsaga', 'n', '<leader>li', '<Cmd>Lspsaga hover_doc<CR>', { desc = 'Lsp: hover [i]nformation' })
+kmap('lspsaga', 'n', '<localleader>a', '<Cmd>Lspsaga outline<CR>', { desc = 'Toggle [a]bstract' })
 -- search and jump
-kmap('lspsaga', 'n', '<leader>ld', '<Cmd>Lspsaga goto_definition<CR>', { desc = '[d]efinition' }) --  To jump back, press <C-t>.
-kmap('lspsaga', 'n', '<leader>lv', '<Cmd>Lspsaga peek_definition<CR>', { desc = '[V]iew definition' })
-kmap('lspsaga', 'n', '<leader>lf', '<Cmd>Lspsaga finder<CR>', { desc = '[F]ind references' })
+kmap('lspsaga', 'n', '<leader>ld', '<Cmd>Lspsaga goto_definition<CR>', { desc = 'Lsp: [d]efinition' }) --  To jump back, press <C-t>.
+kmap('lspsaga', 'n', '<leader>lv', '<Cmd>Lspsaga peek_definition<CR>', { desc = 'Lsp: [v]iew definition' })
+kmap('lspsaga', 'n', '<leader>lf', '<Cmd>Lspsaga finder<CR>', { desc = 'Lsp: [f]ind references' })
 -- code actions
-kmap('lspsaga', 'n', '<leader>lr', '<Cmd>Lspsaga rename<CR>', { desc = '[R]eame' })
-kmap('lspsaga', 'n', '<leader>la', '<Cmd>Lspsaga code_action<CR>', { desc = 'code [A]ction' })
+kmap('lspsaga', 'n', '<leader>lr', '<Cmd>Lspsaga rename<CR>', { desc = 'Lsp: [r]eame' })
+kmap('lspsaga', 'n', '<leader>la', '<Cmd>Lspsaga code_action<CR>', { desc = 'Lsp: code [a]ction' })
 
 -- [[ Debug <leader>d ]]
 kmap('nvim-dap', 'n', '<localleader>d', function()
@@ -244,37 +244,28 @@ kmap('nvim-dap', 'n', '<leader>dD', function() require('dap').clear_breakpoints(
 -- stylua: ignore end
 
 -- [[ Format ]]
-kmap('conform', 'n', '<leader>fd', '<cmd>FormatDisable<CR>', { desc = '[F]ormat [Disable]' })
-kmap('conform', 'n', '<leader>fe', '<cmd>FormatEnable<CR>', { desc = '[F]ormat [Disable]' })
-
--- [[ File (<leader>f) ]]
-kmap('native', 'n', '<C-s>', ':w<CR>', { desc = '[f]ile [s]ave' })
+kmap('conform', 'n', '<leader>fd', '<cmd>FormatDisable<CR>', { desc = '[d]isable format' })
+kmap('conform', 'n', '<leader>fe', '<cmd>FormatEnable<CR>', { desc = '[e]nable format' })
 
 -- [[ Code ]]
-kmap('native', 'n', '<leader>cc', 'gcc', { desc = '[c]ode toggle [c]omment', remap = true })
-kmap('native', 'v', '<leader>cc', 'gc', { desc = '[c]ode toggle [c]omment', remap = true })
+kmap('native', 'n', '<leader>cc', 'gcc', { desc = 'Toggle [c]omment', remap = true })
+kmap('native', 'v', '<leader>cc', 'gc', { desc = 'Toggle [c]omment', remap = true })
 -- folding
-kmap('ufo', 'n', '<leader>cO', function()
-  require('ufo').openAllFolds()
-end, { desc = 'open all folds' })
-kmap('ufo', 'n', '<leader>cF', function()
-  require('ufo').closeAllFolds()
-end, { desc = 'close all folds' })
-kmap('ufo', 'n', '<leader>o', 'zo', { desc = 'open sub fold' })
-kmap('ufo', 'n', '<leader>f', 'zc', { desc = 'close sub fold' })
-kmap('ufo', 'n', '<leader>O', 'zO', { desc = 'Open top fold' })
-kmap('ufo', 'n', '<leader>F', 'zC', { desc = 'Close top fold' })
+kmap('native', 'n', '<localleader>o', 'zo', { desc = '[o]pen sub fold' })
+kmap('native', 'n', '<localleader>f', 'zc', { desc = '[f]old sub fold' })
+kmap('native', 'n', '<localleader>O', 'zO', { desc = '[O]pen top fold' })
+kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
 
 -- [[ AI ]]
-kmap('codecompanion', { 'n', 'v' }, '<localleader>i', '<cmd>CodeCompanionChat Toggle<cr>', { desc = '[t]oggle a[i]' })
-kmap('codecompanion', { 'n', 'v' }, '<leader>ia', '<cmd>CodeCompanionActions<cr>', { desc = 'a[i] [a]ctions' })
-kmap('codecompanion', 'v', '<leader>is', '<cmd>CodeCompanionChat Add<cr>', { desc = 'a[i] [s]elect' })
+kmap('codecompanion', { 'n', 'v' }, '<localleader>i', '<cmd>CodeCompanionChat Toggle<cr>', { desc = 'Toggle a[i]' })
+kmap('codecompanion', { 'n', 'v' }, '<leader>ia', '<cmd>CodeCompanionActions<cr>', { desc = 'AI: [a]ctions' })
+kmap('codecompanion', 'v', '<leader>is', '<cmd>CodeCompanionChat Add<cr>', { desc = 'AI: [s]elect' })
 
 -- [[ Plugins ]]
-kmap('lazy', 'n', '<leader>pp', '<cmd>Lazy<CR>', { desc = 'open [P]lugins' })
-kmap('lsp', 'n', '<leader>pl', '<cmd>checkhealth vim.lsp<CR>', { desc = 'open [L]sp' })
-kmap('mason', 'n', '<leader>pm', '<cmd>Mason<CR>', { desc = 'open [M]ason' })
-kmap('conform', 'n', '<leader>pc', '<cmd>ConformInfo<CR>', { desc = 'open [C]onform' })
+kmap('lazy', 'n', '<leader>pp', '<cmd>Lazy<CR>', { desc = 'view [p]lugins' })
+kmap('lsp', 'n', '<leader>pl', '<cmd>checkhealth vim.lsp<CR>', { desc = 'check [l]sp' })
+kmap('mason', 'n', '<leader>pm', '<cmd>Mason<CR>', { desc = 'open [m]ason' })
+kmap('conform', 'n', '<leader>pc', '<cmd>ConformInfo<CR>', { desc = 'check [c]onform' })
 
 -- [[ Miscellaneous ]]
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -282,6 +273,8 @@ kmap('conform', 'n', '<leader>pc', '<cmd>ConformInfo<CR>', { desc = 'open [C]onf
 kmap('native', 'n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- use <Esc> to quit terminal mode
 kmap('native', 't', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- use <C-s> to save file
+kmap('native', 'n', '<C-s>', ':w<CR>', { desc = '[f]ile [s]ave' })
 
 -- [[ sort keymap table and return ]]
 local M = {}

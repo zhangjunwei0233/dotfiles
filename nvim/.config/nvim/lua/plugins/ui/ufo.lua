@@ -1,6 +1,10 @@
 -- [[ Code Folding ]]
+-- this plugin is currently disabled since it is too slow
+-- default folding method set to treesitter in 'core.basic'
+-- an antocmd is created to switch folding method to using lsp
+-- on LspAttach, see core.autocmd
 return {
-  -- enabled = false,
+  enabled = false,
   'kevinhwang91/nvim-ufo',
   event = { 'BufReadPost', 'BufNewFile' },
   dependencies = { 'kevinhwang91/promise-async' },

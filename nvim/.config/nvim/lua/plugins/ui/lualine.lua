@@ -16,13 +16,13 @@ return {
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles', 'codecompanion' },
-          winbar = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles', 'codecompanion' },
+          statusline = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles', 'codecompanion', 'sagaoutline' },
+          winbar = { 'Avante', 'AvanteInput', 'AvanteSelectedFiles', 'codecompanion', 'sagaoutline' },
         },
         ignore_focus = {},
         always_divide_middle = true,
         always_show_tabline = true,
-        globalstatus = false,
+        globalstatus = true, -- only enable one statusline instead of one for each window
         refresh = {
           statusline = 500,
           tabline = 500,
@@ -47,7 +47,7 @@ return {
         lualine_a = {},
         lualine_b = {},
         lualine_c = { 'filename' },
-        lualine_x = { 'location' },
+        lualine_x = { 'progress' },
         lualine_y = {},
         lualine_z = {},
       },

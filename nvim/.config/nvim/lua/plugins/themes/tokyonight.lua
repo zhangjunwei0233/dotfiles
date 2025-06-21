@@ -7,10 +7,12 @@ return {
       comments = { italic = true },
     },
 
-    -- set prettier floating windows
     on_colors = function(colors)
+      -- set prettier floating windows
       colors.bg_float = colors.bg
       colors.border_highlight = '#589ed7'
+      -- set prettier fold lines
+      colors.fg_gutter = colors.bg_highlight
     end,
   },
   config = function(_, opts)
