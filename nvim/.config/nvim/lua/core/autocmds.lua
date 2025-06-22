@@ -54,4 +54,21 @@ M.telescope = function()
   })
 end
 
+M.lspsaga = function()
+  -- [[ quit sagaoutline one leaving sagaoutline window ]]
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'sagaoutline',
+    callback = function()
+      vim.api.nvim_create_autocmd('WinLeave', {
+        once = true,
+        callback = function()
+          vim.schedule(function() -- use schedule to make sure all the previews are also closed
+            vim.cmd('Lspsaga outline') -- close outline
+          end)
+        end,
+      })
+    end,
+  })
+end
+
 return M

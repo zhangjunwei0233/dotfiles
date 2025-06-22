@@ -23,8 +23,8 @@ return {
       },
     },
     outline = {
-      layout = 'float',
-      close_after_jump = true,
+      layout = 'normal', -- can be 'normal' | 'float'
+      close_after_jump = false, -- autocmd has been set to do this
       max_height = 1.0, --height of outline float layout
       left_width = 0.4, --width of outline float layout left window
       keys = {
@@ -44,6 +44,12 @@ return {
       keymaps()
     else
       vim.notify('lspsaga loaded without keymap\n', vim.log.levels.WARN)
+    end
+
+    -- load autocmds
+    local autocmds = require('core.autocmds').lspsaga
+    if autocmds then
+      autocmds()
     end
   end,
 }
