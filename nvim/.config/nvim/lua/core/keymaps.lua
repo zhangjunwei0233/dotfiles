@@ -27,7 +27,7 @@ local spec = {
 
   { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
 
-  { '<leader>i', group = 'A[I]' },
+  { '<leader>a', group = '[A]I' },
 
   { '<leader>p', group = '[P]lugin' },
 }
@@ -206,7 +206,7 @@ kmap('lspsaga', 'n', '<leader>ln', '<Cmd>Lspsaga diagnostic_jump_next<CR>', { de
 kmap('lspsaga', 'n', '<leader>lp', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Lsp: [p]rev diagnostic' })
 -- display info
 kmap('lspsaga', 'n', '<leader>li', '<Cmd>Lspsaga hover_doc<CR>', { desc = 'Lsp: hover [i]nformation' })
-kmap('lspsaga', 'n', '<localleader>a', '<Cmd>Lspsaga outline<CR>', { desc = 'Toggle [a]bstract' })
+kmap('lspsaga', 'n', '<localleader>s', '<Cmd>Lspsaga outline<CR>', { desc = 'Toggle file [s]tructure' })
 -- search and jump
 kmap('lspsaga', 'n', '<leader>ld', '<Cmd>Lspsaga goto_definition<CR>', { desc = 'Lsp: [d]efinition' }) --  To jump back, press <C-t>.
 kmap('lspsaga', 'n', '<leader>lv', '<Cmd>Lspsaga peek_definition<CR>', { desc = 'Lsp: [v]iew definition' })
@@ -257,9 +257,12 @@ kmap('native', 'n', '<localleader>O', 'zO', { desc = '[O]pen top fold' })
 kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
 
 -- [[ AI ]]
-kmap('codecompanion', { 'n', 'v' }, '<localleader>i', '<cmd>CodeCompanionChat Toggle<cr>', { desc = 'Toggle a[i]' })
-kmap('codecompanion', { 'n', 'v' }, '<leader>ia', '<cmd>CodeCompanionActions<cr>', { desc = 'AI: [a]ctions' })
-kmap('codecompanion', 'v', '<leader>is', '<cmd>CodeCompanionChat Add<cr>', { desc = 'AI: [s]elect' })
+-- use codecompanion
+-- kmap('codecompanion', { 'n', 'v' }, '<localleader>a', '<cmd>CodeCompanionChat Toggle<cr>', { desc = 'Toggle a[i]' })
+-- kmap('codecompanion', { 'n', 'v' }, '<leader>aa', '<cmd>CodeCompanionActions<cr>', { desc = 'AI: [a]ctions' })
+-- kmap('codecompanion', 'v', '<leader>as', '<cmd>CodeCompanionChat Add<cr>', { desc = 'AI: [s]elect' })
+-- use avante
+kmap('avante', { 'n', 'v' }, '<localleader>a', '<cmd>AvanteToggle<cr>', { desc = 'Toggle [A]I' })
 
 -- [[ Plugins ]]
 kmap('lazy', 'n', '<leader>pp', '<cmd>Lazy<CR>', { desc = 'view [p]lugins' })

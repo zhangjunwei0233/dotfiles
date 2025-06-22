@@ -5,8 +5,17 @@ return {
   dependencies = {
     'rafamadriz/friendly-snippets',
     'xzbdmw/colorful-menu.nvim', -- enable treesitter hl in menu
+    {
+      -- a compatable layer between nvim-cmp and blink-cmp
+      -- used to add avante sources to blink-cmp
+      'saghen/blink.compat',
+      -- use v2.* for blink.cmp v1.*
+      version = '2.*',
+      -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+      opts = {},
+    },
   },
-  event = 'InsertEnter',
+  event = 'VeryLazy',
   opts = {
     completion = {
       menu = {
@@ -57,7 +66,29 @@ return {
     },
     sources = {
       -- default = { 'path', 'snippets', 'buffer', 'lsp' },
-      default = { 'path', 'lsp' },
+      default = { 'path', 'lsp', 'avante_commands', 'avante_mentions', 'avante_files' },
+
+      -- configure providers from avante
+      providers = {
+        avante_commands = {
+          name = 'avante_commands',
+          module = 'blink.compat.source',
+          score_offset = 90, -- show at a higher priority than lsp
+          opts = {},
+        },
+        avante_files = {
+          name = 'avante_files',
+          module = 'blink.compat.source',
+          score_offset = 100, -- show at a higher priority than lsp
+          opts = {},
+        },
+        avante_mentions = {
+          name = 'avante_mentions',
+          module = 'blink.compat.source',
+          score_offset = 1000, -- show at a higher priority than lsp
+          opts = {},
+        },
+      },
     },
     -- sepecial cases: completion for cmds
     cmdline = {
