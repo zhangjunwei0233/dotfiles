@@ -14,6 +14,7 @@ vim.g.have_nerd_font = true
 
 -- Set gui nerdfont
 vim.opt.guifont = 'JetBrainsMono Nerd Font:h17'
+vim.opt.linespace = 0
 
 -- open float window with single border
 vim.opt.winborder = 'rounded'

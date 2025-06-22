@@ -10,7 +10,7 @@ return {
       deepseek = function()
         return require('codecompanion.adapters').extend('deepseek', {
           env = {
-            api_key = 'sk-dc983f8c46eb47139c1233e1f62511d3',
+            api_key = 'cmd: gpg --batch --quiet --decrypt ~/API/deepseek.gpg',
           },
         })
       end,
