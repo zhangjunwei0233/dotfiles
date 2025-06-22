@@ -66,7 +66,7 @@ return {
     },
     sources = {
       -- default = { 'path', 'snippets', 'buffer', 'lsp' },
-      default = { 'path', 'lsp', 'avante_commands', 'avante_mentions', 'avante_files' },
+      default = { 'path', 'lsp', 'omni', 'avante_commands', 'avante_mentions', 'avante_files' },
 
       -- configure providers from avante
       providers = {
