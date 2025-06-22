@@ -12,6 +12,11 @@ return {
   event = 'LspAttach',
   cmd = 'Lspsaga',
   opts = {
+    symbol_in_winbar = {
+      hide_keyword = true, -- hide keyword like `if`
+      show_file = true,
+      folder_level = 0,
+    },
     finder = {
       keys = {
         toggle_or_open = '<CR>', -- use ENTER to open instead of 'o'

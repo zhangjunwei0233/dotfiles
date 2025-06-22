@@ -31,11 +31,18 @@ return {
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_b = {
+          'branch',
+          {
+            'diff',
+            symbols = { added = '✚', modified = '', removed = '✖' },
+          },
+          'diagnostics',
+        },
         lualine_c = {
           {
             'filename',
-            path = 1,
+            path = 1, -- relative path
             shorting_target = 40,
           },
         },
@@ -54,7 +61,7 @@ return {
       tabline = {},
       winbar = {},
       inactive_winbar = {},
-      extensions = { 'neo-tree' },
+      extensions = { 'neo-tree', 'avante', 'lazy', 'mason', 'nvim-dap-ui' },
     })
   end,
 }
