@@ -13,6 +13,8 @@ return {
       colors.border_highlight = '#589ed7'
       -- set prettier fold lines
       colors.fg_gutter = colors.bg_highlight
+      -- set clearer window seperators
+      colors.border = colors.comment
     end,
   },
   config = function(_, opts)
