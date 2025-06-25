@@ -54,6 +54,19 @@ return {
         wo = { winbar = '' }, -- disable winbar
       },
     },
+    styles = {
+      blame_line = {
+        width = 0.8,
+        height = 0.8,
+      },
+      -- notification_history = {
+      --   width = 0.8,
+      --   height = 0.8,
+      --   ft = 'markdown',
+      --   bo = { filetype = 'snacks_notif_history', modifiable = false },
+      --   wo = { winhighlight = 'Normal:SnacksNotifierHistory' },
+      -- },
+    },
   },
   config = function(_, opts)
     require('snacks').setup(opts)

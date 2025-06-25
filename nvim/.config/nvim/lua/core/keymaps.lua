@@ -18,7 +18,7 @@ local spec = {
   { '<leader>w', group = '[W]indow' },
   { '<leader>b', group = '[B]uffer' },
   { '<leader>s', group = '[S]earch' },
-  { '<leader>g', group = '[G]oto' },
+  { '<leader>g', group = '[G]it' },
 
   { '<leader>t', group = '[T]erminal' },
   { '<leader>l', group = '[L]SP' },
@@ -91,14 +91,14 @@ kmap('neo-tree', 'n', '<localleader>e', '<Cmd>Neotree toggle<CR>', { desc = 'Tog
 kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]ocate file' })
 -- search and goto files (<leader>s, <leader>g)
 -- See `:help telescope.builtin`
-kmap('telescope', 'n', '<leader>gf', function() require('telescope.builtin').find_files()                end, { desc = '[f]iles' })
-kmap('telescope', 'n', '<leader>g.', function() require('telescope.builtin').oldfiles()                  end, { desc = 'recent Files' })
+kmap('telescope', 'n', '<leader>sf', function() require('telescope.builtin').find_files()                end, { desc = '[f]iles' })
+kmap('telescope', 'n', '<leader>s.', function() require('telescope.builtin').oldfiles()                  end, { desc = 'recent Files' })
 kmap('telescope', 'n', '<leader>sw', function() require('telescope.builtin').grep_string()               end, { desc = 'current [w]ord' })
 kmap('telescope', 'n', '<leader>sh', function() require('telescope.builtin').help_tags()                 end, { desc = '[h]elp' })
 kmap('telescope', 'n', '<leader>sk', function() require('telescope.builtin').keymaps()                   end, { desc = '[k]eymaps' })
 kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep()                 end, { desc = '[a]ll workspace' })
 kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume()                    end, { desc = '[r]esume' })
-kmap('telescope', 'n', '<leader>gn', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = '[n]eovim files' })
+kmap('telescope', 'n', '<leader>sn', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = '[n]eovim files' })
 kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
 
 -- toggle full screen
@@ -112,6 +112,7 @@ kmap('snacks', 'n', '<localleader>T', function() require('custom.terminal').togg
 
 -- [[ Git ]]
 kmap('snacks', 'n', '<localleader>g', function() require('snacks').lazygit.open() end, { desc = 'Toggle lazy[g]it' })
+kmap('snacks', 'n', '<leader>gb', function() require('snacks').git.blame_line() end, { desc = '[B]lame line' })
 
 -- [[ LSP ]]
 -- diagnostic
