@@ -39,7 +39,6 @@ return {
     hints = { enabled = true }, -- show hints like `<leader>aa to ask` in visual mode
     windows = {
       width = 50, -- 默认基于可用宽度的百分比
-      winborder = 'single', -- 设置窗口边框
       input = {
         height = 16, -- 垂直布局中输入窗口的高度
       },

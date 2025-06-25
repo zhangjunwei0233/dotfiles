@@ -175,6 +175,9 @@ kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
 -- use avante
 kmap('avante', { 'n', 'v' }, '<localleader>a', '<cmd>AvanteToggle<cr>', { desc = 'Toggle [A]I' })
 
+-- [[ Notifications ]]
+kmap('noice', 'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[N]otices'})
+
 -- [[ Plugins ]]
 kmap('lazy', 'n', '<leader>pp', '<cmd>Lazy<CR>', { desc = 'view [p]lugins' })
 kmap('lsp', 'n', '<leader>pl', '<cmd>checkhealth vim.lsp<CR>', { desc = 'check [l]sp' })
