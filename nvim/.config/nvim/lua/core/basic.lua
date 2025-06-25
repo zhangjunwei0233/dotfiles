@@ -41,7 +41,7 @@ vim.opt.breakindent = true
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 
-  if vim.fn.has('wsl') then
+  if vim.fn.has('wsl') == 1 then
     vim.cmd([[
       let g:clipboard = {
       \   'name': 'WslClipboard',
