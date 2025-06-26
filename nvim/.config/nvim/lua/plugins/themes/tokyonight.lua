@@ -9,7 +9,7 @@ return {
 
     on_colors = function(colors)
       -- set prettier floating windows
-      colors.bg_float = colors.bg
+      colors.bg_float = '#181922'
       colors.border_highlight = '#589ed7'
       -- set prettier fold lines
       colors.fg_gutter = colors.bg_highlight
