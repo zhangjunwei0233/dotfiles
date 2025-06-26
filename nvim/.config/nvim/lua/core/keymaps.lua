@@ -98,8 +98,9 @@ kmap('telescope', 'n', '<leader>sh', function() require('telescope.builtin').hel
 kmap('telescope', 'n', '<leader>sk', function() require('telescope.builtin').keymaps()                   end, { desc = '[k]eymaps' })
 kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep()                 end, { desc = '[a]ll workspace' })
 kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume()                    end, { desc = '[r]esume' })
-kmap('telescope', 'n', '<leader>sn', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = '[n]eovim files' })
+kmap('telescope', 'n', '<leader>sc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = '[n]eovim files' })
 kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
+kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[N]otices'})
 
 -- toggle full screen
 kmap('snacks', { 'n', 't' }, '<C-z>', function() require('custom.zoom-win')() end, { desc = 'Toggle window fullscreen' })
@@ -175,8 +176,6 @@ kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
 -- use avante
 kmap('avante', { 'n', 'v' }, '<localleader>a', '<cmd>AvanteToggle<cr>', { desc = 'Toggle [A]I' })
 
--- [[ Notifications ]]
-kmap('noice', 'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[N]otices'})
 
 -- [[ Plugins ]]
 kmap('lazy', 'n', '<leader>pp', '<cmd>Lazy<CR>', { desc = 'view [p]lugins' })
