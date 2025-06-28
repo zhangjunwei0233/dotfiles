@@ -175,6 +175,8 @@ kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
 -- kmap('codecompanion', 'v', '<leader>as', '<cmd>CodeCompanionChat Add<cr>', { desc = 'AI: [s]elect' })
 -- use avante
 kmap('avante', { 'n', 'v' }, '<localleader>a', '<cmd>AvanteToggle<cr>', { desc = 'Toggle [A]I' })
+-- use gemini-cli
+kmap('native', 'n', '<localleader><S-a>', function() require('snacks').terminal.toggle('gemini', { cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(), start_insert = true, auto_insert = false, auto_close = true, }) end, { desc = 'Run gemini in root terminal' })
 
 
 -- [[ Plugins ]]
