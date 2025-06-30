@@ -3,7 +3,7 @@
 --    1. all the usr configure functions and utils: "<leader>..."
 --    2. window and buffer navigation: "<C->"
 --      move-window: <C-hjkl>
---      move-buffer: <C-[]>
+--      move-buffer: <C-pn>
 --      delete_window: "<leader>wd"
 --      delete-buffer: "<leader>bd"
 --      zoom: <C-z>
@@ -66,8 +66,8 @@ kmap('native', 'n',           '<C-k>',      '<C-w>k', { desc = 'change to upper 
 kmap('native', 'n',           '<C-l>',      '<C-w>l', { desc = 'change to right window' })
 
 -- buffer operation
-kmap('bufferline', 'n',      '<C-[>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer'      })
-kmap('bufferline', 'n',      '<C-]>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer'      })
+kmap('bufferline', 'n',      '<C-p>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer'      })
+kmap('bufferline', 'n',      '<C-n>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer'      })
 kmap('bufferline', 'n', '<leader>bh',  '<cmd>BufferLineMovePrev<cr>', { desc = 'Move buffer prev' })
 kmap('bufferline', 'n', '<leader>bl',  '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
 kmap('snacks', 'n', '<localleader><S-q>', function() require('snacks').bufdelete() end, { desc = '[Q]uit buffer' })
@@ -174,9 +174,11 @@ kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
 -- kmap('codecompanion', { 'n', 'v' }, '<leader>aa', '<cmd>CodeCompanionActions<cr>', { desc = 'AI: [a]ctions' })
 -- kmap('codecompanion', 'v', '<leader>as', '<cmd>CodeCompanionChat Add<cr>', { desc = 'AI: [s]elect' })
 -- use avante
-kmap('avante', { 'n', 'v' }, '<localleader>a', '<cmd>AvanteToggle<cr>', { desc = 'Toggle [A]I' })
+-- kmap('avante', { 'n', 'v' }, '<localleader>a', '<cmd>AvanteToggle<cr>', { desc = 'Toggle [A]I' })
 -- use gemini-cli
-kmap('native', 'n', '<localleader><S-a>', function() require('snacks').terminal.toggle('gemini', { cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(), start_insert = true, auto_insert = false, auto_close = true, }) end, { desc = 'Run gemini in root terminal' })
+-- kmap('native', 'n', '<localleader>a', function() require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && gemini', { cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(), start_insert = true, auto_insert = false, auto_close = true, }) end, { desc = 'Run gemini in root terminal' })
+-- use claude-code
+kmap('native', 'n', '<localleader>a', function() require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && claude', { cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(), start_insert = true, auto_insert = false, auto_close = true, }) end, { desc = 'Run Claude in root terminal' })
 
 
 -- [[ Plugins ]]

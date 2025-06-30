@@ -54,7 +54,7 @@ for example, native module is loaded in `init.lua` while plugin modules are load
 
 2. window and buffer navigation: "<C-...>"
     - move-window: <C-hjkl>
-    - move-buffer: <C-[]>
+    - move-buffer: <C-np>
     - zoom-in window: <C-z>
 
 3. change window layout(such as term toggle): "<localleader>..."
