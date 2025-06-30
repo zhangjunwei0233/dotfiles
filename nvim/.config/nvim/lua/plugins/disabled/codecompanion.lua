@@ -1,6 +1,5 @@
 return {
   'olimorris/codecompanion.nvim',
-  enabled = false,
   event = 'VimEnter',
   dependencies = {
     'nvim-lua/plenary.nvim',

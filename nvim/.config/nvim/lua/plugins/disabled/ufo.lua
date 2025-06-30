@@ -4,7 +4,6 @@
 -- an antocmd is created to switch folding method to using lsp
 -- on LspAttach, see core.autocmd
 return {
-  enabled = false,
   'kevinhwang91/nvim-ufo',
   event = { 'BufReadPost', 'BufNewFile' },
   dependencies = { 'kevinhwang91/promise-async' },
