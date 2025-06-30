@@ -2,7 +2,9 @@
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('clangd')
 vim.lsp.enable('svlangserver')
-vim.lsp.enable('pylsp')
+-- chose one for python
+vim.lsp.enable('pylsp') -- feature-rich
+-- vim.lsp.enable('pyright') -- microsoft-default
 
 -- [[ setup native diagnostic config ]]
 -- See :help vim.diagnostic.Opts

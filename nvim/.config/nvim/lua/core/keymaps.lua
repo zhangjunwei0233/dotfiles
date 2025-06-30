@@ -186,6 +186,15 @@ kmap('lazy', 'n', '<leader>pp', '<cmd>Lazy<CR>', { desc = 'view [p]lugins' })
 kmap('lsp', 'n', '<leader>pl', '<cmd>checkhealth vim.lsp<CR>', { desc = 'check [l]sp' })
 kmap('mason', 'n', '<leader>pm', '<cmd>Mason<CR>', { desc = 'open [m]ason' })
 kmap('conform', 'n', '<leader>pc', '<cmd>ConformInfo<CR>', { desc = 'check [c]onform' })
+kmap('nvim-lint', 'n', '<leader>pi', function() 
+  local lint = require('lint')
+  local linters = lint.get_running()
+  if #linters == 0 then
+    vim.notify('No linters running for this buffer', vim.log.levels.INFO)
+  else
+    vim.notify('Running linters: ' .. table.concat(linters, ', '), vim.log.levels.INFO)
+  end
+end, { desc = 'check l[i]nt info' })
 
 -- [[ Miscellaneous ]]
 -- Clear highlights on search when pressing <Esc> in normal mode

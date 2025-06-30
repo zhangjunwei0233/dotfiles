@@ -6,6 +6,7 @@ return {
     formatters_by_ft = {
       lua = { 'stylua' },
       tex = { 'tex-fmt' },
+      python = { 'ruff_format', 'ruff_organize_imports' },
     },
     formatters = {
       -- configure formatter behaviors here
