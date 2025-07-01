@@ -4,11 +4,11 @@
 --    2. window and buffer navigation: "<C->"
 --      move-window: <C-hjkl>
 --      move-buffer: <C-pn>
---      delete_window: "<leader>wd"
---      delete-buffer: "<leader>bd"
 --      zoom: <C-z>
 --    3. change layout(such as term toggle): ";..."
 --      split: ";-" and ";\"
+--      delete_window: ";q"
+--      delete-buffer: ";<S-q>"
 --      toggle_in_split: ";<lowerCaseLetter>"
 --      toggle_in_float: ";<UpperCaseLetter>"
 --]]
@@ -113,7 +113,9 @@ kmap('snacks', 'n', '<localleader>T', function() require('custom.terminal').togg
 
 -- [[ Git ]]
 kmap('snacks', 'n', '<localleader>g', function() require('snacks').lazygit.open() end, { desc = 'Toggle lazy[g]it' })
-kmap('snacks', 'n', '<leader>gb', function() require('snacks').git.blame_line() end, { desc = '[B]lame line' })
+kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame<CR>', { desc = 'Git toggle [B]lame' })
+kmap('gitsigns', 'n', '<leader>gl', '<Cmd>Gitsigns blame_line<CR>', { desc = 'Git blame [L]ine' })
+kmap('gitsigns', 'n', '<leader>gd', function() require('custom.git').toggle_diff() end, { desc = 'Git toggle [D]iff' })
 
 -- [[ LSP ]]
 -- diagnostic
