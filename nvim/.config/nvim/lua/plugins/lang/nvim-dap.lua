@@ -6,7 +6,8 @@ return {
     config = function()
       local dap = require('dap')
 
-      -- configure adapters
+      -- [configure adapters]
+      -- copied from nvim-dap -> Debug Adapter Installation
       dap.adapters.cppdbg = { -- using vscode-cpptools
         id = 'cppdbg',
         type = 'executable',
@@ -17,7 +18,7 @@ return {
       -- filetype configurations
       dap.configurations.cpp = {
         {
-          name = 'Launch file',
+          name = 'Launch file (OpenDebugAD7 from cpptools)',
           type = 'cppdbg',
           request = 'launch',
           program = function()
@@ -34,7 +35,7 @@ return {
           },
         },
         {
-          name = 'Attach to gdbserver :1234',
+          name = 'Attach to local gdbserver :1234',
           type = 'cppdbg',
           request = 'launch',
           MIMode = 'gdb',
@@ -87,30 +88,19 @@ return {
           },
           {
             position = 'bottom',
-            size = 0.4,
+            size = 0.2,
             elements = {
-              { id = 'repl', size = 0.3 },
-              { id = 'console', size = 0.7 },
+              { id = 'repl', size = 0.4 },
+              { id = 'console', size = 0.6 },
             },
           },
         },
       })
 
       -- Custom breakpoint icons
-      vim.fn.sign_define(
-        'DapBreakpoint',
-        { text = '', texthl = 'DapBreakpoint', linehl = '', numhl = 'DapBreakpoint' }
-      )
-      vim.fn.sign_define('DapBreakpointCondition', {
-        text = '',
-        texthl = 'DapBreakpointCondition',
-        linehl = 'DapBreakpointCondition',
-        numhl = 'DapBreakpointCondition',
-      })
-      vim.fn.sign_define(
-        'DapStopped',
-        { text = ' ', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' }
-      )
+      vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Number', linehl = '', numhl = 'Number' })
+      vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'Number', linehl = '', numhl = 'Number' })
+      vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'String', linehl = '', numhl = 'String' })
 
       -- setup keymaps
       local keymaps = require('core.keymaps')['nvim-dap']
@@ -119,6 +109,18 @@ return {
       else
         vim.notify('nvim-dap loaded without keymap\n', vim.log.levels.WARN)
       end
+    end,
+  },
+  { -- python debugger could be specifically configured using this plugin
+    'mfussenegger/nvim-dap-python',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'rcarriga/nvim-dap-ui',
+    },
+    ft = { 'python' },
+    config = function()
+      local path = '~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'
+      require('dap-python').setup(path)
     end,
   },
 }

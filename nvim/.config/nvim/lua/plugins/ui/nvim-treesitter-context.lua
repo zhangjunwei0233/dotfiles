@@ -18,5 +18,8 @@ return {
   },
   config = function(_, opts)
     require('treesitter-context').setup(opts)
+
+    -- set pretty linenr color
+    vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'CursorLineFold' })
   end,
 }
