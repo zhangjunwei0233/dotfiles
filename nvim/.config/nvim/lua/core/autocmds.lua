@@ -12,14 +12,25 @@ M.native = function()
     end,
   })
 
+  -- [[ Highlight current line number differently ]]
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    desc = 'Set custom line number colors',
+    group = vim.api.nvim_create_augroup('custom-line-numbers', { clear = true }),
+    callback = function()
+      vim.api.nvim_set_hl(0, 'LineNr', { link = 'CursorLineNr' })
+    end,
+  })
+  -- Apply colors immediately
+  vim.api.nvim_set_hl(0, 'LineNr', { link = 'CursorLineNr' })
+
   -- [[ change *.v files to filetype 'verilog' ]]
   vim.api.nvim_create_autocmd('FileType', {
+    desc = 'auto set v filetype to verilog',
     pattern = 'v',
     group = vim.api.nvim_create_augroup('verilog_ft', { clear = true }),
     callback = function()
       vim.bo.filetype = 'verilog'
     end,
-    desc = 'auto set v filetype to verilog',
   })
 end
 
@@ -27,7 +38,7 @@ M.foldings = function()
   -- [[ use lsp to fold code ]]
   vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'switch to lsp to provide folding method',
-    group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+    group = vim.api.nvim_create_augroup('lsp-fold', { clear = true }),
     callback = function(event)
       local client = vim.lsp.get_client_by_id(event.data.client_id)
       if client and client:supports_method('textDocument/foldingRange') then
@@ -39,9 +50,10 @@ M.foldings = function()
 end
 
 M.telescope = function()
-  -- [[ Fix telescope border display ]]
   vim.api.nvim_create_autocmd('User', {
     pattern = 'TelescopeFindPre',
+    desc = 'Fix telescope border display',
+    group = vim.api.nvim_create_augroup('telescope-border-display', { clear = true }),
     callback = function()
       vim.opt_local.winborder = 'none'
       vim.api.nvim_create_autocmd('WinLeave', {
@@ -55,9 +67,10 @@ M.telescope = function()
 end
 
 M.lspsaga = function()
-  -- [[ quit sagaoutline one leaving sagaoutline window ]]
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'sagaoutline',
+    desc = 'quit sagaoutline one leaving sagaoutline window',
+    group = vim.api.nvim_create_augroup('lspsaga-outline-autoquit', { clear = true }),
     callback = function()
       vim.api.nvim_create_autocmd('WinLeave', {
         once = true,
@@ -65,6 +78,72 @@ M.lspsaga = function()
           vim.schedule(function() -- use schedule to make sure all the previews are also closed
             vim.cmd('Lspsaga outline') -- close outline
           end)
+        end,
+      })
+    end,
+  })
+end
+
+M.lsp = function()
+  vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'lsp setups',
+    group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+    callback = function(event)
+      -- obtain LSP client
+      local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+      -- [diagnostics]
+      -- See :help vim.diagnostic.Opts
+      vim.diagnostic.config({
+        severity_sort = true,
+        float = { source = 'if_many' },
+        underline = { severity = vim.diagnostic.severity.ERROR },
+        signs = vim.g.have_nerd_font and {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '󰅚 ',
+            [vim.diagnostic.severity.WARN] = '󰀪 ',
+            [vim.diagnostic.severity.INFO] = '󰋽 ',
+            [vim.diagnostic.severity.HINT] = '󰌶 ',
+          },
+        } or {},
+        virtual_text = {
+          source = 'if_many',
+          spacing = 2,
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+          end,
+        },
+      })
+
+      -- [highlight words under cursor]
+      if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        local highlight_group = vim.api.nvim_create_augroup('lsp-highlight', { clear = true })
+
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          buffer = event.buf,
+          group = highlight_group,
+          callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+          buffer = event.buf,
+          group = highlight_group,
+          callback = vim.lsp.buf.clear_references,
+        })
+      end
+
+      -- [offloads upon detachment]
+      vim.api.nvim_create_autocmd('LspDetach', {
+        group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+        callback = function(event)
+          vim.lsp.buf.clear_references()
+          vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = event.buf })
         end,
       })
     end,
