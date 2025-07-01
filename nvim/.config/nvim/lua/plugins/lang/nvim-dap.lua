@@ -6,14 +6,16 @@ return {
     config = function()
       local dap = require('dap')
 
-      -- [configure adapters]
+      -- [[ configure adapters ]]
       -- copied from nvim-dap -> Debug Adapter Installation
+      -- [cpptools]: for cpp, c, rust
       dap.adapters.cppdbg = { -- using vscode-cpptools
         id = 'cppdbg',
         type = 'executable',
         command = 'OpenDebugAD7', -- or if not in $PATH: "/absolute/path/to/OpenDebugAD7"
         options = { detached = false },
       }
+      -- [debugpy]: for python. configured using extra plugin at the bottom of this file
 
       -- filetype configurations
       dap.configurations.cpp = {
