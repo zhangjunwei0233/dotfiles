@@ -1,3 +1,4 @@
+-- this plugin is replaced by diffview
 return {
   'akinsho/git-conflict.nvim',
   version = '*',

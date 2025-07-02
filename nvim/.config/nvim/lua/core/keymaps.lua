@@ -112,10 +112,17 @@ kmap('snacks', 'n', '<localleader>t', function() require('custom.terminal').togg
 kmap('snacks', 'n', '<localleader>T', function() require('custom.terminal').toggle_float_term() end, { desc = 'Create floating [T]erminal' })
 
 -- [[ Git ]]
+-- lazygit
 kmap('snacks', 'n', '<localleader>g', function() require('snacks').lazygit.open() end, { desc = 'Toggle lazy[g]it' })
-kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame<CR>', { desc = '[B]lame' })
-kmap('gitsigns', 'n', '<leader>gl', '<Cmd>Gitsigns blame_line<CR>', { desc = 'blame [L]ine' })
-kmap('gitsigns', 'n', '<leader>gd', function() require('custom.git').toggle_diff() end, { desc = 'toggle [D]iff' })
+-- blame
+kmap('diffview', 'n', '<leader>gh', '<Cmd>DiffviewFileHistory %<CR>', { desc = 'Git: file [History]' })
+-- kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame<CR>', { desc = '[B]lame' })
+kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame_line<CR>', { desc = 'Git: [B]lame line' })
+-- diff
+-- kmap('gitsigns', 'n', '<leader>gd', function() require('custom.git').toggle_diff() end, { desc = 'toggle [D]iff' })
+kmap('diffview', 'n', '<leader>gd','<Cmd>DiffviewOpen<CR>', { desc = 'Git: [D]iff' }) -- open in conflicted files to solve conflict
+-- quit
+kmap('diffview', 'n', '<leader>gc', '<Cmd>DiffviewClose<CR>', { desc = 'Git: [C]lose git tab' })
 
 -- [[ LSP ]]
 -- diagnostic
