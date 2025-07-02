@@ -2,9 +2,14 @@
 return {
   'saghen/blink.cmp',
   version = '1.*',
+  event = 'VeryLazy',
   dependencies = {
     'rafamadriz/friendly-snippets',
-    'xzbdmw/colorful-menu.nvim', -- enable treesitter hl in menu
+    {
+      -- enable treesitter hl in menu
+      'xzbdmw/colorful-menu.nvim',
+      opts = {},
+    },
     {
       -- a compatable layer between nvim-cmp and blink-cmp
       -- used to add avante sources to blink-cmp
@@ -15,7 +20,6 @@ return {
       opts = {},
     },
   },
-  event = 'VeryLazy',
   opts = {
     completion = {
       menu = {
@@ -28,7 +32,16 @@ return {
                 return require('colorful-menu').blink_components_text(ctx)
               end,
               highlight = function(ctx)
-                return require('colorful-menu').blink_components_highlight(ctx)
+                local highlights = {}
+                local highlights_info = require('colorful-menu').blink_highlights(ctx)
+                if highlights_info ~= nil then
+                  highlights = highlights_info.highlights
+                end
+                -- Commented out to prevent match highlighting from overriding treesitter colors
+                -- for _, idx in ipairs(ctx.label_matched_indices) do
+                --   table.insert(highlights, { idx, idx + 1, group = "BlinkCmpLabelMatch" })
+                -- end
+                return highlights
               end,
             },
           },

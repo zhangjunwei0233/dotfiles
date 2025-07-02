@@ -115,7 +115,7 @@ kmap('snacks', 'n', '<localleader>T', function() require('custom.terminal').togg
 -- lazygit
 kmap('snacks', 'n', '<localleader>g', function() require('snacks').lazygit.open() end, { desc = 'Toggle lazy[g]it' })
 -- blame
-kmap('diffview', 'n', '<leader>gh', '<Cmd>DiffviewFileHistory %<CR>', { desc = 'Git: file [History]' })
+kmap('diffview', 'n', '<leader>gh', '<Cmd>DiffviewFileHistory %<CR>', { desc = 'Git: file [H]istory' })
 -- kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame<CR>', { desc = '[B]lame' })
 kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame_line<CR>', { desc = 'Git: [B]lame line' })
 -- diff
