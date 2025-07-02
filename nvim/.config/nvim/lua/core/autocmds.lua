@@ -23,13 +23,18 @@ M.native = function()
   -- Apply colors immediately
   vim.api.nvim_set_hl(0, 'LineNr', { link = 'CursorLineNr' })
 
-  -- [[ change *.v files to filetype 'verilog' ]]
+  -- [[ verilog filetype config ]]
+  local group_verilog_ft = vim.api.nvim_create_augroup('verilog_ft', { clear = true })
+  -- change *.v files to filetype 'verilog' and set tab settings
   vim.api.nvim_create_autocmd('FileType', {
-    desc = 'auto set v filetype to verilog',
-    pattern = 'v',
-    group = vim.api.nvim_create_augroup('verilog_ft', { clear = true }),
+    desc = 'auto set v filetype to verilog and configure tab settings',
+    pattern = { '*.v', 'verilog' },
+    group = group_verilog_ft,
     callback = function()
       vim.bo.filetype = 'verilog'
+      vim.bo.tabstop = 8
+      vim.bo.shiftwidth = 8
+      vim.bo.expandtab = true
     end,
   })
 end

@@ -92,15 +92,15 @@ kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]
 -- search and goto files (<leader>s, <leader>g)
 -- See `:help telescope.builtin`
 kmap('telescope', 'n', '<leader>sf', function() require('telescope.builtin').find_files()                end, { desc = '[f]iles' })
-kmap('telescope', 'n', '<leader>s.', function() require('telescope.builtin').oldfiles()                  end, { desc = 'recent Files' })
-kmap('telescope', 'n', '<leader>sw', function() require('telescope.builtin').grep_string()               end, { desc = 'current [w]ord' })
+kmap('telescope', 'n', '<leader>s.', function() require('telescope.builtin').oldfiles()                  end, { desc = 'recent files' })
+kmap('telescope', 'n', '<leader>sw', function() require('telescope.builtin').grep_string()               end, { desc = '[w]ord under cursor' })
 kmap('telescope', 'n', '<leader>sh', function() require('telescope.builtin').help_tags()                 end, { desc = '[h]elp' })
 kmap('telescope', 'n', '<leader>sk', function() require('telescope.builtin').keymaps()                   end, { desc = '[k]eymaps' })
 kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep()                 end, { desc = '[a]ll workspace' })
 kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume()                    end, { desc = '[r]esume' })
-kmap('telescope', 'n', '<leader>sc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = '[n]eovim files' })
+kmap('telescope', 'n', '<leader>sc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = 'nvim [c]onfig files' })
 kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
-kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[N]otices'})
+kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
 
 -- toggle full screen
 kmap('snacks', { 'n', 't' }, '<C-z>', function() require('custom.zoom-win')() end, { desc = 'Toggle window fullscreen' })
@@ -108,14 +108,14 @@ kmap('snacks', { 'n', 't' }, '<C-z>', function() require('custom.zoom-win')() en
 -- [[ Terminal <leader>t ]]
 kmap('snacks', 'n', '<leader>tt', function() require('custom.terminal').create_term_cur() end, { desc = 'Create terminal (current dir)' })
 kmap('snacks', 'n', '<leader>tT', function() require('custom.terminal').create_term_root() end, { desc = 'Create terminal (workspace root)' })
-kmap('snacks', 'n', '<localleader>t', function() require('custom.terminal').toggle_opened_term() end, { desc = 'Toggle [t]erminals' })
+kmap('snacks', 'n', '<localleader>t', function() require('custom.terminal').toggle_opened_term() end, { desc = 'Toggle created [t]erminals' })
 kmap('snacks', 'n', '<localleader>T', function() require('custom.terminal').toggle_float_term() end, { desc = 'Create floating [T]erminal' })
 
 -- [[ Git ]]
 kmap('snacks', 'n', '<localleader>g', function() require('snacks').lazygit.open() end, { desc = 'Toggle lazy[g]it' })
-kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame<CR>', { desc = 'Git [B]lame' })
-kmap('gitsigns', 'n', '<leader>gl', '<Cmd>Gitsigns blame_line<CR>', { desc = 'Git blame [L]ine' })
-kmap('gitsigns', 'n', '<leader>gd', function() require('custom.git').toggle_diff() end, { desc = 'Git toggle [D]iff' })
+kmap('gitsigns', 'n', '<leader>gb', '<Cmd>Gitsigns blame<CR>', { desc = '[B]lame' })
+kmap('gitsigns', 'n', '<leader>gl', '<Cmd>Gitsigns blame_line<CR>', { desc = 'blame [L]ine' })
+kmap('gitsigns', 'n', '<leader>gd', function() require('custom.git').toggle_diff() end, { desc = 'toggle [D]iff' })
 
 -- [[ LSP ]]
 -- diagnostic
@@ -123,7 +123,7 @@ kmap('lsp',     'n', '<leader>ll', vim.diagnostic.setloclist,               { de
 kmap('lspsaga', 'n', '<leader>ln', '<Cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Lsp: [n]ext diagnostic' })
 kmap('lspsaga', 'n', '<leader>lp', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Lsp: [p]rev diagnostic' })
 -- display info
-kmap('lspsaga', 'n', '<leader>li', '<Cmd>Lspsaga hover_doc<CR>',   { desc = 'Lsp: hover [i]nformation' })
+-- kmap('lspsaga', 'n', '<leader>li', '<Cmd>Lspsaga hover_doc<CR>',   { desc = 'Lsp: hover [i]nformation' }) -- use <S-k> instead
 kmap('lspsaga', 'n', '<localleader>s', '<Cmd>Lspsaga outline<CR>', { desc = 'Toggle file [s]tructure' })
 -- search and jump
 kmap('lspsaga', 'n', '<leader>ld', '<Cmd>Lspsaga goto_definition<CR>', { desc = 'Lsp: [d]efinition' }) --  To jump back, press <C-t>.
