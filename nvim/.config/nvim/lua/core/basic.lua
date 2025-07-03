@@ -40,8 +40,6 @@ vim.opt.breakindent = true
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-
   if vim.fn.has('wsl') == 1 then
     vim.cmd([[
       let g:clipboard = {
@@ -57,6 +55,8 @@ vim.schedule(function()
       \   'cache_enabled': 0,
       \ }
     ]])
+  else
+    vim.opt.clipboard = 'unnamedplus'
   end
 end)
 
