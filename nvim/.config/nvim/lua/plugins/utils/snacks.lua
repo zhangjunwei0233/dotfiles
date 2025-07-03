@@ -55,7 +55,7 @@ return {
       },
     },
     statuscolumn = {
-      left = { 'git', 'mark', 'sign' },
+      left = { 'mark', 'sign', 'git' },
       right = { 'fold' },
       folds = {
         open = true, -- show open fold icons
