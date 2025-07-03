@@ -16,6 +16,11 @@ return {
       -- set clearer window seperators
       colors.border = colors.comment
     end,
+    on_highlights = function(hl, c)
+      hl.LineNr = { bold = true, fg = hl.CursorLineNr.fg }
+      hl.LineNrAbove = { fg = '#3b4261' }
+      hl.LineNrBelow = { fg = '#3b4261' }
+    end,
   },
   config = function(_, opts)
     require('tokyonight').setup(opts)

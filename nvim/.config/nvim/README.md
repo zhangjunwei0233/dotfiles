@@ -24,20 +24,18 @@ You can do this through mason (a Lsp package manager), type `<Space>pm` in norma
 
 ## config structure
 
-**basic setups** are stored under `/lua/core` folder, which includes:
-
-- vim options and global variables (in basic.lua)
-- all the custom keymaps (in keymaps.lua)
-- all the custom autocmds (in autocmds.lua)
-
-Advanced functionalities could be reached through either **advanced setup** or **plugins**
-
-- native setup is stored under `/lua/custom` folder
-- plugins is stored under `/lua/plugins` folder, which contains:
-    - lang: language relevant setup, such as formatter, lsp functions, ...
-    - themes: color themes
-    - ui: all plugins that improves visiual display
-    - utils: all plugins that improves operation, like integrations with other tools or optimization of native operations
+- **init.lua**: Entry point that loads basic setup, custom functionality, and plugins
+- **lua/core/**: Contains fundamental Neovim configuration
+  - `basic.lua`: Vim options, global variables, and basic settings
+  - `keymaps.lua`: Keymap definitions organized by plugin/functionality
+  - `autocmds.lua`: Auto-commands for different contexts
+- **lua/custom/**: Native Lua implementations of advanced features (folding, zoom-window, ...)
+- **lua/plugins/**: Plugin configurations organized by category
+  - `lang/`: Language-specific tools (LSP, formatting, debugging)
+  - `themes/`: Color schemes and theming
+  - `ui/`: User interface enhancements
+  - `utils/`: Utility plugins and integrations
+  - `disabled/`: Temporarily disabled plugin configurations
 
 On startup, nvim loads `init.lua`, in which it loads **basic setup**, **advanced setup** and **plugins**
 
@@ -57,8 +55,8 @@ for example, native module is loaded in `init.lua` while plugin modules are load
     - move-buffer: <C-np>
     - zoom-in window: <C-z>
 
-3. change window layout(such as term toggle): "<localleader>..."
-    - split: "<localleader>-" and "<localleader>\"
+3. window layout changes and toggles: "<localleader>..."
+    - split: "<localleader>-" and "<localleader>\\"
     - delete_window: "<localleader>q"
     - delete-buffer: "<localleader><S-q>"
     - toggle_in_split: "<localleader><lowerCaseLetter>"
@@ -68,18 +66,17 @@ more speicific keymaps could been seen via plugin `which-key`, just type <leader
 
 ## Extend the config
 
-to install a new lsp:
+### Adding New LSP Servers
+1. Create configuration file in `/lsp/` directory (e.g., `myserver.lua`)
+2. Enable the server in `lua/custom/lsp.lua` using `vim.lsp.enable('myserver')`
+3. Install the server binary through Mason (`<Space>pm`)
 
-1. add lsp config file in ${CONFIG_HOME}/lsp (this is front end)
-2. enable it in ${CONFIG_HOME}/lua/custom/lsp.lua
-3. download it through mason (this is back end)
+### Adding New Formatters
+1. Configure formatter in `lua/plugins/lang/conform.lua` under `formatters_by_ft`
+2. Install formatter binary through Mason
+3. Custom formatter behavior can be defined in the `formatters` table
 
-to install a formatter:
-
-1. add formatter config in ${CONFIG_HOME}/lua/plugins/lang/conform.lua (this is front end)
-2. download it through mason (this is back end)
-
-to add a new plugin:
-
-1. create a .lua config file under ${CONFIG_HOME}/lua/plugins
-2. add keymaps in ${CONFIG_HOME}/lua/core/keymaps and require it in the config file
+### Adding New Plugins
+1. Create `.lua` configuration file in appropriate `lua/plugins/` subdirectory
+2. Add keymaps in `lua/core/keymaps.lua` using the `kmap()` function
+3. Load keymaps in the plugin's `config` function

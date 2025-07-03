@@ -12,17 +12,6 @@ M.native = function()
     end,
   })
 
-  -- [[ Highlight current line number differently ]]
-  vim.api.nvim_create_autocmd('ColorScheme', {
-    desc = 'Set custom line number colors',
-    group = vim.api.nvim_create_augroup('custom-line-numbers', { clear = true }),
-    callback = function()
-      vim.api.nvim_set_hl(0, 'LineNr', { link = 'CursorLineNr' })
-    end,
-  })
-  -- Apply colors immediately
-  vim.api.nvim_set_hl(0, 'LineNr', { link = 'CursorLineNr' })
-
   -- [[ verilog filetype config ]]
   local group_verilog_ft = vim.api.nvim_create_augroup('verilog_ft', { clear = true })
   vim.api.nvim_create_autocmd('FileType', {
