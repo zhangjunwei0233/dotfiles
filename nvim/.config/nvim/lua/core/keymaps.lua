@@ -101,6 +101,7 @@ kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').res
 kmap('telescope', 'n', '<leader>sc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = 'nvim [c]onfig files' })
 kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
 kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
+kmap('todo-comments', 'n', '<leader>st', '<Cmd>TodoTelescope<CR>', { desc = '[t]odo-comments'})
 
 -- toggle full screen
 kmap('snacks', { 'n', 't' }, '<C-z>', function() require('custom.zoom-win')() end, { desc = 'Toggle window fullscreen' })

@@ -1,6 +1,7 @@
 -- [[ better navigation using 'f' and 'F' ]]
 return {
-  'phaazon/hop.nvim',
+  'smoka7/hop.nvim',
+  version = '*',
   opts = {
     keys = 'fjdklseitovxqpygbzhcuran',
     quit_key = '<ESC>',
