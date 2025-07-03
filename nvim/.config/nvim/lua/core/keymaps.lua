@@ -131,8 +131,8 @@ kmap('lsp',     'n', '<leader>ll', vim.diagnostic.setloclist,               { de
 kmap('lspsaga', 'n', '<leader>ln', '<Cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Lsp: [n]ext diagnostic' })
 kmap('lspsaga', 'n', '<leader>lp', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Lsp: [p]rev diagnostic' })
 -- display info
--- kmap('lspsaga', 'n', '<leader>li', '<Cmd>Lspsaga hover_doc<CR>',   { desc = 'Lsp: hover [i]nformation' }) -- use <S-k> instead
-kmap('lspsaga', 'n', '<localleader>s', '<Cmd>Lspsaga outline<CR>', { desc = 'Toggle file [s]tructure' })
+-- kmap('lspsaga', 'n', '<localleader>s', '<Cmd>Lspsaga outline<CR>', { desc = 'Toggle file [s]tructure' })
+kmap('outline', 'n', '<localleader>s', '<Cmd>Outline<CR>', { desc = 'Toggle file [s]tructure' })
 -- search and jump
 kmap('lspsaga', 'n', '<leader>ld', '<Cmd>Lspsaga goto_definition<CR>', { desc = 'Lsp: [d]efinition' }) --  To jump back, press <C-t>.
 kmap('lspsaga', 'n', '<leader>lv', '<Cmd>Lspsaga peek_definition<CR>', { desc = 'Lsp: [v]iew definition' })

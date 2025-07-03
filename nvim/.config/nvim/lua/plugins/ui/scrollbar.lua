@@ -128,6 +128,7 @@ return {
       'TelescopePrompt',
       'neo-tree',
       'snacks_terminal',
+      'Outline',
     },
     autocmd = {
       render = {
