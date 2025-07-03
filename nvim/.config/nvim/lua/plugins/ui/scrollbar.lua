@@ -23,8 +23,9 @@ return {
     },
     marks = {
       Cursor = {
-        text = '•',
-        priority = 0,
+        -- text = '•',
+        text = ' ',
+        priority = 8,
         gui = nil,
         color = nil,
         cterm = nil,
