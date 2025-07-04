@@ -18,11 +18,6 @@ return {
     })
 
     -- load keymaps
-    local keymaps = require('core.keymaps').diffview
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('diffview loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('diffview')
   end,
 }

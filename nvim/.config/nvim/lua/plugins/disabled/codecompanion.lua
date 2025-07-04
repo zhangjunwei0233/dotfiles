@@ -25,11 +25,6 @@ return {
     require('codecompanion').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').codecompanion
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('codecompanion loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('codecompanion')
   end,
 }

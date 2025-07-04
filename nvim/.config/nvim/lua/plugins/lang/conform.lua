@@ -71,11 +71,6 @@ return {
     })
 
     -- load keymaps
-    local keymaps = require('core.keymaps').conform
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('conform loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('conform')
   end,
 }

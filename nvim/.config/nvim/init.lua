@@ -5,7 +5,7 @@ require('core.basic')
 --
 -- to install a new lsp:
 -- 1. add lsp config file in ${CONFIG_HOME}/lsp (this is front end)
--- 2. enable it in ${CONFIG_HOME}/lua/core/lsp.lua
+-- 2. enable it in ${CONFIG_HOME}/lua/custom/lsp.lua
 -- 3. download it through mason (this is back end)
 --
 -- to install a formatter:
@@ -21,15 +21,7 @@ require('custom.foldings')
 require('plugins.lazy')
 
 -- [[ Load keymaps for native ]]
-local keymaps = require('core.keymaps').native
-if keymaps then
-  keymaps()
-else
-  vim.notify('no keymaps setup for native\n', vim.log.levels.WARN)
-end
+require('core.utils').load_plugin_keymaps('native')
 
 -- [[ load autocmds for native ]]
-local autocmds = require('core.autocmds').native
-if autocmds then
-  autocmds()
-end
+require('core.utils').load_plugin_autocmds('native')

@@ -35,11 +35,6 @@ return {
     require('noice').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').noice
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('noice loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('noice')
   end,
 }

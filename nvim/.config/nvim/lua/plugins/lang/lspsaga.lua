@@ -40,17 +40,9 @@ return {
     require('lspsaga').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').lspsaga
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('lspsaga loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('lspsaga')
 
     -- load autocmds
-    local autocmds = require('core.autocmds').lspsaga
-    if autocmds then
-      autocmds()
-    end
+    require('core.utils').load_plugin_autocmds('lspsaga')
   end,
 }

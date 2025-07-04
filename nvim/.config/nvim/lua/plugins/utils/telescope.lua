@@ -31,17 +31,9 @@ return {
     pcall(require('telescope').load_extension, 'ui-select')
 
     -- load keymaps
-    local keymaps = require('core.keymaps').telescope
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('telescope loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('telescope')
 
     -- load autocmds
-    local autocmds = require('core.autocmds').telescope
-    if autocmds then
-      autocmds()
-    end
+    require('core.utils').load_plugin_autocmds('telescope')
   end,
 }

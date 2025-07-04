@@ -7,11 +7,6 @@ return {
     require('mason').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').mason
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('mason loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('mason')
   end,
 }

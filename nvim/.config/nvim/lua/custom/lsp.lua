@@ -1,22 +1,25 @@
 -- [[ enable LSP before loading plugins ]]
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('clangd')
-vim.lsp.enable('svlangserver')
--- below are for python
-vim.lsp.enable('pylsp') -- feature-rich-lsp
--- vim.lsp.enable('pyright') -- microsoft-default-lsp
--- vim.lsp.enable('ruff') -- linter and formatter
+
+-- LSP servers to enable
+local lsp_servers = {
+  'lua_ls',
+  'clangd',
+  'svlangserver',
+  'pylsp', -- feature-rich-lsp
+  -- 'pyright', -- microsoft-default-lsp
+  -- 'ruff',    -- linter and formatter
+}
+
+-- Enable LSP servers with error handling
+for _, server in ipairs(lsp_servers) do
+  local ok, err = pcall(vim.lsp.enable, server)
+  if not ok then
+    vim.notify(string.format('Failed to enable LSP server "%s": %s', server, err), vim.log.levels.WARN)
+  end
+end
 
 -- [[ load autocmds ]]
-local autocmds = require('core.autocmds').lsp
-if autocmds then
-  autocmds()
-end
+require('core.utils').load_plugin_autocmds('lsp')
 
 -- [[ load keymaps ]]
-local keymaps = require('core.keymaps').lsp
-if keymaps then
-  keymaps()
-else
-  vim.notify('lsp loaded without keymap\n', vim.log.levels.WARN)
-end
+require('core.utils').load_plugin_keymaps('lsp')

@@ -1,4 +1,4 @@
--- [[ Termianl management using snacks_terminal ]]
+-- [[ Terminal management using snacks_terminal ]]
 local M = {}
 
 -- Table to track non-floating terminals

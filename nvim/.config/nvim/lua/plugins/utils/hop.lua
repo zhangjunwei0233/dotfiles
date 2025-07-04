@@ -12,11 +12,6 @@ return {
     require('hop').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').hop
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('hop loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('hop')
   end,
 }

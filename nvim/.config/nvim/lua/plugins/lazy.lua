@@ -20,9 +20,4 @@ require('lazy').setup({
 })
 
 -- [[ load keymaps ]]
-local keymaps = require('core.keymaps').lazy
-if keymaps then
-  keymaps()
-else
-  vim.notify('lazy.nvim loaded without keymap\n', vim.log.levels.WARN)
-end
+require('core.utils').load_plugin_keymaps('lazy')

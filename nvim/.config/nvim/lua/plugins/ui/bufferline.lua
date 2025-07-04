@@ -38,11 +38,6 @@ return {
     require('bufferline').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').bufferline
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('bufferline loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('bufferline')
   end,
 }

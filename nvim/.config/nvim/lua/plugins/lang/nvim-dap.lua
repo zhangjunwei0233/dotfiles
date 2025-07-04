@@ -121,8 +121,12 @@ return {
     },
     ft = { 'python' },
     config = function()
-      local path = '~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'
-      require('dap-python').setup(path)
+      local path = vim.fn.expand('~/.local/share/nvim/mason/packages/debugpy/venv/bin/python')
+      if vim.fn.executable(path) == 1 then
+        require('dap-python').setup(path)
+      else
+        vim.notify('debugpy not found at ' .. path .. ', please install via Mason', vim.log.levels.WARN)
+      end
     end,
   },
 }

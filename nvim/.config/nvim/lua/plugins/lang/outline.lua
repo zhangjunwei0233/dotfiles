@@ -11,11 +11,6 @@ return {
     require('outline').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').outline
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('outline loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('outline')
   end,
 }

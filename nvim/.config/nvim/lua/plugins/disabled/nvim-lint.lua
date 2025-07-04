@@ -21,11 +21,6 @@ return {
     })
 
     -- load keymaps
-    local keymaps = require('core.keymaps')['nvim-lint']
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('nvim-lint loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('nvim-lint')
   end,
 }

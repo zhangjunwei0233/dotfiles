@@ -14,11 +14,6 @@ return {
     require('gitsigns').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').gitsigns
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('gitsigns loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('gitsigns')
   end,
 }

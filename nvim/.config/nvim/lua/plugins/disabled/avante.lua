@@ -89,11 +89,6 @@ return {
     require('avante').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps').avante
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('avante loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('avante')
   end,
 }

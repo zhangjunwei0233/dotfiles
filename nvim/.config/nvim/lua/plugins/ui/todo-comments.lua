@@ -3,7 +3,6 @@ return {
   'folke/todo-comments.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
   opts = {
-    {
       signs = true, -- show icons in the signs column
       sign_priority = 8, -- sign priority
       -- keywords recognized as todo comments
@@ -66,17 +65,11 @@ return {
         pattern = [[\b(KEYWORDS):]], -- ripgrep regex
         -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
       },
-    },
   },
   config = function(_, opts)
     require('todo-comments').setup(opts)
 
     -- load keymaps
-    local keymaps = require('core.keymaps')['todo-comments']
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('todo-comments loaded without keymap\n', vim.log.levels.WARN)
-    end
+    require('core.utils').load_plugin_keymaps('todo-comments')
   end,
 }
