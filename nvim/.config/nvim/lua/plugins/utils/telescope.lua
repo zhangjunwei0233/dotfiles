@@ -31,7 +31,7 @@ return {
     pcall(require('telescope').load_extension, 'ui-select')
 
     -- load keymaps
-    require('core.utils').load_plugin_keymaps('telescope')
+    -- require('core.utils').load_plugin_keymaps('telescope')
 
     -- load autocmds
     require('core.utils').load_plugin_autocmds('telescope')

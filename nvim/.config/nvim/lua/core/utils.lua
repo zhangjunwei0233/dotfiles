@@ -25,4 +25,3 @@ M.load_plugin_autocmds = function(plugin_name)
 end
 
 return M
-
