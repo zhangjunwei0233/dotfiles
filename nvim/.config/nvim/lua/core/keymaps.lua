@@ -118,11 +118,14 @@ kmap('snacks', 'n', '<leader>sb', function() require('snacks').picker.lines({ la
 
 -- [ search for noice ]
 -- OPTION1: use telescope
-kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
+-- kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
 
 -- OPTION2: use snacks.picker
 -- the below method currently has bug:https://github.com/folke/noice.nvim/issues/1075
 -- kmap('snacks', 'n', '<leader>sn', function() require('snacks').picker.noice({ layout = 'dropdown' }) end, { desc = 'Find [N]otices'} )
+
+-- OPTION3: use noice itself
+kmap('noice', 'n', '<leader>sn', "<Cmd>NoiceHistory<CR>", { desc = 'Find [N]otices'} )
 
 -- [ search for todo-comments ]
 -- OPTION1: use telescope
