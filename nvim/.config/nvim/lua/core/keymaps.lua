@@ -102,7 +102,7 @@ kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]
 -- kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep()                 end, { desc = '[a]ll workspace' })
 -- kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume()                    end, { desc = '[r]esume' })
 -- kmap('telescope', 'n', '<leader>sc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = 'nvim [c]onfig files' })
--- kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
+-- kmap('telescope', 'n', '<leader>sl', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
 
 -- OPTION2: use snacks.picker
 kmap('snacks', 'n', '<leader>sp', function() require('snacks').picker() end, { desc = 'Select any [P]icker'} )
@@ -114,15 +114,19 @@ kmap('snacks', 'n', '<leader>sk', function() require('snacks').picker.keymaps() 
 kmap('snacks', 'n', '<leader>sa', function() require('snacks').picker.grep() end, { desc = 'Find in [A]ll workspace'} )
 kmap('snacks', 'n', '<leader>sr', function() require('snacks').picker.resume() end, { desc = '[R]esume last Find'} )
 kmap('snacks', 'n', '<leader>sc', function() require('snacks').picker.lazy() end, { desc = 'Find nvim [C]onfig'} )
-kmap('snacks', 'n', '<leader>sb', function() require('snacks').picker.lines({ layout = 'default' }) end, { desc = 'Find in current [B]uffer'} )
+kmap('snacks', 'n', '<leader>sb', function() require('snacks').picker.buffers({ layout = 'default' }) end, { desc = 'Find [B]uffers'} )
+kmap('snacks', 'n', '<leader>sl', function() require('snacks').picker.lines({ layout = 'default' }) end, { desc = 'Find [L]ines'} )
 
 -- [ search for noice ]
 -- OPTION1: use telescope
-kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
+-- kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
 
 -- OPTION2: use snacks.picker
 -- the below method currently has bug:https://github.com/folke/noice.nvim/issues/1075
 -- kmap('snacks', 'n', '<leader>sn', function() require('snacks').picker.noice({ layout = 'dropdown' }) end, { desc = 'Find [N]otices'} )
+
+-- OPTION3: use noice itself
+kmap('noice', 'n', '<leader>sn', "<Cmd>NoiceHistory<CR>", { desc = 'Find [N]otices'} )
 
 -- [ search for todo-comments ]
 -- OPTION1: use telescope

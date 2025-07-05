@@ -55,23 +55,6 @@ M.foldings = function()
   })
 end
 
-M.telescope = function()
-  vim.api.nvim_create_autocmd('User', {
-    pattern = 'TelescopeFindPre',
-    desc = 'Fix telescope border display',
-    group = vim.api.nvim_create_augroup('telescope-border-display', { clear = true }),
-    callback = function()
-      vim.opt_local.winborder = 'none'
-      vim.api.nvim_create_autocmd('WinLeave', {
-        once = true,
-        callback = function()
-          vim.opt_local.winborder = 'rounded'
-        end,
-      })
-    end,
-  })
-end
-
 M.lspsaga = function()
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'sagaoutline',
