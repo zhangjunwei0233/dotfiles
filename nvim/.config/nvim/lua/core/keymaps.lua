@@ -229,7 +229,9 @@ kmap('native', 'n', '<localleader>f', 'zc', { desc = '[f]old sub fold' })
 -- kmap('native', 'n', '<localleader>a', function() require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && gemini', { cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(), start_insert = true, auto_insert = false, auto_close = true, }) end, { desc = 'Run gemini in root terminal' })
 
 -- OPTION4: use claude-code
-kmap('native', 'n', '<localleader>a', function() require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && claude', { cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(), start_insert = true, auto_insert = false, auto_close = true, }) end, { desc = 'Run Claude in root terminal' })
+kmap('claude-code', 'n', '<localleader>a', '<Cmd>ClaudeCode<CR>', { desc = 'Run Claude' })
+kmap('claude-code', 'n', '<leader>ar', '<Cmd>ClaudeCodeResume<CR>', { desc = 'Claude code resume' })
+kmap('claude-code', 'n', '<leader>ac', '<Cmd>ClaudeCodeContinue<CR>', { desc = 'Claude code continue' })
 
 
 -- NOTE: [[ Plugins ]]
