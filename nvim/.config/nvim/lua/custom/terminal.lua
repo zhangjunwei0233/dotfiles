@@ -7,8 +7,8 @@ local non_floating_terminals = {}
 M.create_term_cur = function()
   local term = require('snacks').terminal.toggle(nil, {
     cwd = vim.fn.expand('%:p:h'),
-    start_insert = false,
-    auto_insert = false,
+    start_insert = true,
+    auto_insert = true,
     auto_close = true,
   })
   -- Add to tracking table if it's a new terminal
@@ -20,8 +20,8 @@ end
 M.create_term_root = function()
   local term = require('snacks').terminal.toggle(nil, {
     cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(),
-    start_insert = false,
-    auto_insert = false,
+    start_insert = true,
+    auto_insert = true,
     auto_close = true,
   })
   -- Add to tracking table if it's a new terminal
