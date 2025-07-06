@@ -69,19 +69,45 @@ return {
     },
     picker = {
       enabled = true,
+      layouts = {
+        default = {
+          layout = {
+            backdrop = false,
+          },
+        },
+      },
+    },
+    zen = {
+      -- You can add any `Snacks.toggle` id here.
+      -- Toggle state is restored when the window is closed.
+      -- Toggle config options are NOT merged.
+      ---@type table<string, boolean>
+      toggles = {
+        dim = false,
+        git_signs = true,
+        mini_diff_signs = false,
+        diagnostics = true,
+        inlay_hints = true,
+      },
+      show = {
+        statusline = false, -- can only be shown when using the global statusline
+        tabline = false,
+      },
+      ---@type snacks.win.Config
+      win = {
+        style = 'zen',
+        border = 'rounded',
+        width = 0.99,
+        height = 0.99,
+        backdrop = false,
+        wo = { winbar = vim.wo.winbar },
+      },
     },
     styles = {
       blame_line = {
         width = 0.8,
         height = 0.8,
       },
-      -- notification_history = {
-      --   width = 0.8,
-      --   height = 0.8,
-      --   ft = 'markdown',
-      --   bo = { filetype = 'snacks_notif_history', modifiable = false },
-      --   wo = { winhighlight = 'Normal:SnacksNotifierHistory' },
-      -- },
     },
   },
   config = function(_, opts)
