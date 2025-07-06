@@ -58,13 +58,13 @@ end
 
 -- [ window operation ]
 --  See `:help wincmd` for a list of all window commands
-kmap('native', 'n',  '<localleader>-',  ':split<CR>', { desc = 'split horizontal'       })
-kmap('native', 'n', '<localleader>\\', ':vsplit<CR>', { desc = 'split vertical'         })
-kmap('native', 'n',  '<localleader>q',      '<C-w>q', { desc = '[q]uit window'          })
-kmap('native', 'n',           '<C-h>',      '<C-w>h', { desc = 'change to left window'  })
-kmap('native', 'n',           '<C-j>',      '<C-w>j', { desc = 'change to lower window' })
-kmap('native', 'n',           '<C-k>',      '<C-w>k', { desc = 'change to upper window' })
-kmap('native', 'n',           '<C-l>',      '<C-w>l', { desc = 'change to right window' })
+kmap('native', {'n', 't'},  '<localleader>-',  '<Cmd>split<CR>', { desc = 'split horizontal'       })
+kmap('native', {'n', 't'}, '<localleader>\\', '<Cmd>vsplit<CR>', { desc = 'split vertical'         })
+kmap('native', {'n', 't'},  '<localleader>q',      '<Cmd>wincmd q<CR>', { desc = '[q]uit window'          })
+kmap('native', {'n', 't'},           '<C-h>',      '<Cmd>wincmd h<CR>', { desc = 'change to left window'  })
+kmap('native', {'n', 't'},           '<C-j>',      '<Cmd>wincmd j<CR>', { desc = 'change to lower window' })
+kmap('native', {'n', 't'},           '<C-k>',      '<Cmd>wincmd k<CR>', { desc = 'change to upper window' })
+kmap('native', {'n', 't'},           '<C-l>',      '<Cmd>wincmd l<CR>', { desc = 'change to right window' })
 
 -- [ buffer operation ]
 kmap('bufferline', 'n',      '<C-p>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer'      })
@@ -258,8 +258,6 @@ kmap('conform', 'n', '<leader>pc', '<cmd>ConformInfo<CR>', { desc = 'check [c]on
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 kmap('native', 'n', '<Esc>', '<cmd>nohlsearch<CR>')
--- use <Esc> to quit terminal mode
-kmap('native', 't', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 -- use <C-s> to save file
 kmap('native', 'n', '<C-s>', ':w<CR>', { desc = '[f]ile [s]ave' })
 

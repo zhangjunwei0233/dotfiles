@@ -32,7 +32,7 @@ return {
       },
       -- Git project settings
       git = {
-        use_git_root = true, -- Set CWD to git root when opening Claude Code (if in git project)
+        use_git_root = false, -- Set CWD to git root when opening Claude Code (if in git project)
       },
       -- Shell-specific settings
       shell = {
