@@ -2,7 +2,7 @@
 return {
   'hedyhli/outline.nvim',
   lazy = true,
-  event = 'LspAttach',
+  event = 'VeryLazy',
   cmd = { 'Outline', 'OutlineOpen' },
   opts = {
     -- Your setup opts here
