@@ -15,22 +15,22 @@ return {
     symbol_in_winbar = {
       hide_keyword = true, -- hide keyword like `if`
       show_file = true,
-      folder_level = 0,
+      folder_level = 1,
     },
     finder = {
       keys = {
         toggle_or_open = '<CR>', -- use ENTER to open instead of 'o'
       },
     },
-    outline = {
-      layout = 'normal', -- can be 'normal' | 'float'
-      close_after_jump = false, -- autocmd has been set to do this
-      max_height = 1.0, --height of outline float layout
-      left_width = 0.4, --width of outline float layout left window
-      keys = {
-        toggle_or_jump = '<CR>', -- use ENTER to jump instead of 'o'
-      },
-    },
+    -- outline = {
+    --   layout = 'normal', -- can be 'normal' | 'float'
+    --   close_after_jump = false, -- autocmd has been set to do this
+    --   max_height = 1.0, --height of outline float layout
+    --   left_width = 0.4, --width of outline float layout left window
+    --   keys = {
+    --     toggle_or_jump = '<CR>', -- use ENTER to jump instead of 'o'
+    --   },
+    -- },
     ui = {
       code_action = '',
       lines = { '└', '├', '│', '─', '┌' },

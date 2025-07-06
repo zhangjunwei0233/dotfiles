@@ -136,7 +136,7 @@ kmap('noice', 'n', '<leader>sn', "<Cmd>NoiceHistory<CR>", { desc = 'Find [N]otic
 kmap('snacks', 'n', '<leader>st', function() require('snacks').picker.todo_comments() end, { desc = 'Find [T]odo comments'} )
 
 -- [ toggle full screen ]
-kmap('snacks', { 'n', 't' }, '<C-z>', function() require('custom.zoom-win')() end, { desc = 'Toggle window fullscreen' })
+kmap('snacks', 'n', '<C-z>', function() require('snacks').zen() end, { desc = 'Toggle window fullscreen' })
 
 -- NOTE: [[ Terminal <leader>t ]]
 kmap('snacks', 'n', '<leader>tt', function() require('custom.terminal').create_term_cur() end, { desc = 'Create terminal (current dir)' })
