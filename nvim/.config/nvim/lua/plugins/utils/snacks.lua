@@ -55,8 +55,8 @@ return {
       },
     },
     statuscolumn = {
-      left = { 'git', 'mark' },
-      right = { 'sign', 'fold' },
+      left = { 'sign', 'git' },
+      right = { 'mark', 'fold' },
       folds = {
         open = true, -- show open fold icons
         git_hl = false, -- use Git Signs hl for fold icons
@@ -87,7 +87,7 @@ return {
         git_signs = true,
         mini_diff_signs = false,
         diagnostics = true,
-        inlay_hints = true,
+        inlay_hints = false,
       },
       show = {
         statusline = false, -- can only be shown when using the global statusline

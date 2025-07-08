@@ -75,7 +75,7 @@ return {
       preset = 'super-tab', -- <C-p> <C-n> to select, <Tab> to accept
     },
     signature = {
-      enabled = true,
+      enabled = false, -- already shown in menu
     },
     sources = {
       -- default = { 'path', 'snippets', 'buffer', 'lsp' },
