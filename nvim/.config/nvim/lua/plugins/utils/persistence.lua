@@ -16,5 +16,8 @@ return {
 
     -- load keymaps
     require('core.utils').load_plugin_keymaps('persistence')
+
+    -- clean up non-regular buffers before session save
+    require('core.utils').load_plugin_autocmds('persistence')
   end,
 }

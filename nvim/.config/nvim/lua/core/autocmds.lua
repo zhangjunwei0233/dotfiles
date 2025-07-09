@@ -112,4 +112,30 @@ M.lsp = function()
   })
 end
 
+M.persistence = function()
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'PersistenceSavePre',
+    desc = 'close non-regular file buffers before session save',
+    group = vim.api.nvim_create_augroup('persistence-cleanup', { clear = true }),
+    callback = function()
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
+          local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf })
+          local bufname = vim.api.nvim_buf_get_name(buf)
+
+          -- Keep only regular files: empty buftype, has real path, exists on disk, not a directory
+          local is_regular_file = buftype == ''
+            and bufname ~= ''
+            and vim.fn.filereadable(bufname) == 1
+            and vim.fn.isdirectory(bufname) == 0
+
+          if not is_regular_file then
+            pcall(vim.api.nvim_buf_delete, buf, { force = true })
+          end
+        end
+      end
+    end,
+  })
+end
+
 return M
