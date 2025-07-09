@@ -52,7 +52,7 @@ for example, native module is loaded in `init.lua` while plugin modules are load
 
 2. window and buffer navigation: "<C-...>"
     - move-window: <C-hjkl>
-    - move-buffer: <C-np>
+    - move-buffer: <C-90>
     - zoom-in window: <C-z>
 
 3. window layout changes and toggles: "<localleader>..."

@@ -3,7 +3,7 @@
 --    1. all the usr configure functions and utils: "<leader>..."
 --    2. window and buffer navigation: "<C->"
 --      move-window: <C-hjkl>
---      move-buffer: <C-pn>
+--      move-buffer: <C-90>
 --      zoom: <C-z>
 --    3. change layout(such as term toggle): ";..."
 --      split: ";-" and ";\"
@@ -67,8 +67,8 @@ kmap('native', {'n', 't'},           '<C-k>',      '<Cmd>wincmd k<CR>', { desc =
 kmap('native', {'n', 't'},           '<C-l>',      '<Cmd>wincmd l<CR>', { desc = 'change to right window' })
 
 -- [ buffer operation ]
-kmap('bufferline', 'n',      '<C-p>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer'      })
-kmap('bufferline', 'n',      '<C-n>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer'      })
+kmap('bufferline', 'n',      '<C-9>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer'      })
+kmap('bufferline', 'n',      '<C-0>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer'      })
 kmap('bufferline', 'n', '<leader>bh',  '<cmd>BufferLineMovePrev<cr>', { desc = 'Move buffer prev' })
 kmap('bufferline', 'n', '<leader>bl',  '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
 kmap('snacks', 'n', '<localleader><S-q>', function() require('snacks').bufdelete() end, { desc = '[Q]uit buffer' })
@@ -102,7 +102,7 @@ kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]
 -- kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep()                 end, { desc = '[a]ll workspace' })
 -- kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume()                    end, { desc = '[r]esume' })
 -- kmap('telescope', 'n', '<leader>sc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = 'nvim [c]onfig files' })
--- kmap('telescope', 'n', '<leader>sb', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
+-- kmap('telescope', 'n', '<leader>sl', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
 
 -- OPTION2: use snacks.picker
 kmap('snacks', 'n', '<leader>sp', function() require('snacks').picker() end, { desc = 'Select any [P]icker'} )
@@ -114,7 +114,8 @@ kmap('snacks', 'n', '<leader>sk', function() require('snacks').picker.keymaps() 
 kmap('snacks', 'n', '<leader>sa', function() require('snacks').picker.grep() end, { desc = 'Find in [A]ll workspace'} )
 kmap('snacks', 'n', '<leader>sr', function() require('snacks').picker.resume() end, { desc = '[R]esume last Find'} )
 kmap('snacks', 'n', '<leader>sc', function() require('snacks').picker.lazy() end, { desc = 'Find nvim [C]onfig'} )
-kmap('snacks', 'n', '<leader>sb', function() require('snacks').picker.lines({ layout = 'default' }) end, { desc = 'Find in current [B]uffer'} )
+kmap('snacks', 'n', '<leader>sb', function() require('snacks').picker.buffers({ layout = 'default' }) end, { desc = 'Find [B]uffers'} )
+kmap('snacks', 'n', '<leader>sl', function() require('snacks').picker.lines({ layout = 'default' }) end, { desc = 'Find [L]ines'} )
 
 -- [ search for noice ]
 -- OPTION1: use telescope
@@ -136,6 +137,18 @@ kmap('snacks', 'n', '<leader>st', function() require('snacks').picker.todo_comme
 
 -- [ toggle full screen ]
 kmap('snacks', 'n', '<C-z>', function() require('snacks').zen() end, { desc = 'Toggle window fullscreen' })
+kmap('snacks', 't', '<C-z>', function()
+  vim.cmd('stopinsert') -- Exit terminal mode first
+  vim.schedule(function()
+    require('snacks').zen()
+    -- Re-enter terminal mode after zen toggle
+    vim.schedule(function()
+      if vim.bo.buftype == 'terminal' then
+        vim.cmd('startinsert')
+      end
+    end)
+  end)
+end, { desc = 'Toggle window fullscreen' })
 
 -- NOTE: [[ Terminal <leader>t ]]
 kmap('snacks', 'n', '<leader>tt', function() require('custom.terminal').create_term_cur() end, { desc = 'Create terminal (current dir)' })
@@ -231,10 +244,10 @@ kmap('native', 'n', '<localleader>f', 'zc', { desc = '[f]old sub fold' })
 -- OPTION3: use gemini-cli
 -- kmap('native', 'n', '<localleader>a', function() require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && gemini', { cwd = vim.lsp.buf.list_workspace_folders()[1] or vim.fn.getcwd(), start_insert = true, auto_insert = false, auto_close = true, }) end, { desc = 'Run gemini in root terminal' })
 
--- OPTION4: use claude-code
-kmap('claude-code', 'n', '<localleader>a', '<Cmd>ClaudeCode<CR>', { desc = 'Run Claude' })
-kmap('claude-code', 'n', '<leader>ar', '<Cmd>ClaudeCodeResume<CR>', { desc = 'Claude code resume' })
-kmap('claude-code', 'n', '<leader>ac', '<Cmd>ClaudeCodeContinue<CR>', { desc = 'Claude code continue' })
+-- OPTION4: use claude code
+kmap('snacks', 'n', '<localleader>a', function() require('custom.claude').toggle_claude() end, { desc = 'Toggle Claude' })
+kmap('snacks', 'n', '<leader>ar', function() require('custom.claude').open_claude_resume() end, { desc = 'Open Claude resume' })
+kmap('snacks', 'n', '<leader>ac', function() require('custom.claude').open_claude_continue() end, { desc = 'Open Claude continue' })
 
 
 -- NOTE: [[ Plugins ]]
