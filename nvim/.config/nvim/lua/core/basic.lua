@@ -102,3 +102,6 @@ vim.opt.scrolloff = 5
 
 -- keep status bar only for current window
 vim.opt.laststatus = 3
+
+-- auto reload buffer when it is modified outside
+vim.opt.autoread = true

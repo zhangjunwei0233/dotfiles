@@ -6,7 +6,8 @@ return {
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
-    render_modes = { 'n', 'c', 't', 'i' },
+    render_modes = true, -- Enable in all modes
+    file_types = { 'markdown' },
     completions = { blink = { enabled = true } },
   },
 }

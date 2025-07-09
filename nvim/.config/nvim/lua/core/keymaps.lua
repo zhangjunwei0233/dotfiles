@@ -3,7 +3,7 @@
 --    1. all the usr configure functions and utils: "<leader>..."
 --    2. window and buffer navigation: "<C->"
 --      move-window: <C-hjkl>
---      move-buffer: <C-90>
+--      move-buffer: <C-np>
 --      zoom: <C-z>
 --    3. change layout(such as term toggle): ";..."
 --      split: ";-" and ";\"
@@ -67,8 +67,8 @@ kmap('native', {'n', 't'},           '<C-k>',      '<Cmd>wincmd k<CR>', { desc =
 kmap('native', {'n', 't'},           '<C-l>',      '<Cmd>wincmd l<CR>', { desc = 'change to right window' })
 
 -- [ buffer operation ]
-kmap('bufferline', 'n',      '<C-9>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer'      })
-kmap('bufferline', 'n',      '<C-0>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer'      })
+kmap('bufferline', 'n',      '<C-n>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer'      })
+kmap('bufferline', 'n',      '<C-p>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer'      })
 kmap('bufferline', 'n', '<leader>bh',  '<cmd>BufferLineMovePrev<cr>', { desc = 'Move buffer prev' })
 kmap('bufferline', 'n', '<leader>bl',  '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
 kmap('snacks', 'n', '<localleader><S-q>', function() require('snacks').bufdelete() end, { desc = '[Q]uit buffer' })

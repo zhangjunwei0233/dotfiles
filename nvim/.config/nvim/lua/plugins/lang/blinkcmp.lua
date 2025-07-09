@@ -2,21 +2,12 @@
 return {
   'saghen/blink.cmp',
   version = '1.*',
-  event = 'VeryLazy',
+  event = 'InsertEnter',
   dependencies = {
-    'rafamadriz/friendly-snippets',
+    -- 'rafamadriz/friendly-snippets',
     {
       -- enable treesitter hl in menu
       'xzbdmw/colorful-menu.nvim',
-      opts = {},
-    },
-    {
-      -- a compatable layer between nvim-cmp and blink-cmp
-      -- used to add avante sources to blink-cmp
-      'saghen/blink.compat',
-      -- use v2.* for blink.cmp v1.*
-      version = '2.*',
-      -- make sure to set opts so that lazy.nvim calls blink.compat's setup
       opts = {},
     },
   },
@@ -65,43 +56,25 @@ return {
       --   show_on_x_blocked_trigger_characters = { "'", '"', '(', '{', '[' },
       -- },
       -- list = {
-      --   selection = { preselect = true, auto_insert = true },
+      --   selection = { preselect = true, auto_insert = false },
       -- },
       documentation = {
-        auto_show = true, -- show documentation aside
+        auto_show = false, -- show documentation aside
       },
     },
     keymap = {
       preset = 'super-tab', -- <C-p> <C-n> to select, <Tab> to accept
     },
     signature = {
-      enabled = false, -- already shown in menu
+      enabled = true, -- show hint when filling params of functions
+      trigger = {
+        enabled = true,
+        show_on_insert = true,
+      },
     },
     sources = {
       -- default = { 'path', 'snippets', 'buffer', 'lsp' },
-      default = { 'path', 'lsp', 'omni', 'avante_commands', 'avante_mentions', 'avante_files' },
-
-      -- configure providers from avante
-      providers = {
-        avante_commands = {
-          name = 'avante_commands',
-          module = 'blink.compat.source',
-          score_offset = 90, -- show at a higher priority than lsp
-          opts = {},
-        },
-        avante_files = {
-          name = 'avante_files',
-          module = 'blink.compat.source',
-          score_offset = 100, -- show at a higher priority than lsp
-          opts = {},
-        },
-        avante_mentions = {
-          name = 'avante_mentions',
-          module = 'blink.compat.source',
-          score_offset = 1000, -- show at a higher priority than lsp
-          opts = {},
-        },
-      },
+      default = { 'path', 'lsp', 'omni' },
     },
     -- sepecial cases: completion for cmds
     cmdline = {
@@ -125,4 +98,7 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require('blink.cmp').setup(opts)
+  end,
 }

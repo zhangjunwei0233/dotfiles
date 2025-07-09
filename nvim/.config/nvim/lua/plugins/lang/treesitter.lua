@@ -11,7 +11,7 @@ return {
   build = ':TSUpdate',
   main = 'nvim-treesitter.configs', -- Sets main modules to use for opts
   opts = {
-    ensure_installed = { 'c', 'lua', 'scala', 'yaml' },
+    ensure_installed = { 'c', 'lua', 'scala', 'markdown', 'markdown_inline' },
     auto_install = true,
     highlight = { enable = true },
   },

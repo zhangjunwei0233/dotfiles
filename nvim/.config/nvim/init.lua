@@ -1,5 +1,6 @@
--- [[ Load basic setup ]]
+-- [[ Load core setup ]]
 require('core.basic')
+require('core.filetypes').setup()
 
 -- [[ Load custom setups ]]
 --

@@ -6,13 +6,9 @@ return {
   enabled = true,
   opts = {
     lsp = {
-      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-      override = {
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-        ['vim.lsp.util.stylize_markdown'] = true,
-        -- ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
-      },
-      hover = { enabled = true },
+      signature = { enabled = false },
+      progress = { enabled = false },
+      hover = { enabled = false },
     },
     commands = {
       history = {
@@ -46,6 +42,9 @@ return {
   },
   config = function(_, opts)
     require('noice').setup(opts)
+    require('notify').setup({
+      timeout = 1000,
+    })
 
     -- load keymaps
     require('core.utils').load_plugin_keymaps('noice')
