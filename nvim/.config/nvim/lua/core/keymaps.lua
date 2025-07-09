@@ -23,9 +23,11 @@ local spec = {
   { '<leader>t', group = 'Terminal' },
   { '<leader>l', group = 'LSP' },
   { '<leader>d', group = 'Debug' },
-  { '<leader>f', group = 'Format' },
+  { '<leader>f', group = 'Find' },
 
   { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
+
+  { '<leader>s', group = 'Session' },
 
   { '<leader>a', group = 'AI' },
 
@@ -91,49 +93,49 @@ end, { desc = 'hop backward', remap = true })
 kmap('neo-tree', 'n', '<localleader>e', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle [e]xplorer' })
 kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]ocate file' })
 
--- [ search and goto files (<leader>s, <leader>g) ]
+-- [ search and goto files <leader>f ]
 -- OPTION1: use telescope
 -- See `:help telescope.builtin`
--- kmap('telescope', 'n', '<leader>sf', function() require('telescope.builtin').find_files()                end, { desc = '[f]iles' })
--- kmap('telescope', 'n', '<leader>s.', function() require('telescope.builtin').oldfiles()                  end, { desc = 'recent files' })
--- kmap('telescope', 'n', '<leader>sw', function() require('telescope.builtin').grep_string()               end, { desc = '[w]ord under cursor' })
--- kmap('telescope', 'n', '<leader>sh', function() require('telescope.builtin').help_tags()                 end, { desc = '[h]elp' })
--- kmap('telescope', 'n', '<leader>sk', function() require('telescope.builtin').keymaps()                   end, { desc = '[k]eymaps' })
--- kmap('telescope', 'n', '<leader>sa', function() require('telescope.builtin').live_grep()                 end, { desc = '[a]ll workspace' })
--- kmap('telescope', 'n', '<leader>sr', function() require('telescope.builtin').resume()                    end, { desc = '[r]esume' })
--- kmap('telescope', 'n', '<leader>sc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = 'nvim [c]onfig files' })
--- kmap('telescope', 'n', '<leader>sl', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
+-- kmap('telescope', 'n', '<leader>ff', function() require('telescope.builtin').find_files()                end, { desc = '[f]iles' })
+-- kmap('telescope', 'n', '<leader>f.', function() require('telescope.builtin').oldfiles()                  end, { desc = 'recent files' })
+-- kmap('telescope', 'n', '<leader>fw', function() require('telescope.builtin').grep_string()               end, { desc = '[w]ord under cursor' })
+-- kmap('telescope', 'n', '<leader>fh', function() require('telescope.builtin').help_tags()                 end, { desc = '[h]elp' })
+-- kmap('telescope', 'n', '<leader>fk', function() require('telescope.builtin').keymaps()                   end, { desc = '[k]eymaps' })
+-- kmap('telescope', 'n', '<leader>fa', function() require('telescope.builtin').live_grep()                 end, { desc = '[a]ll workspace' })
+-- kmap('telescope', 'n', '<leader>fr', function() require('telescope.builtin').resume()                    end, { desc = '[r]esume' })
+-- kmap('telescope', 'n', '<leader>fc', function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') }) end, { desc = 'nvim [c]onfig files' })
+-- kmap('telescope', 'n', '<leader>fl', function() require('telescope.builtin').current_buffer_fuzzy_find() end, { desc = 'in current [b]uffer' })
 
 -- OPTION2: use snacks.picker
-kmap('snacks', 'n', '<leader>sp', function() require('snacks').picker() end, { desc = 'Select any [P]icker'} )
-kmap('snacks', 'n', '<leader>sf', function() require('snacks').picker.smart() end, { desc = 'Smart find [F]ile'} )
-kmap('snacks', 'n', '<leader>s.', function() require('snacks').picker.recent() end, { desc = 'Find recent file'} )
-kmap('snacks', 'n', '<leader>sw', function() require('snacks').picker.grep_word() end, { desc = 'Find [w]ord under cursor'} )
-kmap('snacks', 'n', '<leader>sh', function() require('snacks').picker.help() end, { desc = 'Find [H]elp'} )
-kmap('snacks', 'n', '<leader>sk', function() require('snacks').picker.keymaps() end, { desc = 'Find [K]eymaps'} )
-kmap('snacks', 'n', '<leader>sa', function() require('snacks').picker.grep() end, { desc = 'Find in [A]ll workspace'} )
-kmap('snacks', 'n', '<leader>sr', function() require('snacks').picker.resume() end, { desc = '[R]esume last Find'} )
-kmap('snacks', 'n', '<leader>sc', function() require('snacks').picker.lazy() end, { desc = 'Find nvim [C]onfig'} )
-kmap('snacks', 'n', '<leader>sb', function() require('snacks').picker.buffers({ layout = 'default' }) end, { desc = 'Find [B]uffers'} )
-kmap('snacks', 'n', '<leader>sl', function() require('snacks').picker.lines({ layout = 'default' }) end, { desc = 'Find [L]ines'} )
+kmap('snacks', 'n', '<leader>fp', function() require('snacks').picker() end, { desc = 'Select any [P]icker'} )
+kmap('snacks', 'n', '<leader>ff', function() require('snacks').picker.smart() end, { desc = 'Smart find [F]ile'} )
+kmap('snacks', 'n', '<leader>f.', function() require('snacks').picker.recent() end, { desc = 'Find recent file'} )
+kmap('snacks', 'n', '<leader>fw', function() require('snacks').picker.grep_word() end, { desc = 'Find [w]ord under cursor'} )
+kmap('snacks', 'n', '<leader>fh', function() require('snacks').picker.help() end, { desc = 'Find [H]elp'} )
+kmap('snacks', 'n', '<leader>fk', function() require('snacks').picker.keymaps() end, { desc = 'Find [K]eymaps'} )
+kmap('snacks', 'n', '<leader>fa', function() require('snacks').picker.grep() end, { desc = 'Find in [A]ll workspace'} )
+kmap('snacks', 'n', '<leader>fr', function() require('snacks').picker.resume() end, { desc = '[R]esume last Find'} )
+kmap('snacks', 'n', '<leader>fc', function() require('snacks').picker.lazy() end, { desc = 'Find nvim [C]onfig'} )
+kmap('snacks', 'n', '<leader>fb', function() require('snacks').picker.buffers({ layout = 'default' }) end, { desc = 'Find [B]uffers'} )
+kmap('snacks', 'n', '<leader>fl', function() require('snacks').picker.lines({ layout = 'default' }) end, { desc = 'Find [L]ines'} )
 
 -- [ search for noice ]
 -- OPTION1: use telescope
--- kmap('noice',     'n', '<leader>sn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
+-- kmap('noice',     'n', '<leader>fn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
 
 -- OPTION2: use snacks.picker
 -- the below method currently has bug:https://github.com/folke/noice.nvim/issues/1075
--- kmap('snacks', 'n', '<leader>sn', function() require('snacks').picker.noice({ layout = 'dropdown' }) end, { desc = 'Find [N]otices'} )
+-- kmap('snacks', 'n', '<leader>fn', function() require('snacks').picker.noice({ layout = 'dropdown' }) end, { desc = 'Find [N]otices'} )
 
 -- OPTION3: use noice itself
-kmap('noice', 'n', '<leader>sn', "<Cmd>NoiceHistory<CR>", { desc = 'Find [N]otices'} )
+kmap('noice', 'n', '<leader>fn', "<Cmd>NoiceHistory<CR>", { desc = 'Find [N]otices'} )
 
 -- [ search for todo-comments ]
 -- OPTION1: use telescope
--- kmap('todo-comments', 'n', '<leader>st', '<Cmd>TodoTelescope<CR>', { desc = '[t]odo-comments'})
+-- kmap('todo-comments', 'n', '<leader>ft', '<Cmd>TodoTelescope<CR>', { desc = '[t]odo-comments'})
 
 -- OPTION2: use snacks.picker
-kmap('snacks', 'n', '<leader>st', function() require('snacks').picker.todo_comments() end, { desc = 'Find [T]odo comments'} )
+kmap('snacks', 'n', '<leader>ft', function() require('snacks').picker.todo_comments() end, { desc = 'Find [T]odo comments'} )
 
 -- [ toggle full screen ]
 kmap('snacks', 'n', '<C-z>', function() require('snacks').zen() end, { desc = 'Toggle window fullscreen' })
@@ -218,18 +220,30 @@ kmap('nvim-dap', 'n', '<leader>dB', function()
 end, { desc = 'DAP: Conditional Breakpoint' })
 kmap('nvim-dap', 'n', '<leader>dD', function() require('dap').clear_breakpoints() end, { desc = 'DAP: Clear Breakpoints' })
 
--- NOTE: [[ Format ]]
-kmap('conform', 'n', '<leader>fd', '<cmd>FormatDisable<CR>', { desc = '[d]isable format' })
-kmap('conform', 'n', '<leader>fe', '<cmd>FormatEnable<CR>', { desc = '[e]nable format' })
 
 -- NOTE: [[ Code ]]
 kmap('native', 'n', '<leader>cc', 'gcc', { desc = 'Toggle [c]omment', remap = true })
 kmap('native', 'v', '<leader>cc', 'gc', { desc = 'Toggle [c]omment', remap = true })
+kmap('conform', 'n', '<leader>cf', function()
+  local buf = vim.api.nvim_get_current_buf()
+  local disabled = vim.b[buf].disable_autoformat or vim.g.disable_autoformat
+  if disabled then
+    vim.cmd('FormatEnable')
+  else
+    vim.cmd('FormatDisable')
+  end
+end, { desc = 'Toggle [f]ormat' })
 -- folding
 kmap('native', 'n', '<localleader>o', 'zo', { desc = '[o]pen sub fold' })
 kmap('native', 'n', '<localleader>f', 'zc', { desc = '[f]old sub fold' })
 -- kmap('native', 'n', '<localleader>O', 'zO', { desc = '[O]pen top fold' })
 -- kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
+
+-- NOTE: [[ Session ]]
+kmap('persistence', 'n', '<leader>sl', function() require('persistence').load({ last = true }) end, { desc = '[L]ast session'})
+kmap('persistence', 'n', '<leader>sf', function() require('persistence').select() end, { desc = '[F]ind session'})
+kmap('persistence', 'n', '<leader>sd', function() require('persistence').load() end, { desc = 'session in current [D]ir'})
+kmap('persistence', 'n', '<leader>ss', function() require('persistence').stop() end, { desc = '[S]top saving session'})
 
 -- NOTE: [[ AI ]]
 
