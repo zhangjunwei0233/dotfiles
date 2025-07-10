@@ -14,7 +14,9 @@
 --]]
 
 -- stylua: ignore start
-local spec = {
+local M = {}
+
+M.spec = {
   { '<leader>w', group = 'Window' },
   { '<leader>b', group = 'Buffer' },
   { '<leader>s', group = 'Search' },
@@ -36,22 +38,30 @@ local spec = {
 -- stylua: ignore end
 
 -- [[ Set a function to configure keymaps ]]
-local map_table = {}
 local function kmap(plugin, mode, lhs, rhs, opts)
-  -- create keymap function
-  local map = function()
-    local options = { noremap = true, silent = true }
-    if opts then
-      options = vim.tbl_extend('force', options, opts)
-    end
-    vim.keymap.set(mode, lhs, rhs, options)
+  -- create keymap entry in lazy.nvim format
+  local entry = {
+    lhs,
+    rhs,
+    mode = mode,
+  }
+  -- merge options
+  if opts then
+    entry = vim.tbl_extend('force', entry, opts)
+  end
+  -- ensure defaults
+  if not entry.noremap then
+    entry.noremap = true
+  end
+  if not entry.silent then
+    entry.silent = true
   end
 
   -- insert into map_table
-  if not map_table[plugin] then
-    map_table[plugin] = {}
+  if not M[plugin] then
+    M[plugin] = {}
   end
-  table.insert(map_table[plugin], map)
+  table.insert(M[plugin], entry)
 end
 
 -- stylua: ignore start
@@ -121,14 +131,14 @@ kmap('snacks', 'n', '<leader>fl', function() require('snacks').picker.lines({ la
 
 -- [ search for noice ]
 -- OPTION1: use telescope
--- kmap('noice',     'n', '<leader>fn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
+kmap('noice',     'n', '<leader>fn', function() require('noice').cmd('telescope') end, { desc = '[n]otices'})
 
 -- OPTION2: use snacks.picker
 -- the below method currently has bug:https://github.com/folke/noice.nvim/issues/1075
 -- kmap('snacks', 'n', '<leader>fn', function() require('snacks').picker.noice({ layout = 'dropdown' }) end, { desc = 'Find [N]otices'} )
 
 -- OPTION3: use noice itself
-kmap('noice', 'n', '<leader>fn', "<Cmd>NoiceHistory<CR>", { desc = 'Find [N]otices'} )
+-- kmap('noice', 'n', '<leader>fn', "<Cmd>NoiceHistory<CR>", { desc = 'Find [N]otices'} )
 
 -- [ search for todo-comments ]
 -- OPTION1: use telescope
@@ -222,8 +232,8 @@ kmap('nvim-dap', 'n', '<leader>dD', function() require('dap').clear_breakpoints(
 
 
 -- NOTE: [[ Code ]]
-kmap('native', 'n', '<leader>cc', 'gcc', { desc = 'Toggle [c]omment', remap = true })
-kmap('native', 'v', '<leader>cc', 'gc', { desc = 'Toggle [c]omment', remap = true })
+kmap('native', 'n', '<leader>cc', 'gcc', { desc = 'Toggle [C]omment', remap = true })
+kmap('native', 'v', '<leader>cc', 'gc', { desc = 'Toggle [C]omment', remap = true })
 kmap('conform', 'n', '<leader>cf', function()
   local buf = vim.api.nvim_get_current_buf()
   local disabled = vim.b[buf].disable_autoformat or vim.g.disable_autoformat
@@ -234,16 +244,23 @@ kmap('conform', 'n', '<leader>cf', function()
   end
 end, { desc = 'Toggle [f]ormat' })
 -- folding
-kmap('native', 'n', '<localleader>o', 'zo', { desc = '[o]pen sub fold' })
-kmap('native', 'n', '<localleader>f', 'zc', { desc = '[f]old sub fold' })
+kmap('native', 'n', '<localleader>o', 'zo', { desc = '[O]pen fold' })
+kmap('native', 'n', '<localleader>f', 'zc', { desc = '[F]old fold' })
 -- kmap('native', 'n', '<localleader>O', 'zO', { desc = '[O]pen top fold' })
 -- kmap('native', 'n', '<localleader>F', 'zC', { desc = '[F]old top fold' })
 
 -- NOTE: [[ Session ]]
-kmap('persistence', 'n', '<leader>sl', function() require('persistence').load({ last = true }) end, { desc = '[L]ast session'})
-kmap('persistence', 'n', '<leader>sf', function() require('persistence').select() end, { desc = '[F]ind session'})
-kmap('persistence', 'n', '<leader>sd', function() require('persistence').load() end, { desc = 'session in current [D]ir'})
-kmap('persistence', 'n', '<leader>ss', function() require('persistence').stop() end, { desc = '[S]top saving session'})
+
+-- kmap('persistence', 'n', '<leader>sl', function() require('persistence').load({ last = true }) end, { desc = '[L]ast session'})
+-- kmap('persistence', 'n', '<leader>sf', function() require('persistence').select() end, { desc = '[F]ind session'})
+-- kmap('persistence', 'n', '<leader>sd', function() require('persistence').load() end, { desc = 'session in current [D]ir'})
+-- kmap('persistence', 'n', '<leader>ss', function() require('persistence').stop() end, { desc = '[S]top saving session'})
+
+kmap('persisted', 'n', '<leader>sl', '<Cmd>SessionLoadLast<CR>', { desc = '[L]ast session'})
+kmap('persisted', 'n', '<leader>sf', '<Cmd>Telescope persisted<CR>', { desc = '[F]ind session'})
+kmap('persisted', 'n', '<leader>sd', '<Cmd>SessionLoad<CR>', { desc = 'session in current [D]ir'})
+kmap('persisted', 'n', '<leader>ss', '<Cmd>SessionStart<CR>', { desc = '[S]tart saving session'})
+kmap('persisted', 'n', '<leader>sq', '<Cmd>SessionDelete<CR>', { desc = 'delete current session'})
 
 -- NOTE: [[ AI ]]
 
@@ -269,15 +286,6 @@ kmap('lazy', 'n', '<leader>pp', '<cmd>Lazy<CR>', { desc = 'view [p]lugins' })
 kmap('lsp', 'n', '<leader>pl', '<cmd>checkhealth vim.lsp<CR>', { desc = 'check [l]sp' })
 kmap('mason', 'n', '<leader>pm', '<cmd>Mason<CR>', { desc = 'open [m]ason' })
 kmap('conform', 'n', '<leader>pc', '<cmd>ConformInfo<CR>', { desc = 'check [c]onform' })
--- kmap('nvim-lint', 'n', '<leader>pi', function() 
---   local lint = require('lint')
---   local linters = lint.get_running()
---   if #linters == 0 then
---     vim.notify('No linters running for this buffer', vim.log.levels.INFO)
---   else
---     vim.notify('Running linters: ' .. table.concat(linters, ', '), vim.log.levels.INFO)
---   end
--- end, { desc = 'check l[i]nt info' })
 
 -- NOTE: [[ Miscellaneous ]]
 --
@@ -288,21 +296,5 @@ kmap('native', 'n', '<Esc>', '<cmd>nohlsearch<CR>')
 kmap('native', 'n', '<C-s>', ':w<CR>', { desc = '[f]ile [s]ave' })
 
 -- stylua: ignore end
-
--- [[ sort keymap table and return ]]
-local M = {}
-
-for plugin, maps in pairs(map_table) do
-  M[plugin] = function()
-    local results = {}
-    for i, map in ipairs(maps) do
-      results[i] = map()
-    end
-    return results
-  end
-end
-
--- add specs for which-key
-M.spec = spec
 
 return M

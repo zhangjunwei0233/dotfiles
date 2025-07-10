@@ -5,6 +5,7 @@ return {
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   event = 'VeryLazy',
   version = false, -- Never set this value to "*"! Never!
+  keys = require('core.keymaps').avante,
   ---@module 'avante'
   ---@type avante.Config
   opts = {
@@ -85,10 +86,4 @@ return {
       ft = { 'markdown', 'Avante' },
     },
   },
-  config = function(_, opts)
-    require('avante').setup(opts)
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('avante')
-  end,
 }

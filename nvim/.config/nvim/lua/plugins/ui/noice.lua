@@ -3,7 +3,7 @@ return {
   -- lazy.nvim
   'folke/noice.nvim',
   event = 'VeryLazy',
-  enabled = true,
+  keys = require('core.keymaps').noice,
   opts = {
     lsp = {
       signature = { enabled = false },
@@ -45,8 +45,5 @@ return {
     require('notify').setup({
       timeout = 1000,
     })
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('noice')
   end,
 }

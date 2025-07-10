@@ -7,7 +7,7 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   branch = 'master',
-  lazy = false,
+  event = { 'BufReadPost', 'BufNewFile' },
   build = ':TSUpdate',
   main = 'nvim-treesitter.configs', -- Sets main modules to use for opts
   opts = {

@@ -22,4 +22,4 @@ end
 require('core.utils').load_plugin_autocmds('lsp')
 
 -- [[ load keymaps ]]
-require('core.utils').load_plugin_keymaps('lsp')
+require('core.utils').setup_keymaps('lsp')

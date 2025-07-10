@@ -2,7 +2,8 @@
 return {
   {
     'mfussenegger/nvim-dap',
-    event = 'VeryLazy',
+    event = 'LspAttach',
+    keys = require('core.keymaps')['nvim-dap'],
     config = function()
       local dap = require('dap')
 
@@ -56,6 +57,7 @@ return {
   {
     'rcarriga/nvim-dap-ui',
     dependencies = { 'mfussenegger/nvim-dap', 'theHamsta/nvim-dap-virtual-text', 'nvim-neotest/nvim-nio' },
+    event = 'LspAttach',
     config = function()
       -- setup virtual text
       require('nvim-dap-virtual-text').setup() -- optional
@@ -103,14 +105,6 @@ return {
       vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Number', linehl = '', numhl = 'Number' })
       vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'Number', linehl = '', numhl = 'Number' })
       vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'String', linehl = '', numhl = 'String' })
-
-      -- setup keymaps
-      local keymaps = require('core.keymaps')['nvim-dap']
-      if keymaps then
-        keymaps()
-      else
-        vim.notify('nvim-dap loaded without keymap\n', vim.log.levels.WARN)
-      end
     end,
   },
   { -- python debugger could be specifically configured using this plugin

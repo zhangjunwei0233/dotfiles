@@ -22,7 +22,7 @@ require('custom.foldings')
 require('plugins.lazy')
 
 -- [[ Load keymaps for native ]]
-require('core.utils').load_plugin_keymaps('native')
+require('core.utils').setup_keymaps('native')
 
 -- [[ load autocmds for native ]]
 require('core.utils').load_plugin_autocmds('native')

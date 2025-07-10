@@ -1,7 +1,8 @@
 -- [[ Bufferline: tabs and navigation for buffers ]]
 return {
   'akinsho/bufferline.nvim',
-  event = 'VimEnter',
+  event = { 'BufReadPre', 'BufNewFile' },
+  keys = require('core.keymaps').bufferline,
   opts = {
     options = {
       -- enable diagnostic icons
@@ -34,10 +35,4 @@ return {
       },
     },
   },
-  config = function(_, opts)
-    require('bufferline').setup(opts)
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('bufferline')
-  end,
 }

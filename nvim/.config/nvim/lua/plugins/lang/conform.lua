@@ -1,7 +1,8 @@
 -- [[ Code formatter ]]
 return {
   'stevearc/conform.nvim',
-  event = 'VeryLazy',
+  event = 'BufWritePre',
+  keys = require('core.keymaps').conform,
   opts = {
     formatters_by_ft = {
       lua = { 'stylua' },
@@ -69,8 +70,5 @@ return {
     end, {
       desc = 'Re-enable autoformat-on-save',
     })
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('conform')
   end,
 }

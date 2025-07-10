@@ -5,6 +5,7 @@ return {
   dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
+  ft = { 'markdown', 'Avante', 'Codecompanion' },
   opts = {
     render_modes = true, -- Enable in all modes
     file_types = { 'markdown' },

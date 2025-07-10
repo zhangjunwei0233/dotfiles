@@ -66,10 +66,4 @@ return {
       -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
     },
   },
-  config = function(_, opts)
-    require('todo-comments').setup(opts)
-
-    -- load keymaps
-    -- require('core.utils').load_plugin_keymaps('todo-comments')
-  end,
 }

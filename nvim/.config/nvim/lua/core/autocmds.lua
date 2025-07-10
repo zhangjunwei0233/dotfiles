@@ -46,6 +46,23 @@ M.lspsaga = function()
   })
 end
 
+M.telescope = function()
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'TelescopeFindPre',
+    desc = 'Fix telescope border display',
+    group = vim.api.nvim_create_augroup('telescope-border-display', { clear = true }),
+    callback = function()
+      vim.opt_local.winborder = 'none'
+      vim.api.nvim_create_autocmd('WinLeave', {
+        once = true,
+        callback = function()
+          vim.opt_local.winborder = 'rounded'
+        end,
+      })
+    end,
+  })
+end
+
 M.lsp = function()
   vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'lsp setups',
@@ -112,11 +129,12 @@ M.lsp = function()
   })
 end
 
-M.persistence = function()
+M.persisted = function()
+  local persisted_group = vim.api.nvim_create_augroup('persisted_custom', { clear = true })
   vim.api.nvim_create_autocmd('User', {
-    pattern = 'PersistenceSavePre',
+    pattern = 'PersistedSavePre',
     desc = 'close non-regular file buffers before session save',
-    group = vim.api.nvim_create_augroup('persistence-cleanup', { clear = true }),
+    group = persisted_group,
     callback = function()
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
@@ -134,6 +152,24 @@ M.persistence = function()
           end
         end
       end
+    end,
+  })
+  vim.api.nvim_create_autocmd('BufAdd', {
+    desc = 'start recording session automatically',
+    group = persisted_group,
+    callback = function()
+      if vim.g.persisting == nil then
+        vim.cmd('SessionStart')
+        vim.notify('Recording session ...', vim.log.levels.INFO)
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'PersistedDeletePost',
+    desc = 'notify on deleting a session',
+    group = persisted_group,
+    callback = function()
+      vim.notify('Session deleted', vim.log.levels.INFO)
     end,
   })
 end

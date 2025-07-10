@@ -2,7 +2,7 @@
 return {
   'saghen/blink.cmp',
   version = '1.*',
-  event = 'InsertEnter',
+  event = { 'InsertEnter', 'CmdlineEnter' },
   dependencies = {
     -- 'rafamadriz/friendly-snippets',
     {
@@ -59,7 +59,8 @@ return {
       --   selection = { preselect = true, auto_insert = false },
       -- },
       documentation = {
-        auto_show = false, -- show documentation aside
+        auto_show = true, -- show documentation aside
+        auto_show_delay_ms = 500,
       },
     },
     keymap = {
@@ -70,6 +71,9 @@ return {
       trigger = {
         enabled = true,
         show_on_insert = true,
+      },
+      window = {
+        direction_priority = { 's', 'n' }, -- prefer south more than north
       },
     },
     sources = {
@@ -100,5 +104,11 @@ return {
   },
   config = function(_, opts)
     require('blink.cmp').setup(opts)
+
+    -- set pretty borders
+    vim.api.nvim_set_hl(0, 'BlinkCmpMenuBorder', { fg = '#3b4261' })
+    vim.api.nvim_set_hl(0, 'BlinkCmpDocBorder', { fg = '#3b4261' })
+    vim.api.nvim_set_hl(0, 'BlinkCmpDocSeparator', { fg = '#3b4261' })
+    vim.api.nvim_set_hl(0, 'BlinkCmpSignatureHelpBorder', { fg = '#3b4261' })
   end,
 }

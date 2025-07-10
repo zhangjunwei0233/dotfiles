@@ -4,6 +4,7 @@ return {
   priority = 1000,
   lazy = false,
   enabled = true,
+  keys = require('core.keymaps').snacks,
   ---@type snacks.Config
   opts = {
     indent = {
@@ -121,18 +122,18 @@ return {
             icon = ' ',
             key = 's',
             desc = 'Restore Session',
-            action = ":lua require('persistence').load({ last = true })",
+            action = ":lua require('persisted').load({ last = true })",
           },
           { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
           { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
         },
         header = [[
-███████╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-╚══███╔╝██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-  ███╔╝ █████╗  ██║   ██║██║   ██║██║██╔████╔██║
- ███╔╝  ██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-███████╗███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚══════╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝,
+███████╗ ███████╗ ██╗   ██╗ ██╗ ███╗   ███╗
+╚══███╔╝ ██╔════╝ ██║   ██║ ██║ ████╗ ████║
+  ███╔╝  ███████╗ ██║   ██║ ██║ ██╔████╔██║
+ ███╔╝   ╚════██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║
+███████╗ ███████║  ╚████╔╝  ██║ ██║ ╚═╝ ██║
+╚══════╝ ╚══════╝   ╚═══╝   ╚═╝ ╚═╝     ╚═╝
         ]],
       },
     },
@@ -143,15 +144,4 @@ return {
       },
     },
   },
-  config = function(_, opts)
-    require('snacks').setup(opts)
-
-    -- setup kemaps
-    local keymaps = require('core.keymaps').snacks
-    if keymaps then
-      keymaps()
-    else
-      vim.notify('snacks loaded without keymap\n', vim.log.levels.WARN)
-    end
-  end,
 }

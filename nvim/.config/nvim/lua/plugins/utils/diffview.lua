@@ -1,7 +1,7 @@
 return {
   'sindrets/diffview.nvim',
   cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
-  event = 'VeryLazy',
+  keys = require('core.keymaps').diffview,
   config = function()
     vim.opt.fillchars:append({ diff = '/' })
     require('diffview').setup({
@@ -16,8 +16,5 @@ return {
         end,
       },
     })
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('diffview')
   end,
 }

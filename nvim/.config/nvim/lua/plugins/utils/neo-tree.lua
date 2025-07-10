@@ -9,6 +9,7 @@ return {
     -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
   },
   lazy = false, -- neo-tree will lazily load itself
+  keys = require('core.keymaps')['neo-tree'],
   ---@module "neo-tree"
   ---@type neotree.Config?
   opts = {
@@ -17,10 +18,4 @@ return {
       'codecompanion',
     },
   },
-  config = function(_, opts)
-    require('neo-tree').setup(opts)
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('neo-tree')
-  end,
 }

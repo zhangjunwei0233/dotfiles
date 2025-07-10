@@ -20,4 +20,4 @@ require('lazy').setup({
 })
 
 -- [[ load keymaps ]]
-require('core.utils').load_plugin_keymaps('lazy')
+require('core.utils').setup_keymaps('lazy')

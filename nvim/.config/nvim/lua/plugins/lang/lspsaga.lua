@@ -10,6 +10,7 @@ return {
     'nvim-tree/nvim-web-devicons', -- optional
   },
   event = 'LspAttach',
+  keys = require('core.keymaps').lspsaga,
   cmd = 'Lspsaga',
   opts = {
     symbol_in_winbar = {
@@ -38,9 +39,6 @@ return {
   },
   config = function(_, opts)
     require('lspsaga').setup(opts)
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('lspsaga')
 
     -- load autocmds
     require('core.utils').load_plugin_autocmds('lspsaga')

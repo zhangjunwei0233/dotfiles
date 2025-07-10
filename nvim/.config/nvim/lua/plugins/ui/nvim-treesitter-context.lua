@@ -1,6 +1,7 @@
 -- [[ Show Code Context on top (e.g. upper level functions) ]]
 return {
   'nvim-treesitter/nvim-treesitter-context',
+  event = { 'BufReadPost', 'BufNewFile' },
   opts = {
     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
     multiwindow = true, -- Enable multiwindow support.

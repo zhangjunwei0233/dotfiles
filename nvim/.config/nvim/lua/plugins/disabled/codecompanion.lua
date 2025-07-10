@@ -5,6 +5,7 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
   },
+  keys = require('core.keymaps').codecompanion,
   opts = {
     adapters = {
       deepseek = function()
@@ -21,10 +22,4 @@ return {
       agent = { adapter = 'deepseek' },
     },
   },
-  config = function(_, opts)
-    require('codecompanion').setup(opts)
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('codecompanion')
-  end,
 }

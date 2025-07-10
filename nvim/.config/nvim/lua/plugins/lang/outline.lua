@@ -2,15 +2,9 @@
 return {
   'hedyhli/outline.nvim',
   lazy = true,
-  event = 'VeryLazy',
+  keys = require('core.keymaps').outline,
   cmd = { 'Outline', 'OutlineOpen' },
   opts = {
     -- Your setup opts here
   },
-  config = function(_, opts)
-    require('outline').setup(opts)
-
-    -- load keymaps
-    require('core.utils').load_plugin_keymaps('outline')
-  end,
 }
