@@ -102,8 +102,14 @@ return {
       })
 
       -- Custom breakpoint icons
-      vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Number', linehl = '', numhl = 'Number' })
-      vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'Number', linehl = '', numhl = 'Number' })
+      vim.fn.sign_define(
+        'DapBreakpoint',
+        { text = '', texthl = '@string.regexp', linehl = '', numhl = '@string.regexp' }
+      )
+      vim.fn.sign_define(
+        'DapBreakpointCondition',
+        { text = '', texthl = '@string.regexp', linehl = '', numhl = '@string.regexp' }
+      )
       vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'String', linehl = '', numhl = 'String' })
     end,
   },
