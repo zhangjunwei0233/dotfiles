@@ -32,8 +32,10 @@ return {
     --     toggle_or_jump = '<CR>', -- use ENTER to jump instead of 'o'
     --   },
     -- },
+    lightbulb = { -- show a light bulb when code action is availabe
+      enable = false,
+    },
     ui = {
-      code_action = '',
       lines = { '└', '├', '│', '─', '┌' },
     },
   },
