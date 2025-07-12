@@ -11,6 +11,28 @@ M.native = function()
       vim.highlight.on_yank()
     end,
   })
+
+  -- [[ Auto-reload externally changed files ]]
+  local auto_reload_group = vim.api.nvim_create_augroup('auto-reload', { clear = true })
+
+  vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+    desc = 'Check for external file changes and reload',
+    group = auto_reload_group,
+    callback = function()
+      if vim.fn.mode() ~= 'c' then
+        vim.cmd('checktime')
+      end
+    end,
+  })
+
+  -- Notify when file is reloaded from external changes
+  vim.api.nvim_create_autocmd('FileChangedShellPost', {
+    desc = 'Notify when file is reloaded due to external changes',
+    group = auto_reload_group,
+    callback = function()
+      vim.notify('File reloaded: ' .. vim.fn.expand('%:t'), vim.log.levels.INFO)
+    end,
+  })
 end
 
 M.foldings = function()
@@ -131,6 +153,8 @@ end
 
 M.persisted = function()
   local persisted_group = vim.api.nvim_create_augroup('persisted_custom', { clear = true })
+
+  -- close non-regular files before session save
   vim.api.nvim_create_autocmd('User', {
     pattern = 'PersistedSavePre',
     desc = 'close non-regular file buffers before session save',
@@ -154,22 +178,60 @@ M.persisted = function()
       end
     end,
   })
-  vim.api.nvim_create_autocmd('BufAdd', {
-    desc = 'start recording session automatically',
+
+  -- Auto-load session after full initialization
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'VeryLazy',
+    desc = 'auto-load session for current directory after full initialization',
+    once = true,
     group = persisted_group,
     callback = function()
-      if vim.g.persisting == nil then
-        vim.cmd('SessionStart')
-        vim.notify('Recording session ...', vim.log.levels.INFO)
+      if vim.g.started_with_stdin then
+        return
       end
+
+      vim.schedule(function()
+        local persisted = require('persisted')
+        persisted.load()
+      end)
     end,
   })
+
+  -- automatically start recording when second buf is added
+  vim.api.nvim_create_autocmd('BufAdd', {
+    desc = 'start recording session automatically',
+    once = true,
+    group = persisted_group,
+    callback = function()
+      vim.schedule(function()
+        if vim.g.persisting == nil then
+          vim.cmd('SessionStart')
+          vim.notify('Start Recording session ...', vim.log.levels.INFO)
+        end
+      end)
+    end,
+  })
+
+  -- notify when a session is deleted
   vim.api.nvim_create_autocmd('User', {
     pattern = 'PersistedDeletePost',
     desc = 'notify on deleting a session',
     group = persisted_group,
     callback = function()
       vim.notify('Session deleted', vim.log.levels.INFO)
+    end,
+  })
+
+  -- notify when a session is loaded
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'PersistedLoadPost',
+    desc = 'notify on loading a session',
+    group = persisted_group,
+    callback = function()
+      vim.notify('Session restored for ' .. vim.fn.getcwd(), vim.log.levels.INFO)
+
+      -- continue to record the session
+      vim.cmd('SessionStart')
     end,
   })
 end
