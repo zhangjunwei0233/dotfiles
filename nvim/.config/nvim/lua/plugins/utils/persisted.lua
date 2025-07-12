@@ -8,11 +8,11 @@ return {
     'nvim-telescope/telescope.nvim', -- provide session search functions
   },
   opts = {
-    autostart = false,
+    autostart = false, -- this does not work
     should_save = function() -- only save session when no less that 2 buffers are opend
       return true
     end,
-    autoload = false,
+    autoload = false, -- this does not work
 
     allowed_dirs = {}, -- Table of dirs that the plugin will start and autoload from
     ignored_dirs = {}, -- Table of dirs that are ignored for starting and autoloading

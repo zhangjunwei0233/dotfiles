@@ -1,4 +1,4 @@
--- [[ Better notices and cmdline ]]
+-- [[ Better notices, cmdline and lsp docs ]]
 return {
   -- lazy.nvim
   'folke/noice.nvim',
@@ -9,6 +9,9 @@ return {
       signature = { enabled = false },
       progress = { enabled = false },
       hover = { enabled = false },
+    },
+    messages = {
+      enabled = true,
     },
     commands = {
       history = {

@@ -35,7 +35,7 @@ return {
         'branch',
         {
           'diff',
-          symbols = { added = '✚ ', modified = ' ', removed = '🗙' },
+          symbols = { added = '✚ ', modified = ' ', removed = '✖ ' },
         },
         'diagnostics',
       },
