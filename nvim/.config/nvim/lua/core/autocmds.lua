@@ -42,8 +42,9 @@ M.foldings = function()
     group = vim.api.nvim_create_augroup('lsp-fold', { clear = true }),
     callback = function(event)
       local client = vim.lsp.get_client_by_id(event.data.client_id)
-      if client and client:supports_method('textDocument/foldingRange') then
+      if client and client:supports_method('textDocument/foldingRange') and client.name ~= 'metals' then -- metals.nvim does not support foldexpr for now
         local win = vim.api.nvim_get_current_win()
+        print(client.name .. '\n')
         vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
       end
     end,
