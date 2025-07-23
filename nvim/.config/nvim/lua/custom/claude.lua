@@ -11,7 +11,7 @@ local claude_commands = {
 }
 
 -- Current claude provider (change this to switch providers)
-local current_provider = 'flap'
+local current_provider = 'gac'
 
 -- Base configuration for claude terminals
 local claude_config = {
@@ -22,16 +22,6 @@ local claude_config = {
   auto_close = false,
 }
 
--- Helper function to find existing claude terminal by command
-local function find_claude_terminal(command)
-  for _, term in ipairs(claude_terminals) do
-    if term.cmd == command and term.buf and vim.api.nvim_buf_is_valid(term.buf) then
-      return term
-    end
-  end
-  return nil
-end
-
 -- Helper function to clean up invalid terminals
 local function cleanup_terminals()
   local valid_terminals = {}
@@ -41,29 +31,6 @@ local function cleanup_terminals()
     end
   end
   claude_terminals = valid_terminals
-end
-
--- Helper function to toggle claude terminal
-local function toggle_claude_terminal(command)
-  cleanup_terminals()
-
-  local existing_term = find_claude_terminal(command)
-
-  if existing_term then
-    -- If terminal exists, toggle it
-    if existing_term.win and vim.api.nvim_win_is_valid(existing_term.win) then
-      existing_term:hide()
-    else
-      existing_term:show()
-    end
-  else
-    -- Create new terminal
-    local term = require('snacks').terminal.toggle(command, claude_config)
-    if term then
-      term.cmd = command -- Store command for identification
-      table.insert(claude_terminals, term)
-    end
-  end
 end
 
 -- Toggle any existing claude terminal, or create basic one if none exists
@@ -93,9 +60,10 @@ M.toggle_claude = function()
       first_term:show()
     else
       -- Create new basic claude terminal
-      local term = require('snacks').terminal.toggle(claude_commands[current_provider], claude_config)
+      local term =
+        require('snacks').terminal.toggle('source ~/.nvm/nvm.sh &&' .. claude_commands[current_provider], claude_config)
       if term then
-        term.cmd = claude_commands[current_provider]
+        term.cmd = 'source ~/.nvm/nvm.sh &&' .. claude_commands[current_provider]
         table.insert(claude_terminals, term)
       end
     end
@@ -104,18 +72,24 @@ end
 
 -- Open claude with resume flag (not toggle)
 M.open_claude_resume = function()
-  local term = require('snacks').terminal.toggle(claude_commands[current_provider] .. ' --resume', claude_config)
+  local term = require('snacks').terminal.toggle(
+    'source ~/.nvm/nvm.sh &&' .. claude_commands[current_provider] .. ' --resume',
+    claude_config
+  )
   if term then
-    term.cmd = claude_commands[current_provider] .. ' --resume'
+    term.cmd = 'source ~/.nvm/nvm.sh &&' .. claude_commands[current_provider] .. ' --resume'
     table.insert(claude_terminals, term)
   end
 end
 
 -- Open claude with continue flag (not toggle)
 M.open_claude_continue = function()
-  local term = require('snacks').terminal.toggle(claude_commands[current_provider] .. ' --continue', claude_config)
+  local term = require('snacks').terminal.toggle(
+    'source ~/.nvm/nvm.sh &&' .. claude_commands[current_provider] .. ' --continue',
+    claude_config
+  )
   if term then
-    term.cmd = claude_commands[current_provider] .. ' --continue'
+    term.cmd = 'source ~/.nvm/nvm.sh &&' .. claude_commands[current_provider] .. ' --continue'
     table.insert(claude_terminals, term)
   end
 end
