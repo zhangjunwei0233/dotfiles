@@ -279,6 +279,7 @@ kmap('persisted', 'n', '<leader>sq', '<Cmd>SessionDelete<CR>', { desc = 'delete 
 kmap('snacks', 'n', '<localleader>a', function() require('custom.claude').toggle_claude() end, { desc = 'Toggle Claude' })
 kmap('snacks', 'n', '<leader>ar', function() require('custom.claude').open_claude_resume() end, { desc = 'Open Claude resume' })
 kmap('snacks', 'n', '<leader>ac', function() require('custom.claude').open_claude_continue() end, { desc = 'Open Claude continue' })
+kmap('snacks', 'n', '<leader>as', function() require('custom.claude').switch_provider() end, { desc = 'Switch Claude provider' })
 
 
 -- NOTE: [[ Plugins ]]

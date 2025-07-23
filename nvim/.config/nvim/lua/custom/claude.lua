@@ -4,6 +4,15 @@ local M = {}
 -- Table to track claude terminals
 local claude_terminals = {}
 
+-- Claude command configurations for easy switching
+local claude_commands = {
+  gac = 'cp ~/.claude/settings.json.gaccode ~/.claude/settings.json 2>/dev/null; ~/APPS/claudecode/gaccode/bin/claude',
+  flap = 'cp ~/.claude/settings.json.flap ~/.claude/settings.json 2>/dev/null; ~/APPS/claudecode/flap/bin/claude',
+}
+
+-- Current claude provider (change this to switch providers)
+local current_provider = 'flap'
+
 -- Base configuration for claude terminals
 local claude_config = {
   cwd = vim.fn.getcwd(),
@@ -84,9 +93,9 @@ M.toggle_claude = function()
       first_term:show()
     else
       -- Create new basic claude terminal
-      local term = require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && claude', claude_config)
+      local term = require('snacks').terminal.toggle(claude_commands[current_provider], claude_config)
       if term then
-        term.cmd = 'source ~/.nvm/nvm.sh && claude'
+        term.cmd = claude_commands[current_provider]
         table.insert(claude_terminals, term)
       end
     end
@@ -95,20 +104,43 @@ end
 
 -- Open claude with resume flag (not toggle)
 M.open_claude_resume = function()
-  local term = require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && claude --resume', claude_config)
+  local term = require('snacks').terminal.toggle(claude_commands[current_provider] .. ' --resume', claude_config)
   if term then
-    term.cmd = 'source ~/.nvm/nvm.sh && claude --resume'
+    term.cmd = claude_commands[current_provider] .. ' --resume'
     table.insert(claude_terminals, term)
   end
 end
 
 -- Open claude with continue flag (not toggle)
 M.open_claude_continue = function()
-  local term = require('snacks').terminal.toggle('source ~/.nvm/nvm.sh && claude --continue', claude_config)
+  local term = require('snacks').terminal.toggle(claude_commands[current_provider] .. ' --continue', claude_config)
   if term then
-    term.cmd = 'source ~/.nvm/nvm.sh && claude --continue'
+    term.cmd = claude_commands[current_provider] .. ' --continue'
     table.insert(claude_terminals, term)
   end
+end
+
+-- Switch claude provider
+M.switch_provider = function()
+  local providers = vim.tbl_keys(claude_commands)
+  local current_index = 1
+
+  for i, provider in ipairs(providers) do
+    if provider == current_provider then
+      current_index = i
+      break
+    end
+  end
+
+  local next_index = (current_index % #providers) + 1
+  current_provider = providers[next_index]
+
+  vim.notify('Switched to Claude provider: ' .. current_provider, vim.log.levels.INFO)
+end
+
+-- Get current provider
+M.get_current_provider = function()
+  return current_provider
 end
 
 return M
