@@ -26,3 +26,6 @@ require('core.utils').setup_keymaps('native')
 
 -- [[ load autocmds for native ]]
 require('core.utils').load_plugin_autocmds('native')
+
+-- [[ switch colorscheme ]]
+vim.cmd.colorscheme('tokyonight-night')

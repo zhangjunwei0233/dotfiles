@@ -23,10 +23,17 @@ return {
       hl.LineNr = { bold = true, fg = hl.CursorLineNr.fg }
       hl.LineNrAbove = { fg = '#3b4261' }
       hl.LineNrBelow = { fg = '#3b4261' }
+
+      -- TreeSitterContext Integration
+      hl.TreesitterContextBottom = {
+        sp = c.fg_gutter,
+        underline = true,
+      }
+      hl.TreesitterContextLineNumber = {
+        fg = '#3b4261',
+        bg = c.bg_dark,
+      }
+      hl.TreesitterContext = { bg = c.bg_dark }
     end,
   },
-  config = function(_, opts)
-    require('tokyonight').setup(opts)
-    vim.cmd.colorscheme('tokyonight')
-  end,
 }
