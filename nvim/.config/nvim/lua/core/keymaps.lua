@@ -147,6 +147,9 @@ kmap('noice',     'n', '<leader>fn', function() require('noice').cmd('telescope'
 -- OPTION2: use snacks.picker
 kmap('snacks', 'n', '<leader>ft', function() require('snacks').picker.todo_comments() end, { desc = 'Find [T]odo comments'} )
 
+-- [ search for sessions ]
+kmap('persisted', 'n', '<leader>fs', '<Cmd>Telescope persisted<CR>', { desc = '[F]ind session'})
+
 -- [ toggle full screen ]
 kmap('snacks', 'n', '<C-z>', function() require('snacks').zen() end, { desc = 'Toggle window fullscreen' })
 kmap('snacks', 't', '<C-z>', function()
@@ -257,7 +260,6 @@ kmap('native', 'n', '<localleader>f', 'zc', { desc = '[F]old fold' })
 -- kmap('persistence', 'n', '<leader>ss', function() require('persistence').stop() end, { desc = '[S]top saving session'})
 
 kmap('persisted', 'n', '<leader>sl', '<Cmd>SessionLoadLast<CR>', { desc = '[L]ast session'})
-kmap('persisted', 'n', '<leader>sf', '<Cmd>Telescope persisted<CR>', { desc = '[F]ind session'})
 kmap('persisted', 'n', '<leader>sd', '<Cmd>SessionLoad<CR>', { desc = 'session in current [D]ir'})
 kmap('persisted', 'n', '<leader>ss', '<Cmd>SessionStart<CR>', { desc = '[S]tart saving session'})
 kmap('persisted', 'n', '<leader>sq', '<Cmd>SessionDelete<CR>', { desc = 'delete current session'})
