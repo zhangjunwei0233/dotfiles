@@ -100,8 +100,11 @@ kmap('hop', { 'n', 'v' }, 'F', function()
 end, { desc = 'hop backward', remap = true })
 
 -- [ file navigation ]
-kmap('neo-tree', 'n', '<localleader>e', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle [e]xplorer' })
-kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]ocate file' })
+-- option 1: neo-tree
+-- kmap('neo-tree', 'n', '<localleader>e', '<Cmd>Neotree toggle<CR>', { desc = 'Toggle [e]xplorer' })
+-- kmap('neo-tree', 'n', '<localleader>l', '<Cmd>Neotree reveal<CR>', { desc = '[l]ocate file' })
+-- option 2: snacks.explorer
+kmap('snacks', 'n', '<localleader>e', function() require('snacks').explorer.open() end, { desc = 'Toggle [e]xplorer' })
 
 -- [ search and goto files <leader>f ]
 -- OPTION1: use telescope

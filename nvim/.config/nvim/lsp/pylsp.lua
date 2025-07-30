@@ -36,4 +36,14 @@ return {
     'Pipfile',
     '.git',
   },
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          -- ignore = { 'E501' }, -- Ignore line too long warnings
+          maxLineLength = 120, -- Or set a higher threshold
+        },
+      },
+    },
+  },
 }
