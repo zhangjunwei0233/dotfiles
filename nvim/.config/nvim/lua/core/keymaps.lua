@@ -198,7 +198,8 @@ kmap('diffview', 'n', '<leader>gc', '<Cmd>DiffviewClose<CR>', { desc = 'Git: [C]
 -- NOTE: [[ LSP ]]
 
 -- diagnostic
-kmap('lsp',     'n', '<leader>ll', vim.diagnostic.setloclist,               { desc = 'Lsp: quickfix [l]ist' })
+-- kmap('lsp',     'n', '<leader>ll', vim.diagnostic.setloclist,               { desc = 'Lsp: quickfix [l]ist' })
+kmap('trouble', 'n', '<leader>ll', '<Cmd>Trouble diagnostics<CR>',          { desc = 'Lsp: quickfix [l]ist' })
 kmap('lspsaga', 'n', '<leader>ln', '<Cmd>Lspsaga diagnostic_jump_next<CR>', { desc = 'Lsp: [n]ext diagnostic' })
 kmap('lspsaga', 'n', '<leader>lp', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', { desc = 'Lsp: [p]rev diagnostic' })
 -- display info
