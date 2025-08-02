@@ -124,7 +124,7 @@ M.lsp = function()
 
       -- [highlight words under cursor]
       if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-        local highlight_group = vim.api.nvim_create_augroup('lsp-highlight', { clear = true })
+        local highlight_group = vim.api.nvim_create_augroup('lsp-highlight-' .. event.buf, { clear = true })
 
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           buffer = event.buf,
@@ -137,6 +137,13 @@ M.lsp = function()
           group = highlight_group,
           callback = vim.lsp.buf.clear_references,
         })
+
+        -- Clear highlights when leaving buffer
+        vim.api.nvim_create_autocmd('BufLeave', {
+          buffer = event.buf,
+          group = highlight_group,
+          callback = vim.lsp.buf.clear_references,
+        })
       end
 
       -- [offloads upon detachment]
@@ -144,7 +151,7 @@ M.lsp = function()
         group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
         callback = function(event)
           vim.lsp.buf.clear_references()
-          vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = event.buf })
+          pcall(vim.api.nvim_clear_autocmds, { group = 'lsp-highlight-' .. event.buf, buffer = event.buf })
         end,
       })
     end,
