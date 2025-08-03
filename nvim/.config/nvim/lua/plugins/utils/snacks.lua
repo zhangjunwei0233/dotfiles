@@ -140,6 +140,15 @@ return {
         ]],
       },
     },
+    scroll = {
+      animate = {
+        duration = { step = 15, total = 150 },
+        easing = 'outQuad',
+      },
+      animate_repeat = {
+        easing = 'outQuad',
+      },
+    },
     styles = {
       blame_line = {
         width = 0.8,
