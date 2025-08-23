@@ -8,10 +8,11 @@ local claude_terminals = {}
 local claude_commands = {
   gac = 'cp ~/.claude/settings.json.gaccode ~/.claude/settings.json 2>/dev/null; ~/APPS/claudecode/gaccode/bin/claude',
   flap = 'cp ~/.claude/settings.json.flap ~/.claude/settings.json 2>/dev/null; ~/APPS/claudecode/flap/bin/claude',
+  native = 'cp ~/.claude/settings.json.gaccode ~/.claude/settings.json 2>/dev/null; claude',
 }
 
 -- Current claude provider (change this to switch providers)
-local current_provider = 'gac'
+local current_provider = 'native'
 
 -- Base configuration for claude terminals
 local claude_config = {
