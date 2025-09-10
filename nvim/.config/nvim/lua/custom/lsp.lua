@@ -5,8 +5,12 @@ local lsp_servers = {
   'lua_ls',
   'clangd',
   'svlangserver',
-  'pylsp', -- feature-rich-lsp
-  -- 'pyright', -- microsoft-default-lsp
+  -- 'pylsp', -- too slow
+  -- 'jedi-language-server', -- too slow
+  -- 'basedpyright', -- too slow
+  -- 'pyrefly', -- missing features
+  -- 'ty', -- missing features (promissing)
+  'pyright', -- microsoft-default-lsp
   -- 'ruff', -- linter and formatter
 }
 
