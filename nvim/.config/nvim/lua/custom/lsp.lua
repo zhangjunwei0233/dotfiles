@@ -9,8 +9,8 @@ local lsp_servers = {
   -- 'jedi-language-server', -- too slow
   -- 'basedpyright', -- too slow
   -- 'pyrefly', -- missing features
-  -- 'ty', -- missing features (promissing)
-  'pyright', -- microsoft-default-lsp
+  'ty', -- missing features (promissing)
+  -- 'pyright', -- microsoft-default-lsp
   -- 'ruff', -- linter and formatter
 }
 

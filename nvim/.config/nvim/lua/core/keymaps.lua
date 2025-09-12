@@ -72,7 +72,7 @@ end
 --  See `:help wincmd` for a list of all window commands
 kmap('native', {'n', 't'},  '<localleader>-',  '<Cmd>split<CR>', { desc = 'split horizontal'       })
 kmap('native', {'n', 't'}, '<localleader>\\', '<Cmd>vsplit<CR>', { desc = 'split vertical'         })
-kmap('native', {'n', 't'},  '<localleader>q',      '<Cmd>wincmd q<CR>', { desc = '[q]uit window'          })
+kmap('native', {'n', 't'},  '<localleader><S-q>',      '<Cmd>wincmd q<CR>', { desc = '[q]uit window'          })
 kmap('native', {'n', 't'},           '<C-h>',      '<Cmd>wincmd h<CR>', { desc = 'change to left window'  })
 kmap('native', {'n', 't'},           '<C-j>',      '<Cmd>wincmd j<CR>', { desc = 'change to lower window' })
 kmap('native', {'n', 't'},           '<C-k>',      '<Cmd>wincmd k<CR>', { desc = 'change to upper window' })
@@ -83,7 +83,7 @@ kmap('bufferline', 'n',      '<C-n>', '<cmd>BufferLineCyclePrev<cr>', { desc = '
 kmap('bufferline', 'n',      '<C-p>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer'      })
 kmap('bufferline', 'n', '<leader>bh',  '<cmd>BufferLineMovePrev<cr>', { desc = 'Move buffer prev' })
 kmap('bufferline', 'n', '<leader>bl',  '<cmd>BufferLineMoveNext<cr>', { desc = 'Move buffer next' })
-kmap('snacks', 'n', '<localleader><S-q>', function() require('snacks').bufdelete() end, { desc = '[Q]uit buffer' })
+kmap('snacks', 'n', '<localleader>q', function() require('snacks').bufdelete() end, { desc = '[Q]uit buffer' })
 
 -- [ text navigation ]
 kmap('hop', { 'n', 'v' }, 'f', function()
