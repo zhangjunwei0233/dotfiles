@@ -113,20 +113,20 @@ return {
       vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'String', linehl = '', numhl = 'String' })
     end,
   },
-  { -- python debugger could be specifically configured using this plugin
-    'mfussenegger/nvim-dap-python',
-    dependencies = {
-      'mfussenegger/nvim-dap',
-      'rcarriga/nvim-dap-ui',
-    },
-    ft = { 'python' },
-    config = function()
-      local path = vim.fn.expand('~/.local/share/nvim/mason/packages/debugpy/venv/bin/python')
-      if vim.fn.executable(path) == 1 then
-        require('dap-python').setup(path)
-      else
-        vim.notify('debugpy not found at ' .. path .. ', please install via Mason', vim.log.levels.WARN)
-      end
-    end,
-  },
+  -- { -- python debugger could be specifically configured using this plugin
+  --   'mfussenegger/nvim-dap-python',
+  --   dependencies = {
+  --     'mfussenegger/nvim-dap',
+  --     'rcarriga/nvim-dap-ui',
+  --   },
+  --   ft = { 'python' },
+  --   config = function()
+  --     local path = vim.fn.expand('~/.local/share/nvim/mason/packages/debugpy/venv/bin/python')
+  --     if vim.fn.executable(path) == 1 then
+  --       require('dap-python').setup(path)
+  --     else
+  --       vim.notify('debugpy not found at ' .. path .. ', please install via Mason', vim.log.levels.WARN)
+  --     end
+  --   end,
+  -- },
 }
