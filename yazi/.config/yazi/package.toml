@@ -1,34 +1,17 @@
 [[plugin.deps]]
-use = "Rolv-Apneseth/starship"
-rev = "f6939fb"
-hash = "8ae899541dc7accb680ee4fd382a09c"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "beb586a"
-hash = "771f18427fb75fb19990ce602bb322f4"
+rev = "1962818"
+hash = "26db011a778f261d730d4f5f8bf24b3f"
 
 [[plugin.deps]]
-use = "dedukun/bookmarks"
-rev = "fe0b1de"
-hash = "221ed40593a5cb5bd80f963f05c556f"
+use = "Rolv-Apneseth/starship"
+rev = "a837101"
+hash = "635b0feb9215772d22020eb0abf0bb34"
 
 [[plugin.deps]]
-use = "yazi-rs/plugins:full-border"
-rev = "beb586a"
-hash = "ae9e1d0c6bfd68cdebc98cc684c22b45"
+use = "KKV9/compress"
+rev = "46a6b9f"
+hash = "771af2becc575a3f43d0542de823969d"
 
-[[plugin.deps]]
-use = "yazi-rs/plugins:max-preview"
-rev = "beb586a"
-hash = "15b2ff7f6563c14d5b2e93b3e9da35de"
-
-[[flavor.deps]]
-use = "tkapias/nightfly"
-rev = "599b8ad"
-hash = "d1a9e05ecbbd63bc5bb85a54e7f1e33a"
-
-[[flavor.deps]]
-use = "BennyOe/tokyo-night"
-rev = "9e6f899"
-hash = "2338a26b44318e22e649df342226b759"
+[flavor]
+deps = []
