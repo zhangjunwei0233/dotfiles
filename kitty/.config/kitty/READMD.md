@@ -1,0 +1,3 @@
+# Requirements
+
+- Maple Mono Font
