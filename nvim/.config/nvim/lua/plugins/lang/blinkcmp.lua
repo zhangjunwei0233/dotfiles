@@ -38,7 +38,7 @@ return {
           },
         },
       },
-      -- ghost_text = { enabled = false }, -- Display a preview of the selected item on the current line
+      -- ghost_text = { enabled = true }, -- Display a preview of the selected item on the current line
       -- trigger = {
       --   show_on_keyword = false,
       --
@@ -73,7 +73,8 @@ return {
         show_on_insert = true,
       },
       window = {
-        direction_priority = { 's', 'n' }, -- prefer south more than north
+        direction_priority = { 'n', 's' },
+        show_documentation = false,
       },
     },
     sources = {
@@ -110,5 +111,6 @@ return {
     vim.api.nvim_set_hl(0, 'BlinkCmpDocBorder', { fg = '#3b4261' })
     vim.api.nvim_set_hl(0, 'BlinkCmpDocSeparator', { fg = '#3b4261' })
     vim.api.nvim_set_hl(0, 'BlinkCmpSignatureHelpBorder', { fg = '#3b4261' })
+    vim.api.nvim_set_hl(0, 'BlinkCmpSignatureHelpActiveParameter', { link = 'BlinkCmpMenuSelection' })
   end,
 }

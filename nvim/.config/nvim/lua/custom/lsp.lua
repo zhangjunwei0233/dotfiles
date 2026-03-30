@@ -11,7 +11,7 @@ local lsp_servers = {
   -- 'pyrefly', -- missing features
   'ty', -- missing features (promissing)
   -- 'pyright', -- microsoft-default-lsp
-  -- 'ruff', -- linter and formatter
+  'ruff', -- linter and formatter
 }
 
 -- Enable LSP servers with error handling
