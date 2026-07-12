@@ -1,0 +1,11 @@
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# The parent dotfiles ignore file excludes this; keep it for reproducible updates.
+!lazy-lock.json

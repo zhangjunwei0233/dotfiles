@@ -1,82 +1,150 @@
-This is a setup for nvim v0.11+, since the way nvim handles lsp configuration
-has gone through a breaking change in v0.11, the setup wouldn't work for older
-versions
+# ZSVIM
 
-## quick startup
+ZSVIM is a small personal layer on top of [LazyVim](https://www.lazyvim.org/). LazyVim owns the editor distribution and compatibility work; this repository contains only personal mappings, options, autocmds, and focused plugin overrides.
 
-first backup the original config:
+The configuration is installed as part of the parent dotfiles repository with GNU Stow.
 
-```bash
-mv ~/.config/nvim ~/.config/nvim.bak
-mv ~/.local/share/nvim ~/.locals/share/nvim.bak
-mv ~/.cache/nvim ~/.cache/nvim.bak
-```
+## Requirements
 
-then clone this setup to `~/.config`, or use GNU stow:
+- Neovim 0.11.2 or newer
+- Git, a C compiler, `curl`, `ripgrep`, `fd`, and `lazygit`
+- A Nerd Font
+- GNU Stow
 
-```bash
-cd dotfiles
+Language servers, formatters, and debuggers may also require their corresponding runtimes, such as Python, Node.js, Go, or a JDK.
+
+## Installation
+
+From the dotfiles repository root:
+
+```sh
 stow nvim
+nvim
 ```
 
-Note that the executable of Lsp, formatters and debugers have to be manually installed.
-You can do this through mason (a Lsp package manager), type `<Space>pm` in normal mode to open it
+On first launch, allow Lazy and Mason to finish installing dependencies. Restart Neovim and run `:checkhealth` if anything does not load.
 
-## config structure
+## Configuration layout
 
-- **init.lua**: Entry point that loads basic setup, custom functionality, and plugins
-- **lua/core/**: Contains fundamental Neovim configuration
-  - `basic.lua`: Vim options, global variables, and basic settings
-  - `keymaps.lua`: Keymap definitions organized by plugin/functionality
-  - `autocmds.lua`: Auto-commands for different contexts
-- **lua/custom/**: Native Lua implementations of advanced features (folding, zoom-window, ...)
-- **lua/plugins/**: Plugin configurations organized by category
-  - `lang/`: Language-specific tools (LSP, formatting, debugging)
-  - `themes/`: Color schemes and theming
-  - `ui/`: User interface enhancements
-  - `utils/`: Utility plugins and integrations
-  - `disabled/`: Temporarily disabled plugin configurations
+```text
+init.lua                  minimal entry point
+lua/config/lazy.lua       lazy.nvim and LazyVim bootstrap
+lua/config/options.lua    personal Neovim options
+lua/config/keymaps.lua    personal keymaps and terminal behavior
+lua/config/autocmds.lua   personal autocmds
+lua/plugins/dashboard.lua ZSVIM dashboard header
+lazyvim.json              extras selected through :LazyExtras
+lazy-lock.json            known-working plugin revisions
+```
 
-On startup, nvim loads `init.lua`, in which it loads **basic setup**, **advanced setup** and **plugins**
-
-Keymaps and autocmds are not to be loaded uniformly, they are seperated to several modules and can be loaded
-in the corresponding place respectively, do this via `require(core.keymaps).${MODULE_NAME}()`.
-
-for example, native module is loaded in `init.lua` while plugin modules are loaded in their `config` function
+Files under `lua/config/` are automatically loaded by LazyVim. Plugin specifications under `lua/plugins/` are automatically imported by lazy.nvim.
 
 ## Keymap design
 
-`<leader>` is set to `<Space>`, `<localleader>` is set to `;`
+`<leader>` is Space. `<localleader>` is `;`.
 
-1. all the usr configure functions and utils: "<leader>..."
+- `<leader>` triggers editor and plugin functionality.
+- `;` changes the current layout or toggles a visible tool.
+- `<C-h/j/k/l>` navigates windows in normal and terminal-input modes.
+- `<C-n>` and `<C-p>` move between buffers.
 
-2. window and buffer navigation: "<C-...>"
-    - move-window: <C-hjkl>
-    - move-buffer: <C-np>
-    - zoom-in window: <C-z>
+Important personal mappings:
 
-3. window layout changes and toggles: "<localleader>..."
-    - split: "<localleader>-" and "<localleader>\\"
-    - delete_window: "<localleader>q"
-    - delete-buffer: "<localleader><S-q>"
-    - toggle_in_split: "<localleader><lowerCaseLetter>"
-    - toggle_in_float: "<localleader><UpperCaseLetter>"
+| Mapping | Action |
+| --- | --- |
+| `<leader>t` | Create a new bottom terminal in the current file's directory |
+| `;t` | Hide or restore terminals created with `<leader>t` |
+| `;m` | Toggle current-window zoom, including from terminal-input mode |
+| `;-` / `;\\` | Create horizontal / vertical splits |
+| `;q` / `;Q` | Close window / delete buffer |
+| `;e` / `;s` / `;g` | Explorer / LSP symbols / Lazygit |
+| `<leader>f...` | Finders and pickers |
+| `<leader>l...` | LSP and diagnostic aliases |
+| `<leader>s...` | Session aliases |
+| `<leader>pp` / `pm` / `pc` | Lazy / Mason / Conform information |
 
-more speicific keymaps could been seen via plugin `which-key`, just type <leader> or <localleader> and wait
+Every `<leader>t` press creates a separate terminal. `;t` never creates one: it does nothing until at least one personal terminal exists, hides all visible personal terminals, and restores them when they are hidden. The terminal winbar is intentionally disabled.
 
-## Extend the config
+Use WhichKey by pressing Space or `;` and waiting to inspect all current mappings, including LazyVim defaults.
 
-### Adding New LSP Servers
-1. Create configuration file in `/lsp/` directory (e.g., `myserver.lua`)
-2. Enable the server in `lua/custom/lsp.lua` using `vim.lsp.enable('myserver')`
-3. Install the server binary through Mason (`<Space>pm`)
+## Routine maintenance
 
-### Adding New Formatters
-1. Configure formatter in `lua/plugins/lang/conform.lua` under `formatters_by_ft`
-2. Install formatter binary through Mason
-3. Custom formatter behavior can be defined in the `formatters` table
+Before updating, make sure the dotfiles worktree is clean. Then:
 
-### Adding New Plugins
-1. Create `.lua` configuration file in appropriate `lua/plugins/` subdirectory
-2. Add keymaps in `lua/core/keymaps.lua` using the `kmap()` function
-3. Load keymaps in the plugin's `config` function
+1. Open `:Lazy` and press `U` to update plugins.
+2. Restart Neovim.
+3. Read the LazyVim changelog with `<leader>L`.
+4. Run `:checkhealth` and open representative files to test LSP, completion, formatting, and Treesitter.
+5. Review and commit the updated `lazy-lock.json`.
+
+Useful commands:
+
+| Command | Purpose |
+| --- | --- |
+| `:Lazy` | Inspect, update, install, and clean plugins |
+| `:Lazy restore` | Restore revisions recorded in `lazy-lock.json` |
+| `:LazyExtras` | Enable or disable upstream LazyVim feature bundles |
+| `:Mason` | Manage external language and debugging tools |
+| `:LspInfo` | Inspect language servers attached to the buffer |
+| `:ConformInfo` | Inspect formatters for the current buffer |
+| `:TSUpdate` | Update installed Treesitter parsers |
+| `:checkhealth` | Run Neovim and plugin diagnostics |
+
+Keep `lazy-lock.json` under version control. It is the reproducibility and rollback point when an upstream update breaks something.
+
+## Extending the configuration
+
+Prefer LazyVim's upstream integrations:
+
+1. Check `:LazyExtras` for the language or feature.
+2. Check LazyVim's current default mappings and plugin documentation.
+3. Add only the missing personal behavior locally.
+
+Use the following ownership boundaries:
+
+- Put mappings in `lua/config/keymaps.lua`.
+- Put options in `lua/config/options.lua`.
+- Put autocmds in `lua/config/autocmds.lua`.
+- Put plugin additions or `opts` overrides in a focused file under `lua/plugins/`.
+- Do not copy an entire LazyVim plugin specification merely to change one option.
+
+A minimal plugin override looks like this:
+
+```lua
+return {
+  {
+    "owner/plugin.nvim",
+    opts = {
+      some_option = true,
+    },
+  },
+}
+```
+
+## Verification
+
+Format and check local Lua changes before committing:
+
+```sh
+stylua lua
+stylua --check lua
+nvim --headless '+qa'
+```
+
+For a clean dependency test without changing the normal Neovim data directory:
+
+```sh
+XDG_DATA_HOME=/tmp/zsvim-data \
+XDG_STATE_HOME=/tmp/zsvim-state \
+XDG_CACHE_HOME=/tmp/zsvim-cache \
+nvim --headless '+Lazy! sync' '+qa'
+```
+
+If the installation becomes unrecoverable, move the Neovim data, state, and cache directories aside and launch Neovim again. Do not delete them until the rebuilt installation is verified:
+
+```sh
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
+mv ~/.local/state/nvim ~/.local/state/nvim.bak
+mv ~/.cache/nvim ~/.cache/nvim.bak
+nvim
+```
